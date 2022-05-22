@@ -1,0 +1,18 @@
+h1{
+    font-weight: 300;
+    font-style: normal;
+    text-decoration: none;
+    text-transform: none;
+    color: rgba(68, 68, 68, 1);
+    font-size: 3.9rem;
+    animation: fade-in 3.2s normal 2s forwards;
+    opacity: 0%;
+}
+@keyframes fade-in {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}

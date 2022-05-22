@@ -1,0 +1,328 @@
+.parentcontainer{
+    /* width:63%; */
+    width:1000px;
+    height: auto;
+    /* margin-top: 1%; */
+    margin: 5% auto;
+    background-image: url("Thumbnail.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* height: 655px; */
+    /* background-color:#F6E0CE; */
+    /* background-color: #dfd393; */
+    /* background: linear-gradient(352deg, rgba(255,255,255,1) 0%, rgba(206,203,108,1) 0%, rgba(223,211,147,1) 100%); */
+}
+.maincontainer{
+    width:100%;
+}
+p{
+    color: rgba(68, 68, 68, 1);
+    letter-spacing: 0.1px;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: none;
+    font-size: 2.0rem;
+}
+.btn-container{
+    display:flex;
+    height: auto;
+    align-items:center;
+    text-align: center;
+    justify-content:center;
+    animation: fade-in 3s 4s forwards;
+    opacity: 0%;
+
+}
+.animationbox{
+    position: relative;
+}
+
+.animationbox .devOps{
+    width: 282px;
+    height: 135px;
+    image-rendering: -webkit-optimize-contrast;
+    position: absolute;
+    right: 220px;
+    top: 15px;
+    animation: fade-in 5s;
+    /* opacity: 0%;  */
+    animation: fade-in 5s, devOps 2.3s linear 4.5s infinite alternate;
+}
+.codingimages{
+    animation: fade-in 5s 2s forwards;
+    opacity: 0%;
+}
+.codingimages .brackets{
+    width: 85px;
+    height: 72px;
+    image-rendering: -webkit-optimize-contrast;
+    position: absolute;
+    animation: brackets 2.3s 4.5s forwards;
+    /* top: 43.3%;
+    right: 46%; */
+    opacity: 0%;    
+    top: 182.5px;
+    right: 328px;
+    
+
+}
+.codingimages .codeblock{
+    image-rendering: -webkit-optimize-contrast;
+    width: 92px;
+    height: 71px;
+    position: absolute;
+    animation: codeblock 2.3s 4.8s forwards;
+     /* top: 43.3%;
+    right: 46%; */
+    opacity: 0%;    
+    top: 182.5px;
+    right: 323px;
+}
+.codingimages .java{
+    width: 133px;
+    height: 75px;
+    image-rendering: -webkit-optimize-contrast;
+    position: absolute;
+    animation: java 2.3s 5.1s forwards;
+    opacity: 0%;    
+    top: 178.5px;
+    right: 300.5px;
+
+}
+.codingimages .codingsymbol{
+    width: 75px;
+    height: 42px;
+    image-rendering: -webkit-optimize-contrast;
+    position: absolute;
+    animation: codingsymbol 2.3s 5.4s forwards;
+    opacity: 0%;    
+    top: 195.5px;
+    right: 332.5px;
+}
+.codingimages .Cpp{
+    /* width: 15%; */
+    image-rendering: -webkit-optimize-contrast;
+    animation: cpp 2.3s 5.7s forwards;
+    width: 112px;
+    height: 63px;
+    position: absolute;
+    opacity: 0%;    
+    top: 185.5px;
+    right: 314.5px;
+}
+
+
+.tableanimation .robot{
+    width: 189px;
+    height: 231px;
+    position: absolute;
+    top: 170px;
+    right: 185px;
+    /* top: 40%;
+    right: 25%; */
+}
+
+.tableanimation .table{
+    width: 299px;
+    height: 235px;
+    position: absolute;
+    top: 145px;
+    right: 177px;
+    /* top: 34%;
+    right: 24.5%; */
+}
+.tableanimation .robohead{
+    width: 55px;
+    height: 54px;
+    position: absolute;
+    animation: head-rotate 2s infinite linear alternate;
+    top: 158px;
+    right: 232px;
+    /* top: 37.5%;
+    right: 32.5%; */
+}
+
+.tableanimation .robohand{
+    width: 205px;
+    height: 205px;
+    position: absolute;
+    animation: hand-movement 2s infinite linear alternate;    
+    /* top: 27.5%;
+    right: 19%; */
+    top: 116px;
+    right: 137px;
+
+}
+
+.tableanimation .sidebars{
+    width: 71px;
+    height: 23px;
+    position: absolute;
+    /* top: 49%;
+    right: 47%; */
+    top: 206px;
+    right: 335px;
+    z-index: 1;
+}
+.tableanimation .gear{
+    width: 39px;
+    height: 39px;
+    position: absolute;
+    animation: rotate 8s infinite linear;
+    /* top: 47.5%;
+    right: 51%; */
+    top: 198px;
+    right: 360px;
+}
+
+.tableanimation .smallgear{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    animation: rotate-reverse 8.5s infinite linear;    
+    /* top: 51%;
+    right: 48%; */
+    top: 213px;
+    right: 341px;
+
+}
+.footer{
+    animation: fade-in 3s  1.5s forwards;
+    opacity: 0%;
+}
+
+.footer .biztech{
+    width: 79px;
+    height: 28px;
+    top: 370px;
+    position: absolute;
+    right: 20px;
+}
+.footer .tricentis{
+    width: 137px;
+    height: 31px;
+    top: 411px;
+    position: absolute;
+    right: -5px;
+}
+.footer p{
+    font-size: 11px;
+    font-weight: 400;
+    font-family: Roboto;
+    font-style: normal;
+    text-decoration: none;
+    text-transform: none;
+    color: rgba(68, 68, 68, 1);
+    top: 455px;
+    position: absolute;
+    right: -5px;
+}
+@keyframes devOps {
+    from{
+        transform: scale(1);
+    }
+    to{
+        transform: scale(1.2);
+    }
+}
+
+@keyframes brackets {
+    from{
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    to{
+        transform: translateY(-100px) translateX(-260px);
+        opacity: 1;
+    }
+}
+
+@keyframes codeblock {
+    from{
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    to{
+        transform: translateY(70px) translateX(-230px);
+        opacity: 1;
+    }
+}
+
+@keyframes java {
+    from{
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    to{
+        transform: translateY(-115px) translateX(280px);
+        opacity: 1;
+    }
+}
+
+@keyframes codingsymbol {
+    from{
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    to{
+        transform: translateY(-30px) translateX(225px);
+        opacity: 1;
+    }
+}
+
+
+@keyframes cpp {
+    from{
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    to{
+        transform: translateY(65px) translateX(290px);
+        opacity: 1;
+    }
+}
+
+@keyframes rotate {
+    0%{
+      transform: rotate(0);
+    }
+    100%{
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes rotate-reverse {
+    0%{
+      transform: rotate(360deg);
+    }
+    100%{
+      transform: rotate(0);
+    }
+  }
+
+  @keyframes head-rotate {
+    0%{
+      transform: rotate(12deg);
+    }
+    100%{
+      transform: rotate(0deg);
+    }
+  }
+  @keyframes hand-movement {
+    0%{
+      transform: rotate(3deg);
+    }
+    100%{
+      transform: rotate(15deg);
+    }
+  }
+
+  @keyframes fade-in {
+    0%{
+      opacity: 0;
+    }
+    100%{
+      opacity: 1;
+    }
+  }
+

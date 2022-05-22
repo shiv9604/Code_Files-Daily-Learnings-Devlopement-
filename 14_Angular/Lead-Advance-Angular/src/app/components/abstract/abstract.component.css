@@ -1,0 +1,27 @@
+/* p{  
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-decoration: none;
+    letter-spacing: 0.2px;
+    text-transform: none;
+    color: rgba(97, 74, 90, 0.9);
+} */
+
+span{  
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-decoration: none;
+    letter-spacing: 0.2px;
+    text-transform: none;
+    color: rgba(97, 74, 90, 0.9);
+    animation: fade-in 3s 3s forwards;
+    opacity: 0%;
+}
+@keyframes fade-in {
+    0%{
+      opacity: 0;
+    }
+    100%{
+      opacity: 1;
+    }
+  }

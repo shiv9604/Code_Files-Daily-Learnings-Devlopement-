@@ -1,0 +1,21 @@
+button{
+    padding: 13px 37px;
+    background-color: rgb(51,102,153);
+    color:rgba(255, 255, 255);
+    font-size: 1.8rem;
+    font-weight: 500;
+    letter-spacing:0.2px;
+    border:none;
+    border-radius: 9px;
+    font-family: 'Roboto Condensed';
+    
+}
+button:hover{
+    background-color: rgb(255,153,102);
+    transition: background-color 0.35s ease; 
+}
+
+button:not(:hover){
+    background-color: rgb(51,102,153);
+    transition: background-color 0.8s ease; 
+}

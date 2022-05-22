@@ -1,0 +1,69 @@
+<div class="p-5 parent-container col-md-12" *ngIf="isRouteCorrect()">
+    <app-title [titleText]="'AI-Powered Test Automation for the Next Generation of Applications'"></app-title>
+    
+    <div class="row main-container">
+        <div class="col-4 mt-3">
+            <app-abstract class="abstract" [width]="'38%'"
+                [p1]="'There is no denying that traditional software testing methods can&#8217;t keep pace with highly dynamic, accelerated release processes. Why not leverage artificial intelligence and the efficiencies of the cloud so you can accelerate software delivery, reduce costs, and improve the quality of your software?'"
+                [p2]="'Investing in testing transformation can help you keep up with an ever-changing application landscape. With an AI-based continuous testing platform, you can reduce modernization costs and build resilient end-to-end testing that extends capabilities across multiple technologies.'"
+                [p3]="'In this white paper, you’ll learn how you can apply AI to software testing and test virtually any technology from UI applications to critical enterprise architectures and business applications.'">
+
+            </app-abstract>
+        </div>
+        <div class=" col-8 p-3 text-center animationbox">
+            <!-- Animation Goes here -->
+            <img src="https://d2kq0urxkarztv.cloudfront.net/56969df1bd02a4a3292a2178/3300951/upload-f38844c7-9830-4f7c-9460-8f09c1787c27.png?w=561&e=webp&nll=true"
+                alt="" class="devOps">
+
+
+            <span class="tableanimation">
+                <img src="https://d2kq0urxkarztv.cloudfront.net/56969df1bd02a4a3292a2178/3300951/upload-5ca4fc9e-ad9b-41bb-aad0-b8fefe759ae9.png?w=378&e=webp&nll=true"
+                    alt="" class="robot">
+                <img src="https://d2kq0urxkarztv.cloudfront.net/56969df1bd02a4a3292a2178/3300951/upload-a645668a-1375-4a4f-ba08-8b0e60b8bf92.png?w=598&e=webp&nll=true"
+                    alt="" class="table mt-5">
+                <img src="https://d2kq0urxkarztv.cloudfront.net/56969df1bd02a4a3292a2178/3300951/upload-2b1dd37e-879d-4660-9605-8fee4998348f.png?w=110&e=webp&nll=true"
+                    alt="" class="robohead">
+                <img src="https://d2kq0urxkarztv.cloudfront.net/56969df1bd02a4a3292a2178/3300951/upload-f745bc82-2600-4d59-955a-7e3a22934889.png?w=410&e=webp&nll=true"
+                    alt="" class="robohand">
+                <img src="https://d2kq0urxkarztv.cloudfront.net/56969df1bd02a4a3292a2178/3300951/upload-906646ed-59b1-405b-bc47-c9499bfac500.png?w=142&e=webp&nll=true"
+                    alt="" class="sidebars">
+                <img src="https://d2kq0urxkarztv.cloudfront.net/56969df1bd02a4a3292a2178/3300951/upload-aea91995-3873-4ece-9c08-49cfbd4b1e7d.png?w=78&e=webp&nll=true"
+                    alt="" class="gear">
+                <img src="https://d2kq0urxkarztv.cloudfront.net/56969df1bd02a4a3292a2178/3300951/upload-abae45de-6b31-463c-9b30-1f979920dced.png?w=40&e=webp&nll=true"
+                    alt="" class="smallgear">
+            </span>
+        </div>
+        <div class="col"></div>
+    </div>
+    <div class="row footercontainer  mt-5">
+        <div class="col-lg-2 imgcontainer ">
+            <img class="thumbnailimg"
+                src="https://d2kq0urxkarztv.cloudfront.net/56969df1bd02a4a3292a2178/3300951/upload-f6e4c031-4537-4095-815f-e45d5c726f10.png?w=288&e=webp&nll=true&cX=0&cY=15.875&cW=684&cH=888.25"
+                alt="thumbnail.png">
+        </div>
+        <div class="col-lg-8 footertext text-center">
+            <!-- <p class="text-center mt-5">Download the white paper, &#8220;AI-Powered Test Automation for the Next
+                Generation of Applications,&#8221; now.</p> -->
+                <div class="footerTitle">
+            <app-footer-title
+                [text]="'Download the white paper, &#8220;AI-Powered Test Automation for the Next Generation of Applications,&#8221; now.'"
+                [fontSize]="'2.2rem'"></app-footer-title></div>
+            <button class="downloadbtn my-4" routerLink="form-page">
+                <div>
+                </div>
+            </button>
+        </div>
+        <div class="col-lg-2 logocontainer text-center">
+            <img class="logo1"
+                src="https://d2kq0urxkarztv.cloudfront.net/56969df1bd02a4a3292a2178/3300951/upload-4014fb14-68c9-44f1-a216-c8ce08ac052f.png?w=158&e=webp&nll=true"
+                alt="Biztech.png">
+            <img class="logo2 my-4"
+                src="https://d2kq0urxkarztv.cloudfront.net/56969df1bd02a4a3292a2178/3300951/upload-dfab5203-ff4a-497b-9c42-ee123ddcc08a.png?w=274&e=webp&nll=true"
+                alt="Tricents.png">
+            <p>&#169; 2022 Biz-Tech-Insights
+            </p>
+        </div>
+    </div>
+
+</div>
+<router-outlet></router-outlet>

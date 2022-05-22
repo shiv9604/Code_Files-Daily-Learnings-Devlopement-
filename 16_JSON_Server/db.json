@@ -1,0 +1,25 @@
+{
+  "data": [
+    {
+      "name": "shiv",
+      "adress": "Hadapsar,Pune",
+      "emailId": "shiv@test.com",
+      "moNumber": 46554654654,
+      "password": "a@123",
+      "isActive": 1,
+      "id": 1
+    },
+    {
+      "name": "swapnali",
+      "adress": "vadgaon,Pune",
+      "emailId": "swapa@gmail.com",
+      "moNumber": 123546789,
+      "password": "shiv@03",
+      "isActive": 1,
+      "id": 2
+    },
+    {
+      "id": 3
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+We use JSX in the javascript
+
+jsx is mostly 98% html and some of javascript
+
+* Changes in the jsx
+
+1. class = className (we need to put classname for the class in html)
+
+2. We define the js out of the <></>.
+
+3. And we use that js inside the html tags by {js} putting inside the curlybraces.
+
+4. We need to give the closing to the each and every tag which are not closing tags in the HTML. by giving <img />
+
+5. In the image tag we give the src inside {app.png} inside the curly braces.
+
+6. node_modules folder we can delete and we dont give that folder to anyone...it will be automatically installed on client side by package.json.
+
+7. for = HtmlFor
+
+8. tabIndex = tabCapitalizeIndex     
+
+9. Props = We can set values to that props like title = "abs" For (props.title)
+
+10. Proptypes = Proptypes where we define the datatype of props.
+
+11. deaultprops = Where we set the default values to the props when we dont give any value to the props default will render.
+
+12. state = we cant manupluate variable directly in the react soo we use states for that.
+
+13.First We import state from react {useState}
+
+ state  = const[text,setText] = useState("Enter the text here");
+
+so when we want to change the text we need to use setText('text') function.
+
+14. Hooks are the compnents by which we can use the components of class without using the class.
+
+15. onclick = onClick (To call any function on click)
+
+16. onchange = it will call a function after the state of the objects Changes and we get a free element as well which will be event.
+
+

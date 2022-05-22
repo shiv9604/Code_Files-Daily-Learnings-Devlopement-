@@ -1,0 +1,56 @@
+.App {
+  text-align: center;
+  box-sizing: border-box;
+}
+.navbar {
+  background: linear-gradient(to right, #16222A, #3A6073);
+  color: white;
+  height: 7vh;
+  width: 100%;
+  display: flex;
+  justify-content:space-around;
+  align-items: center;
+  text-overflow: nowrap;
+}
+
+.navbar ul {
+  display: flex;
+  align-items: center;
+
+}
+.navbar ul li:hover{
+  color:aquamarine;
+  transition:0.3s;
+}
+.navbar ul li {
+  font-size: 0.85vw;
+  list-style: none;
+  margin: 0 30px;
+}
+
+.headername {
+  font-size:1.6vw;
+  display: flex;
+  margin-right:63vw;
+}
+.headername:hover{
+  color:aquamarine;
+  transition:0.3s;
+}
+
+#textcontainer {
+  width: auto;
+  height: auto;
+  /* border:1px solid red; */
+  margin-top: 2.5vh;
+}
+textarea {
+  margin-top: 2vh;
+}
+#uppercasebtn{
+  margin-top: vh;
+}
+button{
+  margin-top: 2vh;
+  margin-right: 1vw;
+}

@@ -1,0 +1,40 @@
+{
+  "data": [
+    {
+      "name": "shiv",
+      "age": 21,
+      "email": "shiv@test.com",
+      "id": 1
+    },
+    {
+      "name": "swapnali",
+      "age": 19,
+      "email": "swapa@test.com",
+      "id": 2
+    },
+    {
+      "name": "shru",
+      "age": 20,
+      "email": "shru@test.com",
+      "id": 3
+    },
+    {
+      "name": "sanj",
+      "age": 22,
+      "email": "sanj@test.com",
+      "id": 4
+    },
+    {
+      "name": "Shivprasad Kounsalye",
+      "age": "19",
+      "email": "shivkounsalye@gmail.com",
+      "id": 5
+    },
+    {
+      "name": "Linda Duncan",
+      "age": "Doloribus dolorem ip",
+      "email": "ruqecavupe@mailinator.com",
+      "id": 6
+    }
+  ]
+}

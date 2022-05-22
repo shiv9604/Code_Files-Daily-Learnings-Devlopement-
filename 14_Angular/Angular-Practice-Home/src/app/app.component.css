@@ -1,0 +1,13 @@
+.main{
+  width: 100%;
+  height:50vh;
+  background-color: carbonblack;
+}
+.child{
+  width: 50%;
+  height: 10vh;
+  border:1px solid purple;
+  color:mediumturquoise;
+  font-weight: 500;
+  font-size: 18px;
+}

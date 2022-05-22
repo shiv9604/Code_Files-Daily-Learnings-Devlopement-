@@ -1,0 +1,121 @@
+.body-container{
+    height: max-content;
+    /* width: 100%; */
+    background-color: #333366;
+}
+.container{
+    width: 63%;
+}
+.imgcontainer img{
+    width: 95%;
+    border: 1px solid white;
+    image-rendering: -webkit-optimize-contrast;
+    opacity: 0%;
+    animation : scale-up-center 3.5s ease 3.5s 1 forwards;
+}
+.abstractcontainer{
+    line-height: 24px;
+    font-size: 1.6rem;
+    color: white;
+    opacity: 0%;
+    animation : fade-in 3.5s 3s forwards;
+}
+.formcontainer form input{
+    height: 52px;
+    font-size: 1.4rem;
+}
+.formcontainer form button{
+    height: 52px;
+    background-color: rgb(255, 153, 102);
+    font-size: 1.6rem;
+    border: none;
+    font-weight: bolder;
+    color: white;
+    width: 100%;
+    text-align: center;
+}
+.formcontainer form button:hover{
+    background-color: rgb(51,102,153);
+    transition: background-color  0.35s ease ;
+}
+.formcontainer form button:not(:hover){
+    background-color: rgb(255, 153, 102);
+    transition: background-color  0.8s ease ;
+}
+.footer{
+    color: white;
+    font-size: 1.1rem;
+    text-align: center;
+}
+.footerimage1{
+    width: 84px;
+    height: 41px;
+}
+.footerimage2{
+    width: 137px;
+    height: 31px;
+}
+
+.footer a, a:hover, a:active, a:visited { 
+    color: white; 
+}
+.footer-logos{
+    opacity: 0;
+    animation: fade-in 3s 2.5s forwards;
+}
+.formcontainer{
+    opacity: 0;
+    animation: fade-in 3s 4s forwards;
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+   .container{
+       width: 100%;
+   } 
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px){
+    .container{
+        width: 90%;
+    } 
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .container{
+        width: 80%;
+    } 
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .container{
+        width: 70%;
+    } 
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .container{
+        width: 63%;
+    } 
+}
+@keyframes fade-in {
+    0%{
+      opacity: 0;
+    }
+    100%{
+      opacity: 1;
+    }
+  }
+  @keyframes scale-up-center {
+    0%{
+      transform: scale(.2);
+      opacity: 0;
+    }
+    100%{
+      transform: scale(1);
+      opacity: 1;
+    }
+  }

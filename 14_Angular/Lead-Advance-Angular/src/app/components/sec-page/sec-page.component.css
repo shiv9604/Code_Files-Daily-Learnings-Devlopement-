@@ -1,0 +1,272 @@
+.parent-container{
+    width:1000px;
+    /* width:63%; */
+    height: auto;
+    /* margin-top: 1%; */
+    margin: 10px auto;
+}
+.main-container{
+    width:1000px;
+}
+
+.footertext p{
+    color: rgba(68, 68, 68, 1);
+    letter-spacing: 0.1px;
+    text-decoration: none;
+    /* font-weight: bolder !important; */
+    text-transform: none;
+    font-size: 2.2rem;
+    margin: 0 auto;
+    overflow-wrap: break-word;
+    font-family: 'Roboto';
+}
+.footerTitle{
+    opacity: 0%;
+    animation : fade-in 3s 5s forwards;
+}
+.imgcontainer{
+    opacity: 0%;
+    animation : scale-up-center 3.5s ease 3s 1 forwards;
+    /* fade-in 3s 3s forwards, */
+}
+.thumbnailimg{
+    width:147px;
+    height:187px;
+    image-rendering: -webkit-optimize-contrast;
+    /* opacity: 0%; */
+    
+}
+.footercontainer{
+    display:flex;
+}
+.logo1{
+    margin-top:30%;
+    width:79px;
+    height:28px;
+    display:block;
+    margin-left:30%;
+}
+.logo2{
+    width:137px;
+    height:31px;
+    display:block;
+    margin-left:15%;
+}
+.logocontainer{
+    opacity: 0%;
+    animation: fade-in 3s 1s forwards;
+}
+.logocontainer p{
+    font-size: 11px;
+    font-weight: 600;
+    font-family: Roboto;
+    font-style: normal;
+    text-decoration: none;
+    text-transform: none;
+    color: rgba(68, 68, 68, 1);
+}
+.downloadbtn{
+    /* width: 30%;
+    height:25%; */
+    width: 115px;
+    height:51px;
+    border:none;
+    background-color: rgb(51,102,153);
+    border-radius: 5px;
+    color: rgb(255,255,255);
+    opacity: 0%;
+    animation: fade-in 3s 1.5s forwards, buttonAnimation 1.8s 5.5s ease-in-out infinite alternate;
+
+}
+.downloadbtn div{
+    background-image: url(./download.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 25px 25px;
+}
+
+.downloadbtn div{
+
+    width: 20%;
+    height: 100%;
+    margin:0 auto;
+}
+.footertext button:hover{
+    background-color: rgb(255,153,102) !important;
+    transition: background-color 0.35s ease;
+}
+
+.footertext button:not(:hover){
+    background-color: rgb(51,102,153) !important;
+    transition: background-color 0.8s ease;
+}
+.animationbox{
+    position: relative;
+}
+
+.animationbox .devOps{
+        width: 342px;
+        height: 163px;
+        /* animation: devOps 2.3s linear infinite alternate; */
+        image-rendering: -webkit-optimize-contrast;
+        position: absolute;
+        right: 190px;
+        top: -5px;
+        /* opacity: 0%; */
+        animation: fade-in 5s forwards;
+        
+}
+
+.tableanimation .robot{
+    width: 223px;
+    height: 272px;
+    position: absolute;
+    top: 170px;
+    right: 185px;
+    /* top: 40%;
+    right: 25%; */
+}
+
+.tableanimation .table{
+    width: 352px;
+    height: 277px;
+    position: absolute;
+    top: 145px;
+    right: 177px;
+    /* top: 34%;
+    right: 24.5%; */
+}
+.tableanimation .robohead{
+    width: 65px;
+    height: 64px;
+    position: absolute;
+    animation: head-rotate 2s infinite linear alternate;
+    top: 158px;
+    right: 232px;
+    /* top: 37.5%;
+    right: 32.5%; */
+    top: 156px;
+    right: 240px;
+}
+
+.tableanimation .robohand{
+    width: 242px;
+    height: 242px;
+    position: absolute;
+    animation: hand-movement 2s infinite linear alternate;    
+    /* top: 27.5%;
+    right: 19%; */
+    top: 106px;
+    right: 128px;
+
+}
+
+.tableanimation .sidebars{
+    width: 84px;
+    height: 28px;
+    position: absolute;
+    /* top: 49%;
+    right: 47%; */
+    top: 212px;
+    right: 362px;
+    z-index: 1;
+}
+.tableanimation .gear{
+    width: 46px;
+    height: 46px;
+    position: absolute;
+    animation: rotate 8s infinite linear;
+    /* top: 47.5%;
+    right: 51%; */
+    top: 201px;
+    right: 389px;
+}
+
+.tableanimation .smallgear{
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    animation: rotate-reverse 8.5s infinite linear;    
+    /* top: 51%;
+    right: 48%; */
+    top: 217px;
+    right: 367px;
+}
+
+
+@keyframes buttonAnimation{
+    from{
+        transform: scale(1);
+        /* width: 30%;
+        height:25%; */
+    }
+    to{
+        transform: scale(1.1);
+        /* width:32%;
+        height:27%; */
+    }
+}
+
+@keyframes devOps {
+    from{
+        transform: scale(1);
+        
+    }
+    to{
+        transform: scale(1.1);
+    }
+}
+
+@keyframes rotate {
+    0%{
+      transform: rotate(0);
+    }
+    100%{
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes rotate-reverse {
+    0%{
+      transform: rotate(360deg);
+    }
+    100%{
+      transform: rotate(0);
+    }
+  }
+
+  @keyframes head-rotate {
+    0%{
+      transform: rotate(12deg);
+    }
+    100%{
+      transform: rotate(0deg);
+    }
+  }
+  @keyframes hand-movement {
+    0%{
+      transform: rotate(3deg);
+    }
+    100%{
+      transform: rotate(15deg);
+    }
+  }
+  @keyframes fade-in {
+    0%{
+      opacity: 0;
+    }
+    100%{
+      opacity: 1;
+    }
+  }
+  @keyframes scale-up-center {
+    0%{
+      transform: scale(.2);
+      opacity: 0;
+    }
+    100%{
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
