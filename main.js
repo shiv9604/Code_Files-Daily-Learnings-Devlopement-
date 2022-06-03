@@ -121,28 +121,30 @@
 
 
 
-function sequentialSizes(val) {
-    let answer = "";
-    // Only change code below this line
+// function sequentialSizes(val) {
+//     let answer = "";
+//     // Only change code below this line
   
-    switch(true){
+//     switch(true){
         
-      case val>=1 && val<=3:
-        answer = "Low"
-        break;
+//       case val>=1 && val<=3:
+//         answer = "Low"
+//         break;
 
-      case val>=4 && val<=6:
-        answer = "Med"
-        break;
+//       case val>=4 && val<=6:
+//         answer = "Med"
+//         break;
       
-      case val>=7 && val>=9:
-        answer = "High"
-        break;
+//       case val>=7 && val>=9:
+//         answer = "High"
+//         break;
   
-    }
+//     }
   
-    // Only change code above this line
-    return answer;
-  }
+//     // Only change code above this line
+//     return answer;
+//   }
   
-  console.log(sequentialSizes(1));
+//   console.log(sequentialSizes(1));
+
+console.log("Hello World")
