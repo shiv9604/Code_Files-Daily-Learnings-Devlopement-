@@ -1240,7 +1240,11 @@ this.vcr.createComponent(
 
 1. Set base url and version in enviornment.ts and enviornment.prod.ts file. Take the api links till the api(baes url) and concate with it version and further reuired end points and path.
 
-  
+---
+## Remaining Total Flow 
+---
+
+
 ### Query Paramerters 
 
 Query parameter is the thing with which we can send the data in the url and we can get that data in that component.
@@ -1298,6 +1302,26 @@ We can set `maxLength` property with the `mat-input` `type=text` but it dont wor
 ```
 
 So it will check the value length and slice the value if
+
+### Classes in Angular
+
+Classes in the angular used to store anything specific things at one place itself and we can import that and use the specific data like links, json, objects.
+
+**Steps :-**
+
+- `ng g class models/Urls/Urls` - It will create Urls class inside the urls folder in models folder.
+
+- In the class we need to use `static` , `public` , `private` , `readonly` for the variables. we can't use constants for the variables as its properties of the class.
+
+- Then we can import the class anywhere in the project where we want to use it and we can acess the variables with `.` dot notation and `['']` bracket notation.
+
+ex : 
+```
+export class Urls{
+
+  public static base_url = 'http://192.198.0.5/api/'
+}
+```
 
 
 
