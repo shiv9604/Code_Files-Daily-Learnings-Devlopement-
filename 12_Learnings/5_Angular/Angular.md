@@ -1324,6 +1324,82 @@ export class Urls{
 ```
 
 
+So it will check the value length and slice the value if value will be greater than maxLength.
+
+
+### Dynamic Forms in Angular
+
+In the dynamic form we can create forms with the help of json.
+
+In the json we get necessary value like mentinoed below.
+
+```
+{
+  {
+    "id":"name",
+    "label":"Name",
+    "type" : "input",
+    "value":''
+  },
+  {
+    "id":"email",
+    "label":"Email",
+    "type" : "input",
+    "value":''
+  },
+  {
+    "id":"password",
+    "label":"Password",
+    "type" : "password",
+    "value":''
+  }
+}
+```
+
+Steps :-
+
+**Getting json Data and genrating form :-**
+
+  - First we need to create json.file in asset folder.
+
+  - And secondly we need to get api call on that form and we need to put path in the url.
+
+  - You need to call the get call on `ngOnIt()`.
+
+  - In the HTML you need to crete each input type div with input element and label.
+
+  - We need to show that feild as per the type.
+
+  - Soo it will go inside the div and as per the input type it will create form feild.
+
+  - On the external div we need to loop through that json soo on each itratration it will create input feild according to its type.
+
+  - All Form will be rendered on the basis of type and label.
+
+**Creating form Controls :-**
+
+  - First we need to create empty formgroup variable in which we need to assign new FormGroup and emppty controls.
+
+  - On `ngOnInit()` itself we need to create a function which will loopthrough on the array recieved from json and we need to add form controls to the empty form group which we declaerd with the help of .addControl('firstName', new FormControl('')).
+
+
+**Binding Form Controls to HTML fields :-**
+
+  - We need to bind the formControl and formGroup to the form.
+
+  - `[FormGroup]="dummyFormName"` thats how we need to bind the form group to it.
+
+  - `[FormControlName]="item.field"` thats how we can bind the fieldName.
+
+  - Create an div with json pipe and see the binding values chaging or not.
+
+**Getting Form Values :-**
+
+  - As we binded the values to the formControl our formControl values are updating realtime.
+
+  - Create an Submit button which calls an method which prints the values of the form.
+
+**Validations :-**
 
 
 

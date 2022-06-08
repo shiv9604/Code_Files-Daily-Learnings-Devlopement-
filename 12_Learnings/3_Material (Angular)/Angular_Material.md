@@ -479,3 +479,22 @@ Mat menu is kind of dropdowns of the buttons which looks like dropdown.
 
 - `<ng-template let-name="name"></ng-template>` - You can grab the value like this with the name and you can use that variable in interpolation `{{name}}`.
 
+### Expansion Panel
+
+Expansion panel is the expansion panel in which we can show the data an hide it.
+
+We need to import `MatExpansionModule` in module.ts.
+
+- **Structure :-**
+
+  - `<mat-expansion-panel></mat-expansion-panel>` - Its the parent tag which creates expansion panel.
+
+  - `<mat-panel-header></mat-panel-header>` - It creates an header to the component.
+
+  - `<mat-panel-title></mat-panel-title>` - It creates title in the header.
+
+  - `<mat-panel-description></mat-panel-description>` - It will show the description text in front of the title.
+
+  We can put our content below the header tag.
+
+  **Most Imp :- If we want to use multiple expansion panel you need to use mat-accordiion.**

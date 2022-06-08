@@ -1,3 +1,61 @@
+# CBT
+
+### ERRORS
+
+- styles string to be an array - degrade raw-loader to 1.0.0
+
+- Video.js Error - Remove Error Causing function
+
+### Folder Structure
+
+- **CBT-MODULES :-**
+
+    All Application modules and Functionalities like video-lessons, sop and all basically tabs which are in web app.
+
+- **COMMON :-**
+
+    All the common components which we used in the app.
+
+- **DIALOGS :-**
+
+    All Dialogs boxes of the app.
+
+- **IRO-LIBS :-**
+
+    Designed utilities like button input and all as common component.
+
+- **Models :-**
+
+    All the interfaces used in the app are here.
+
+- **Modules :-**
+
+    All the `module.ts` files kept here.
+
+- **Services :-**
+
+    All the services used in the app.
+
+- **Models/urls.model.ts :-**
+
+    All the Api Call url Constants are here. And all the urls are kept in enviornment.ts
+
+- **Models/popup-massages.model.ts :-**
+
+    All the pop Massages used in the app are declared here.
+
+- **Models/payload.model.ts :-**
+
+    Payload Class declare in which data, params, and auth are there and which we are using in every api call.
+
+- **Models/Constants.model.ts :-**  
+
+    All the tabs icons, names and tabs appearing from here.
+
+
+
+
+
 
 
 
