@@ -16,7 +16,7 @@
 
   3. We can put the icons as well inside that by using `<ion-icon></ion-icon>` inside the `<ion-fab-button></ion-fab-button>` as like mentioned below.
 
-  Code Strucuture of ion-fab-button : 
+  **Structure :-** 
   ```
    <ion-fab vertical="top" horizontal="center" slot="fixed">
       <ion-fab-button><ion-icon name="code"></ion-icon></ion-fab-button>
@@ -69,18 +69,66 @@ Ionic tabs are bottom navigation menu which is used in most of the applications 
   -  
 
 
+### Ionic Header Toolbar
 
+We can create navigation header with the help of ionic-header and toolbar.
 
+- `<ion-header></ion-header> - ` It will create and sticky header with bottom shadow which looks like lifted up.
 
+- `<ion-toolbar></ion-toolbar> - ` Its simple nagitaion type container in the ionic in which we can place buttons and text.
 
+### Ionic Loading Controller
 
+Loading Controller is the loader which we can show to user while performing some actions at the background.
 
+**Steps :-**
 
+- `import {LoadingController} from '@ionic/angular';`
 
+- Lets Create Loading Controller :-
 
+  **With Promise Then And Catch :-**
+  ```
+  showLoading(){
+    this.loadingController.create({
+      massage:"Please wait",
+    })
+    .then((loading)=>{
+      loading.present()
 
+      setTimeOut(()=>{
+        loading.dismiss()
+      },3000)
+    })
+  }
+  ```
+  **With Async Await**
+  ```
+  async showLoading(){
+    let loading = await this.loadingController.create({
+      massage:"Please wait",
+    })
+    
+    loading.present()
 
+    setTimeOut(()=>{
+      loading.dismiss()
+    },3000)
+    
+  }
+  ```
 
+  - Options :-
+
+    - `massage :-` This will show this massage on the loading controller.
+
+    - `duration :-` Till this much time the loading will be present.
+
+    - `showBackDrop :-` The Darker overlay at background will be displayed on `true` or `false`.
+
+    - `spinner :-` Which type of spinner will be shown will be reflected in the loader.
+
+  
 
 
 

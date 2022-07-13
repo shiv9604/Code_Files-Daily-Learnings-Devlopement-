@@ -439,7 +439,7 @@ Material dialouge is similar to the snackbar and we can open an component inside
 
 - then we need to initialize the `public dialouge:MatDialouge` in the constuctor.
 
-- To open the dialouge we can create an function which will be called on button click and in side function `this.dialouge.open(componentName)`.
+- To open the dialouge we can create an function which will be called on button click and in side function `this.dialouge.open(componentName, config)`.
 
 **Structure :-**
 
@@ -447,7 +447,35 @@ Material dialouge is similar to the snackbar and we can open an component inside
 
 - `<mat-dialog-content></mat-dialog-content>` - In this tags in the component we can write our html.
 
-- `<mat-dialog-actions></mat-dialog-actions>` - 
+- `<mat-dialog-actions></mat-dialog-actions>` - In this Tag your Actions buttons will be placed.
+
+- 
+  ```
+  <mat-dialog-actions>
+        <button mat-dialog-close mat-dialog-close='value'></button>
+    </mat-dialog-actions>
+  ```
+
+  You will Get value in the terms of res of the callback of `afterclosed().subscribe()`.  
+
+
+  
+
+**Events :-**
+
+- **afterClosed().subscribe(()=>{})** - This event will be called on the refrence of open like 
+`let ref = dialog.open(component)` then we can call `ref.afterClosed().subscribe(callback)` in which you can perform actions on your requirements.
+
+
+**How To Pass Data to Dialog Component :-**
+
+- **Pass Data in open function as second parameter :-** `dialog.open(examplecomponent, {data:{name:"Shivprasad"}})`
+
+- **Inject Mat dialog data in component.ts file :-** `@Inject(MAT_DIALOGUE_DATA) public data:any`
+
+- **Now You can use that value whereever you want.**
+
+
 
 ### Menu
 
@@ -498,3 +526,9 @@ We need to import `MatExpansionModule` in module.ts.
   We can put our content below the header tag.
 
   **Most Imp :- If we want to use multiple expansion panel you need to use mat-accordiion.**
+
+  ### Material Radio Buttons
+  
+  Radio buttons used for choose one of the options.
+
+  

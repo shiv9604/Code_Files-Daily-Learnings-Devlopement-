@@ -1402,6 +1402,13 @@ Steps :-
 **Validations :-**
 
 
+### Angular LifeCycle Hooks
+
+There is a lifecycle of every service, component, directive and all in the angular app while compilation and with the lifecycle hooks we can manage the inputs and outputs and we can inhance the performance of the app.
+
+
+
+
 
 
 

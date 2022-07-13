@@ -146,5 +146,8 @@
 //   }
   
 //   console.log(sequentialSizes(1));
+let obj = {
+    name:"Shivprasad Kounsalye",
+    age:"shiv@email.com"
+}
 
-console.log("Hello World")
