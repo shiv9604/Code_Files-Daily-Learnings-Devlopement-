@@ -21,4 +21,13 @@ This plugin used for checking the network and internet connection in your ionic 
 
         - `connectSubscription.unsubscribe();` To stop watching the network.
 
+### File System
+
+File system is a cordova plugin by which we can acess the phones storage and we can read and write files.
+
+**Directories For Android :-**
+- `externalDataDirectory :-` `files/android/data/app/files`
+- `externalApplicationStorageDirectory :-` `files/android/data/app/`
+- `externalRootDirectory :-`  `files/`
+- `externalCacheDirectory :-`  `files/android/data/app/cache`
 

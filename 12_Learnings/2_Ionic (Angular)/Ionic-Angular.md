@@ -128,7 +128,20 @@ Loading Controller is the loader which we can show to user while performing some
 
     - `spinner :-` Which type of spinner will be shown will be reflected in the loader.
 
-  
+### Changing Splash Screen and icon.
+
+Ionic application grabs the icon and splash screen from the resources folder icon.png and splash.png.
+
+We have ios & android folders over there in which we can put the seprate files for the android and ios.
+
+**Dimension Rules For Icon and Splash :-**
+
+- `icon :-` 1024 x 1024
+- `splash :-` 2732 x 2732
+
+**How to Process it in application :-**
+
+- `ionic cordova resources < options - ios & android>:-` It will prepare the application with updated resources.
 
 
 

@@ -680,7 +680,7 @@ console.log(a)
 
 a = "string2"
 console.log(a)
-```
+
 ### Hoisting
 Hoisting means javascript declaratino and initialization, execution happens as like mentioned below.
 

@@ -796,9 +796,9 @@ Angular forms are different than others as like mentioned below.
     </div>
     ```
 
-### Form Validation in Angular
+### Form Validations In Reactive Forms
 
-**Form Validation in reactive form** - 
+ 
 
 - First we need to import Validatiors like **`import {Validators} from '@angular/forms'`**
 
@@ -815,20 +815,34 @@ Angular forms are different than others as like mentioned below.
     }
   ```
 
-  And after creating getter we need to apply on the error massage tag with the help of **ngIF** on **p** tag like mentioned below : 
-  ```
-  <p style="color:red" *ngIf="username && username.invalid && username.touched">Please Enter Valid Username</p>
-  ```
-  In the above code it will first check the value if its there or not and it will also check the **username.invalid** as well.
+- **ErrorMessage Validation :-**
+  
+    And after creating getter we need to apply on the error massage tag with the help of **ngIF** on **p** tag like mentioned below : 
+    ```
+    <p style="color:red" *ngIf="username && username.invalid && username.touched">Please Enter Valid Username</p>
+    ```
+    In the above code it will first check the value if its there or not and it will also check the **username.invalid** as well.
 
-- We have validator for email as well which we can use on the initialized field in the formgroup in **component.ts** file like 
+- **required :-**
+
+  We have validator for email as well which we can use on the initialized field in the formgroup in **component.ts** file like 
 
   **`username: new FormControl('',[Validators.required,Validators.email]`**
 
-- We can validate with the patterns as well on the intialized field in the formgroup in **component.ts** file like 
+- **Password & Custom Validations :-**
+  
+  We can validate with the patterns as well on the intialized field in the formgroup in **component.ts** file like 
   **`username: new FormControl('',[Validators.required,Validators.pattern('[a-zA-Z]+$')]),`**
 
   we are validating here the charecters from **'a-z'** and **'A-Z'** else if there input will be number it will show the errormsg.
+
+- **Disabled Form Button Validation :-**
+
+    In the Form When you need to disable the submit button till the form valid then you can use the `[disabled] attribute` with `form.invalid` condition like mentioned below.
+
+    ```
+    <button [disabled]="form.invalid"></button>
+    ```
 
 ### Directives in Angular
 
@@ -1405,6 +1419,20 @@ Steps :-
 ### Angular LifeCycle Hooks
 
 There is a lifecycle of every service, component, directive and all in the angular app while compilation and with the lifecycle hooks we can manage the inputs and outputs and we can inhance the performance of the app.
+
+
+
+### File Reader in Angular
+
+We can read the files in the angular with the help of `FileReader()` api with javascript as like mentioned below.
+
+**Steps :-**
+
+- Declare file reader like `const reader = new FileReader()`
+- reader have two methods as like mentioned below.
+  
+  - onload(fileObj) - Calls when reader completes the reading file.
+  - onerror(fileObj) - Calls when reader get some error.
 
 
 
