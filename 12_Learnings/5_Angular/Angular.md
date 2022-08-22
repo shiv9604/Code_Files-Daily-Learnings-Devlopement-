@@ -105,7 +105,7 @@ We dont need to import the each and every component inside our **app.component.t
 
     To load the component in the **app.component.html** we need to use it like HTML tag **<app-component></app-component>** and component will be automatically loaded inside our app. 
 
-3. Taking or using Input in the component
+3. **Taking or using Input in the component**
 
     If we want to use attributes to the component tag like **`<app-component [text]="'Add'" ></app-component>`**
 
@@ -133,8 +133,36 @@ We dont need to import the each and every component inside our **app.component.t
 
     **[ngStyle] = "{'property-property':'value'/variable,property:'value'}"**
 
+### Types of selectors in angular
 
-### Modules in Angular
+In angular for the component there are multiple selectors which we can use in the html file.
+
+Selector => 
+```
+@Component({
+  selector: 'app-search-pipe',
+  templateUrl: './search-pipe.component.html',
+  styleUrls: ['./search-pipe.component.css']
+})
+```
+**Types :-**
+
+- `'app-form' :-` 
+  
+  We can use the component with tag `<app-form></app-form>`
+
+- `'[app-form]' :-`  
+  
+  We can use the component with attribute like `<div app-form></div>`
+
+- `'.app-form' :-`
+
+  We can use the component with the class like `<div class="app-form"></div>`
+
+As like this we can use the components with the different types in the html.
+
+### Modules in Angular (Feature Module)
+
 Modules are the group of components or a complete functionality like **user-authentication** in which it can contain login,register,forgotpwd,etc.
 
 Modules are not reusable but components containing inside a model we can use that components.
@@ -172,7 +200,17 @@ Modules are not reusable but components containing inside a model we can use tha
 
     SOO... 
     
-    We need to export that component to the angular app by **exports:[LoginComponent]** below the imports and then the component is globally available in your angular app.
+    We need to export that component to the angular app by **exports:[LoginComponent]** below the imports and then the component in the `UserModule` is globally available in your angular app.
+
+### Shared Module
+
+Shared module is nothing but the common imports module in which we can import all the necessary modules, like formsmodule and all and all the directives, pipes and all soo rather than adding single single things in the shared module we can directly import the shared module in the modules for the acessibility of all the things.
+
+### Core Module
+
+Core Module is the module which we create for the all the necessary services, providers and http interceptors.
+
+And we can directly import that core module in the `app.module.ts` for the usage of all the services.
 
 ### Functions in Angular
 
@@ -199,6 +237,51 @@ In the angular before 11 we didn't got errors or we was not compulsed to define 
 - **Internal styling** - which we do inside the component.html file in `<style></style>` tag.
 
 - **inline style** - which we do in inline element in basic style attribute.
+
+### Dynamic Styling in Angular
+
+In the angular if we want to use the dynamic style means if we want it to be an variable and it could be depending on some functions we can use the dynamic styling.
+
+In the dynamic styling we use the `objec`t aginst the `[ngStyle]` attrubute like 
+
+**Syntax :-**
+```
+<div [ngStyle]="{css property:value}">
+This is content
+</div>
+```
+
+Ex : 
+If we want to change the background of the div based on its status it will be like mentioned below.
+
+```
+// component.html
+<p [ngStyle]="{background-color:getBgColour(user.value)}" #user>online</p>
+
+// component.ts
+getBgColour(value:any){
+  if(value=='online'){
+    return 'green'
+  }
+  else{
+    rerurn 'red'
+  }
+}
+```
+
+### Dynamic Classes
+With the help of dynamic classes we can apply the different classes on the different scenarios.
+
+**Syntax :-**
+```
+<div [ngClass]="{classname : true}">online</div>
+```
+```
+<div [ngClass]="isOnline ? 'online' : 'offline'">online</div>
+```
+
+With the mentioned above 2 options we can use the dyanamic classes to the html elements.
+
 
 ###  If-Else Statements in Angular (*ngIf)
 
@@ -327,7 +410,7 @@ Uses of all the attributes are mentioned below :
 In the code mentioned below we just initialized an array in **component.ts** file and we are itrating over that an array are we are printing the values in the h1 tag as mentioned below.
 ```
 //array specified in .ts file.
-names ={"sam","mad","ron","shiv"}
+names =["sam","mad","ron","shiv"]
 
 //How to run a for loop on the array and print its value inside the HTML.
 <h1 *ngFor = "let item of names; index as i"> The username is : {{item}}</h1>
@@ -447,7 +530,7 @@ We can send the data to child component by using **@Input()** in the **component
 
 - Thats how we passed the data to child component.
 
-### Send the Array of Object's Data to child component.
+### Send the Data to child component.
 
 - First create the component.
 
@@ -478,6 +561,7 @@ We can send the data to child component by using **@Input()** in the **component
   <p>{{item.name -- item.age}}</p>
   ```
 - And Thats how we passed the for loop value to the child component.
+
 
 ### How to pass function to child component (To take data from the child to parent)
 
@@ -522,6 +606,18 @@ We can send the data to child component by using **@Input()** in the **component
   }
   ```
 - And thats how we passed the data to parent component and the function will print the data in the console.
+
+### 1 way binding
+By using one way binding, data can be shown only on html but it cannot be changed from the html, it will be used for only display purpose.
+
+
+
+- **In Reactive Forms :-**
+
+We can use one way binding in reactive forms with the help of `[ngModel]="var"` .
+
+- **In Template Driven Form :-**
+
 
 
 ### 2 way binding in Angular
@@ -798,8 +894,6 @@ Angular forms are different than others as like mentioned below.
 
 ### Form Validations In Reactive Forms
 
- 
-
 - First we need to import Validatiors like **`import {Validators} from '@angular/forms'`**
 
 - We can make the feild required by using **Validators.required** in Formgroup where we defined **FormControl** for that feild like **`username: new FormControl('',[Validators.required])`**.
@@ -843,6 +937,124 @@ Angular forms are different than others as like mentioned below.
     ```
     <button [disabled]="form.invalid"></button>
     ```
+- **Field Read For invalid and touched :-**
+
+  We can add the css as well when the input element get touched and invalid with the help of `input.ng-touched.ng-invalid{}`.
+
+### Custom Validations in Reactive Form
+
+We can create custom Validations in the `components.ts` file and bind it to validators in the form controls as like mentioned below.
+
+```
+// Validation method
+names:any = ['shiv','sai']
+isNameTaken(contol:FormControlName){  
+  if(this.names.includes(control.value)){
+    return {isNameTaken:true}
+  }
+}
+
+// Validation Binding
+ username: new FormControl('',[Validators.required,this.isNameTaken.bind(this)),
+
+```
+It will Push `isNameTaken:true` in `formcontrol.errors` object and same can be used for error message for that field.
+
+### Asynchronus Validation
+
+Asynchronus validations are the validation in which we are validating email or username something on the server through api soo it will append class `ng-pending` on which we can show the loader or error message.
+
+```
+  isAlreadyPresent(control:FormControl):any{
+    return new Promise((res,rej)=>{
+      if(control.value.includes('shiv')){
+        let validation = { nameInvalid : true }
+        setTimeout(()=>{
+          console.log("Form Control +>",control)
+          res(validation);
+        },2000)
+      }
+    })
+    }
+```
+
+### FormControl Grouping and its vaildations
+
+Form Group is the grouping of the form controls as per the sections in the forms like userData, education Details end etc.
+
+**FormGroup in Both Forms :-**
+
+- **FormGroup in template driven forms :-**
+
+- **FormGroup in Reactive forms :-**
+
+  ```
+  // Grouping in FormControls in ts file
+
+  form:any = new FormGroup({
+    data: new FormGroup({
+      name: new FormControl('',[Validations]),
+      age: new FormControl('',[Validations])
+    }),
+    edu: new FormGroup({
+      university: new FormControl('',[Validations]),
+      grades: new FormControl('',[Validations]),
+    })
+  })
+
+  // Calling Grouping in component.html
+  <form [formGroup]="form">
+  <div formGroupName='data'>
+    <!-- controls -->
+  </div>
+  <div formGroupName='edu'>
+    <!-- controls -->
+  </div>
+  </form>
+  ```
+### ValueChanges and StatusChanges & SetValues in reactive forms
+
+- **Value Changes and Status changes :-**
+
+  To catch the status and the value changes in the reactive form we can use the `form.statusChanges.subscribe(callback)` && `form.valueChanges.subscribe(callback)`.
+
+  For that we need to do call the observable methods in the `ngOnInit()` itself.
+
+  ```
+  // calling 
+  loginForm= new FormGroup({
+          username: new FormControl(''),
+          password: new FormControl('')
+        })
+
+  ngOnInit(){
+    this.loginForm.valueChanges.subscribe((res)=>{
+      console.log(res) // Form Object
+    })
+
+    this.loginForm.statusChanges.subscribe((res)=>{
+      console.log(res) // VALID | INVALID
+    })
+  }
+  ```
+
+- **SetValue :-**
+
+  Setvalue is used to set the values for the form from .ts file as like mentioned below.
+
+  ```
+    loginForm= new FormGroup({
+          username: new FormControl(''),
+          password: new FormControl('')
+        })
+
+  ngOnInit(){
+    this.loginForm.setValue({
+      userName:'shiv',
+      password:'Saikiran@9604'
+    })
+  }
+  ```
 
 ### Directives in Angular
 
@@ -872,8 +1084,6 @@ constructor(private element:ElementRef) {
   selector: '[appRedEl]'
 })
 ```
-
-
 
 ### Routing in Angular
 
@@ -969,143 +1179,99 @@ Child routing is the concept in which there are pages available which are alread
 - And Most important we need to create **router-outlet** in the **parent comopnent.html** file.
 
 - And Thats how we have routed our child components as well in the parent components.
+### Query Paramerters 
 
-### Service in Angular
+Query parameter is the thing with which we can send the data in the url and we can get that data in that component.
 
-Service are the classes in which data,functions and class can be there and we can use or share the same data or functions in multiple components its called as service.
+**Query params with activated route :-**
 
-If we want to use the function,or the same data in multiple components rather than declaring in each and every file we can create service and we can import it in mutiple files and components.
+**We dont need to do anything with its route in routing module.ts file.**
 
-**Best practice of data and functions transfer in angular is service.**
-
-- We can create service by commmand :
-
-  **`ng g service services/userData`**
-
-- We get the 2 files only **service.ts** and **service.spec.ts.**
-
-- We need to define the data or function  like mentioned below.
-  ```
-  // Function which returns the array of objects containing data.
-
-  userData(){
-    return [
-      {name:'shiv',age:'21',email:'shiv@test.com'},
-      {name:'swapnali',age:'19',email:'swapa@test.com'},
-      {name:'shru',age:'20',email:'shru@test.com'},
-      {name:'sanj',age:'22',email:'sanj@test.com'}
-    ]
-  }
-  ```
-  - Then we need to import that service in **component.ts** file and intialize it in constructor as like mentioned below.
-
-  ```
-  // Importing service in component.ts
-  import { UserDataService } from './services/user-data.service';
-
-  // Initializing it in constructor
-  constructor(private users:UserDataService){
-      console.warn(users.userData())
-      this.usersArray=users.userData();
-  }
-  ```
-  we have assigned that data to an array and we can display that array on the screen by running for loop on it.
-
-  - Finally If we want to use that service in multiple components we need to follow this same process in those components.
-
-### Get data from API and display
-
-  As we know angular cannot directly connect to databse soo we interact with API.
-
-  - First create service in services folder.
-
-  - First we need to import **HttpClient** and **HttpClientsModule** in **service.ts** and **module.ts**.
-
-    **`import {HttpClient} from '@angular/common/http'`**
-
-    **`import { HttpClientModule } from '@angular/common/http';`**
-
-  - Initialize **HttpClient** it in the constructor of **service.ts**.
-    **`constructor(private http:HttpClient) {}`**
-
-  - **Call the get function of http with the server link as like mentioned below.**
-  **`this.http.get(this.url)`**
-
-  - Import the service in **component.ts** file and intialize it as well as like mentioned below.
-  **`constructor(private userData:UsersDataService){}`**
-
-  - **How to Fetch the data from the service Now?**
-    - Call the component.ts(Initializer).service.ts(Initializer).subscribe(()=>{
-      console.warn(data)
-    }) as like mentioned below :
-
-    ```
-    users:any;
-    constructor(private userData:UsersDataService){
-    userData.users().subscribe((data)=>{
-      this.users=data
-      console.warn("users Data is =>",this.users)
-    })
-    ```
-
-### Post the Data to API
-
- - First create service in services folder.
-
-  - First we need to import **HttpClient** and **HttpClientsModule** in **service.ts** and **module.ts**.
-
-    **`import {HttpClient} from '@angular/common/http'`**
-
-    **`import { HttpClientModule } from '@angular/common/http';`**
-
-  - Initialize **HttpClient** it in the constructor of **service.ts**.
-    **`constructor(private http:HttpClient) {}`**
-
-  - **Call the post function of http with the server link as like mentioned below.**
-  **`this.http.post(this.url)`**
-
-  - Import the service in **component.ts** file and intialize it as well as like mentioned below.
-  **`constructor(private userData:UsersDataService){}`**
-
-  - **How to Post the data from the service Now?**
-    - Call the component.ts(Initializer).service.ts(Initializer).subscribe(()=>{
-      console.warn(data)
-    }) as like mentioned below and :
-
-    ```
-    users:any;
-    constructor(private userData:UsersDataService){
-    userData.users().subscribe((data)=>{
-      this.users=data
-      console.warn("users Data is =>",this.users)
-    })
-
-    // Make the post data function and make call to addUser function which is made in service.ts
-
-    postData(item:userType){
-    console.log(item)
-    this.userData.addUser(item).subscribe((result)=>{
-      console.log(result)
-    })
-    ```
-
-### Model (Interface) in Angular
-
-Model is nothing but the **Interface** to define the datatype of an object.
-
-We can create the file for the interface and we can define the model/interface in the file like menioned below : 
+- we can pass query parameter as like mentioend below : 
 ```
-// This is the feature of typescript
-export interface userType{
-    name:string,
-    age:number,
-    email:string,
-    id:number
+import {Router} '@angular/core'
+constructor(public router:Router){
+
+}
+
+navWithQueryParams(wishId:any,eveId:any){
+   this.router.navigate([`/contribution-details`],{queryParams:{eveId:eveId,wishId:wishId}})
 }
 ```
 
-After initializing the interface we can use it anywhere in the application by just simply importing **import { userType } from './userType';** interface like this.
+- We can get the data as like mentioned below : 
+```
+import {ActivatedRoute} from '@angular/core'
 
+constuctor(public currentRoute : ActivatedRoute){
+
+}
+
+getParamData(){
+  this.currentRoute.params.subscribe((res)=>{
+    console.log(res)
+  })
+}
+```
+
+**QueryParamsHandeling :-**
+
+In angular when the route gets changes the all parameters will be lost soo we can preserve them with `queryParamsHandling:preseve` and We can merge with dynamic routing with `queryParamsHandling:merge`.
+```
+goUsers() {
+  this.router.navigate(['/users'],
+    {
+      queryParams: { filter: 'new' },
+      queryParamsHandling: 'merge' }
+    );
+}
+```
+
+### Fragments in Routing
+
+As like we can send the data object with queryParams as well as we can send and single and important string as well with the fragment and that can be catched in the components with the help of activatedRoute.
+
+Ex : 
+```
+// Passing fragment in route
+this.router.navigate(['/404'],{queryParams:{name:'Shiv'}},{fragment:'IMP'})
+
+// Catching fragment
+this.router.fragment.subscribe(res=>console.log("Fragment =>",res))
+```
+
+### All Ways to Grab the data from the route
+
+- **Catch Data passed with dynamic routing `:id` :-**
+
+  - `this.router.snapshot.paramMap.get('id')`
+
+  - `this.router.snapshot.params['id']`
+
+- **Catch Live Data with dynamic routing :-**
+
+  - 
+  ```
+  // Live dynamic id as like dynamic routing
+  this.router.params.subscribe(res=>{
+    let id = res['id']
+    let name = res['name']
+  })
+  ```
+- **Getting Query Params Data :-**
+
+  ```
+  // Catching query params
+  this.router.queryParams.subscribe(res=>{
+    console.log("Query Params",res)
+  })
+  ```
+- **Getting Fragment String :-**
+
+  ```
+  // Catching fragment
+  this.router.fragment.subscribe(res=>console.log("Fragment   =>",res))
+  ``` 
 
 ### Module and Routing Recap
 
@@ -1164,6 +1330,84 @@ Hence And we can use the routes defined in **module.routing.ts** file in app com
 
 **Why we need Group Routing** : If we have 2 modules and we have same components in the both then it will problematic while routing the same component soo we need the group routing in which with routes we pass the module as well with it soo it looks like **admin/login** and **User/login**.
 
+### Routing Guards
+
+- **Routing Enter Guards :-**
+
+  As an example Routing Guards which checks something before routing to page, if it will be true it will route the page and it not it will not route to the page and can route to the route we mentinoed.
+
+  - **Routing Enter Guard For Parent Component :-** 
+  
+    For Auth Guard we need to create the service `auth-guard.service.ts` in which we can implement `onActive(){}` method for activation for that route or not.
+
+    Ex : If we want to route for some route if only user logged in.
+
+    ```
+    // auth-guard.service.ts
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
+        let loggedIn = false;
+        if(loggedIn){
+          return true
+        }
+        else{
+          this.router.navigate(['/404'])
+        }
+      }
+
+    // For Which Route we need to use
+    {
+        path:'test-home',
+        component:TestHomeComponent,
+        canActivate:[AuthGuardService]
+      }
+    ```
+
+  - **Routing Enter Guard For Child Component :-**
+
+    With the Auth guard for child component the user can acess the parent compoenent but cannot acess the child compoenents without authentication soo we can do that with the help of `canActivateChild()` in the auth service.
+    
+    ```
+    // Auth Guard Service code
+      canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot):any{
+        if(this.loggedIn){
+          return true
+        }
+        else{
+          this.router.navigate(['/404'])
+        }
+      }
+
+    // For which route we need to use
+      {
+        path:'form',
+        component:FormComponent,
+        children:[
+          {
+            path:'reactive-form',
+            component:ReactiveFormComponent
+          }
+        ],
+        canActivateChild:[AuthGuardService]
+      },
+    ```
+- **Routing Leave Guards :-**
+
+  Routing Deactivating guards can be used to prevent routing back or preventing to route to different route before performing some oprations and force the user to stay over there it self.
+
+  - **canDeactivate() :-**
+
+  - **canDeactivateChild() :-**
+
+-----------------------Remaining-----------------------------
+
+### Resolver Guard in Angular Routing
+
+Resolver is the thing in the angular routing in which if we want to get the data from api and then only need to render the component then we can use the `resolver()` in `resolver.service.ts`.
+
+Ex : If we want to load the edit page only after getting the data from the api and binding with the form then only.
+
+-----------------------Remaining-----------------------------
+
 
 ### Lazy Loading in Angular (Module)
   
@@ -1194,6 +1438,13 @@ Hence And we can use the routes defined in **module.routing.ts** file in app com
 
   **<u>In the lazy loading we dont need to use the group routing like we dont need to pass the components as the childern as like group routing...We can directly pass them weather if it will be same name but we already going to rule that things in app.module.ts while lazy loading modules with the help of loadchildern function.</u>**
 
+### Lazy Loading of services
+
+We cannot directly lazy load the services but initially we are importing core module in `app.module.ts` itself which executes everything in the first run itself.
+
+But we can lazy load the services,directives, pipes and all the things by importing `core module` in the different different feature modules soo the core module only be loaded when the module gets lazy loaded.
+
+
 ### Lazy Loading of Component
 
 When we have multiple components in our angular application we there is no need of loading all the components at the first load soo it can consume your time and more render time sooo for code optimization and faster response and render time we use Lazy loading in components.
@@ -1220,6 +1471,276 @@ this.vcr.createComponent(
 ```
 - Thats how we created the component on the button click.
 
+
+
+
+### Service in Angular
+
+Service are the classes in which data,functions and class can be there and we can use or share the same data or functions in multiple components its called as service.
+
+If we want to use the function,or the same data in multiple components rather than declaring in each and every file we can create service and we can import it in mutiple files and components.
+
+**Best practice of data and functions transfer in angular is service.**
+
+- We can create service by commmand :
+
+  **`ng g service services/userData`**
+
+- We get the 2 files only **service.ts** and **service.spec.ts.**
+
+- We need to define the data or function  like mentioned below.
+  ```
+  // Function which returns the array of objects containing data.
+
+  userData(){
+    return [
+      {name:'shiv',age:'21',email:'shiv@test.com'},
+      {name:'swapnali',age:'19',email:'swapa@test.com'},
+      {name:'shru',age:'20',email:'shru@test.com'},
+      {name:'sanj',age:'22',email:'sanj@test.com'}
+    ]
+  }
+  ```
+  - Then we need to import that service in **component.ts** file and intialize it in constructor as like mentioned below.
+
+  ```
+  // Importing service in component.ts
+  import { UserDataService } from './services/user-data.service';
+
+  // Initializing it in constructor
+  constructor(private users:UserDataService){
+      console.warn(users.userData())
+      this.usersArray=users.userData();
+  }
+  ```
+  we have assigned that data to an array and we can display that array on the screen by running for loop on it.
+
+  - Finally If we want to use that service in multiple components we need to follow this same process in those components.
+
+### HTTP Client and api integraion
+
+With the help of http client we can integrate the api's in out application.
+
+- **Get data from API and display**
+
+  As we know angular cannot directly connect to databse soo we interact with API.
+
+  - First create service in services folder.
+
+  - First we need to import **HttpClient** and **HttpClientsModule** in **service.ts** and **module.ts**.
+
+    **`import {HttpClient} from '@angular/common/http'`**
+
+    **`import { HttpClientModule } from '@angular/common/http';`**
+
+  - Initialize **HttpClient** it in the constructor of **service.ts**.
+    **`constructor(private http:HttpClient) {}`**
+
+  - **Call the get function of http with the server link as like mentioned below.**
+  **`this.http.get(this.url)`**
+
+  - Import the service in **component.ts** file and intialize it as well as like mentioned below.
+  **`constructor(private userData:UsersDataService){}`**
+
+  - **How to Fetch the data from the service Now?**
+    - Call the component.ts(Initializer).service.ts(Initializer).subscribe(()=>{
+      console.warn(data)
+    }) as like mentioned below :
+
+    ```
+    users:any;
+    constructor(private userData:UsersDataService){
+    userData.users().subscribe((data)=>{
+      this.users=data
+      console.warn("users Data is =>",this.users)
+    })
+    ```
+
+- **Post the Data to API**
+
+ - First create service in services folder.
+
+  - First we need to import **HttpClient** and **HttpClientsModule** in **service.ts** and **module.ts**.
+
+    **`import {HttpClient} from '@angular/common/http'`**
+
+    **`import { HttpClientModule } from '@angular/common/http';`**
+
+  - Initialize **HttpClient** it in the constructor of **service.ts**.
+    **`constructor(private http:HttpClient) {}`**
+
+  - **Call the post function of http with the server link as like mentioned below.**
+  **`this.http.post(this.url)`**
+
+  - Import the service in **component.ts** file and intialize it as well as like mentioned below.
+  **`constructor(private userData:UsersDataService){}`**
+
+  - **How to Post the data from the service Now?**
+    - Call the component.ts(Initializer).service.ts(Initializer).subscribe(()=>{
+      console.warn(data)
+    }) as like mentioned below and :
+
+    ```
+    users:any;
+    constructor(private userData:UsersDataService){
+    userData.users().subscribe((data)=>{
+      this.users=data
+      console.warn("users Data is =>",this.users)
+    })
+
+    // Make the post data function and make call to addUser function which is made in service.ts
+
+    postData(item:userType){
+    console.log(item)
+    this.userData.addUser(item).subscribe((result)=>{
+      console.log(result)
+    })
+    ```
+### HTTP Headers
+
+We can add the http headers which will holds the api configration in which we can put `application/json` and auth key and all the things in the http headers.
+
+**Last arguement of the any http call will be the http headers and it will hold and objects of key value pair.**
+
+```
+  //POST
+  public post(url:any, data:any) {
+    
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'authorization': "vvv"
+        }),
+      };
+      console.log(url);
+      return this.http.post(url, data, httpOptions);
+  }
+```
+
+### Query Params in http requests
+
+Normally we add the query params in the http url's for the purpose of the search and page size for the paginatio and other all userfull things.
+
+We can add the params in the same object of configuration which we pass as the last arguement in the request with the key `params: new HttpParams().set('search','shiv')` .
+
+**How to add the multiple params in call :-**
+
+By the above mentioned method we can add only one param, for applying multiple params we can create an variable for the params and we can append the params to that variable as like mentioned below.
+
+```
+let params = new HttpParams()
+params.append('search','shiv')
+params.append('pageSize','10')
+
+const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'authorization': "vvv"
+        }),
+        params:params
+};
+
+return this.http.post(url, data, httpOptions);
+```
+
+### Observe in http requests
+
+In the http requests some backend like firebase and some others does not return the whole response they just return the body soo in the terms of getting whole response we can use the `observe:'reponse'` then we can get the whole response object.
+```
+let params = new HttpParams()
+params.append('search','shiv')
+params.append('pageSize','10')
+
+const httpOptions = {
+  observe:'respone' | 'events' | 'body'
+};
+
+return this.http.post(url, data, httpOptions);
+```
+### HTTP_INTERCEPTERS 
+
+For the sake of providing the headers to the http requests we need to delcare the header in the each and every function in the service soo it will be lenthy for us.
+
+So rather than doing every time we can create `http intercepter service` which will be called before every http request call and we can manipulate headers, body, url and everything over there.
+
+**Creating http intercepter service :-**
+
+- `ng g interceptor name` This command will create interceptor service.
+
+**Declration of interceptor service in module.ts :-**
+
+- We need to create an object in the providers in `module.ts` as like mentioend below.
+```
+providers:[
+{
+  provide:HTTP_INTERCEPTOR,
+  useClass:header,
+  multi:true
+}
+]
+```
+
+### Manipulating Request Object with HTTP_INTERCEPTOR
+
+While manipulating the request object in interceptors we can directly manipulate the request object directly like `req.url = 'something'` for that we need to make another instance with `req.clone({manipulations})` and inside that we can do our manipulations.
+
+```
+
+intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    console.log("HTTP INTERCEPTOR CALLED...")
+    let modified = request.clone({
+      headers:request.headers.append('custom-header','shiv'),
+    })
+    return next.handle(modified);
+}
+
+```
+
+### Dealing with auth_token
+
+In almost all the applications we need to build the login functionality in which after login request we will get the authToken for the user and further we need to preserve that `userToken` and pass it to the all api's.
+
+- **Storing Auth Token :-**
+
+  - We can create a service for getting the auth token, setting the auth token and updating the auth token and clearing the localstorage.
+
+  - We can store the auth token in localstorage with the help of service.
+
+- **Passing auth token to apis :-**
+
+  We can pass the auth token to all the apis with the help of `http-header-intercepter` and we need to prevent the thing for the login and api with the help of conditions.
+  
+- **Already Login :-**  
+
+  We can develop auto login functionality by checking the auth token in the localstorage and routing the user to the home page.
+
+- **Auto Logout :-**  
+
+  We can develop the auto logout functionality which will call the logout method at the auth token expiration time.
+
+- **Preventing Routes With Auth Token :-**
+
+  We can check the auth token in the auth guard service and if it will be true return `true` else `false`.
+
+
+
+
+### Model (Interface) in Angular
+
+Model is nothing but the **Interface** to define the datatype of an object.
+
+We can create the file for the interface and we can define the model/interface in the file like menioned below : 
+```
+// This is the feature of typescript
+export interface userType{
+    name:string,
+    age:number,
+    email:string,
+    id:number
+}
+```
+
+After initializing the interface we can use it anywhere in the application by just simply importing **import { userType } from './userType';** interface like this.
 
 
 ### Automation testing in Angular
@@ -1259,53 +1780,6 @@ this.vcr.createComponent(
 ---
 
 
-### Query Paramerters 
-
-Query parameter is the thing with which we can send the data in the url and we can get that data in that component.
-
-**Query params with activated route :-**
-
-**We dont need to do anything with its route in routing module.ts file.**
-
-- we can pass query parameter as like mentioend below : 
-```
-import {Router} '@angular/core'
-constructor(public router:Router){
-
-}
-
-navWithQueryParams(wishId:any,eveId:any){
-   this.router.navigate([`/contribution-details`],{queryParams:{eveId:eveId,wishId:wishId}})
-}
-```
-
-- We can get the data as like mentioned below : 
-```
-import {ActivatedRoute} from '@angular/core'
-
-constuctor(public currentRoute : ActivatedRoute){
-
-}
-
-getParamData(){
-  this.currentRoute.params.subscribe((res)=>{
-    console.log(res)
-  })
-}
-```
-
-**QueryParamsHandeling :-**
-
-In angular when the route gets changes the all parameters will be lost soo we can preserve them with `queryParamsHandling:preseve` and We can merge with dynamic routing with `queryParamsHandling:merge`.
-```
-goUsers() {
-  this.router.navigate(['/users'],
-    {
-      queryParams: { filter: 'new' },
-      queryParamsHandling: 'merge' }
-    );
-}
-```
 
 ### MatInput type number maxlength functonality
 
@@ -1415,13 +1889,6 @@ Steps :-
 
 **Validations :-**
 
-
-### Angular LifeCycle Hooks
-
-There is a lifecycle of every service, component, directive and all in the angular app while compilation and with the lifecycle hooks we can manage the inputs and outputs and we can inhance the performance of the app.
-
-
-
 ### File Reader in Angular
 
 We can read the files in the angular with the help of `FileReader()` api with javascript as like mentioned below.
@@ -1434,24 +1901,281 @@ We can read the files in the angular with the help of `FileReader()` api with ja
   - onload(fileObj) - Calls when reader completes the reading file.
   - onerror(fileObj) - Calls when reader get some error.
 
+- call the method below like `file.readAsText()` and in the onload function your readed value will be assigned to the variable.
+
+ex : 
+```
+readFile(file:any){
+  let reader = new FileReader()
+  let result;
+  reader.onload((res)=>{
+    result = res;
+  })
+  
+  reader.onerror((e)=>{
+    console.log("Error occured while reading file =>",e)
+  })
+
+  reader.readAsText(file)
+}
+```
+
+### Send HTML data to child component
+
+In angular we can send html data as well to the child component with the help of `<ng-content>` which will tells the component, the html written in between the component tag will be shown in the child component.
+
+```
+// Parent Component
+<app-user>
+<p>This is the HTML written in Parent Component.</p>
+</app-user>
 
 
+// Child Component
+<ng-content></<ng-content>
+```
+
+### Angular LifeCycle Hooks
+
+There is a lifecycle of every service, component, directive and all in the angular app while compilation and with the lifecycle hooks we can manage the inputs and outputs and we can inhance the performance of the app.
+
+**Total LifeCycle Hooks in angular :-**
+
+- `ngOnChanges() :-`
+
+  This lifecycle hooks called when any `@input() property:any ` changes.
+
+  ex : 
+
+  If we want to reset the form only on the sucess of insertion in db then by default we can pass false and after insertion in the db we can turn that value into true and whenever that input property will be changed the `ngOnChanges(){this.loginForm.reset()}` and we can reset the form.
+ 
+
+- `ngOnInit() :-`
+
+  This lifecycle hook get called when its property and methods get initialized.
+
+  ex : 
+  If we want to call an api while loading the components then we can call it in `ngOnInit()` soo when the component gets initialize the api gets called.
+
+- `ngDoCheck() :-`
+
+  This lifecycle hook get called after every change in the component like button click and all the actions and property changes.
+
+  ex : 
+  if we have clicked any button or changed any variable value and all.
+
+- `ngAfterContentInit() :-`
+
+  This lifecycle hook get called when `<ng-content>`'s content get initialized in component.
+
+  ex : 
+  It calls only once when the component's content initialized.
+
+- `ngAfterContentChecked() :-`
+
+  This lifecycle hook get called when `<ng-content>`'s content get checked.
+
+  ex : 
+  if we have clicked any button or changed any variable value and all.
+
+- `ngAfterViewInit() :-`
+
+  This lifecycle hook get called when components view get initialized.
+
+  ex : 
+  It calls only once when the component's view initialized.
+
+- `ngAfterViewChecked() :-`
+
+  This lifecycle hook get called when the content is checked.
+
+  ex : 
+  if we have clicked any button or changed any variable value and all.
+
+- `ngOnDestroy() :-`
+  
+  This lifecycle hook get called before component is getting removed from the view.
+
+  ex : 
+  If we want to reset all the values of the component before destroying the component.
 
 
+### Acessing HTML Element in .ts file
+
+We can acess the html element in the ts file by 2 ways.
+
+First we need to give an template refrence variable to the html element.
+
+**Acessing the HTML element in ts file :-**
+
+- Passing element's refrence in function.
+
+- @ViewChild('refrence') pager : ElementRef.
+
+In angular we should not use `document.getElementById('')` it may cause not natural behaviour soo viewchild is the alternate of the same.
+
+### Acessing HTML Element where we used `<ng-content>`
+
+We cant use the `@viewChild()` for the `ng-content` bcoz the html does not exist in the pages html, and its resting in parent component in between component tags soo we can acess the `<ng-content>` html element in the `component.ts` with the help of 
+
+- **@ContentChild('') user:any** 
+
+### Advance Custom Directives (Renderer2 & @HostBinding())
+
+In angular we can create custom directives in which previously we used to change the styling like `element.nativeElement.style.color = "red"` but we are doing this with the help of the javascript which can cause unexpected errors.
+
+- **renderer2 :-**
+
+  Soo for that we can use the `renderer2` for the custom directive which will not manipulate the html elemnt instead it will render the elements.
+
+  ex : 
+  ```
+  constructor(private element:ElementRef, private renderer:Renderer2) { 
+      this.renderer.setStyle(element.nativeElement,'color','red')
+    }
+  ```
+- **@HostBinding :-**
+
+  With the help of `@HostBinding('property') var:type` we can create the variable of the target style.
+
+  Rather than `this.renderer.setStyle(element.nativeElement,'color','red')` we can shorten it and bind it to variable as like mentoined below.
+
+  ```
+  @HostBinding('style.backgroundColor') color:string;
+   constructor(private element:ElementRef, private renderer:Renderer2) { 
+    }
+
+  @HostListner('onhover') onmouseover(event:Event){
+    this.color = 'red'
+  }
+  ```
+
+The above mentioned code we have binded the property to the variable and we just providing the value to the variable.
 
 
+### Directive oprations on the events (@HostListner())
+
+On the html element on which we are using the custom directive, if we want to do the oprations on the specific events like mouseover, mouseout and all we can do that with the help of `@HostListner('name') event(event:Event){opration}` like mentiond below.
+
+Ex : If we want to change the background color on the mouse over it would be like mentioned below.
+
+```
+@HostListner('onhover') onmouseover(event:Event){
+  this.renderer.setStyle(
+    element.nativeElement,'color','red'
+  )
+}
+```
+
+### Sending Data to Directives
+
+We can send the data to the directives as well with the help of `@input()` decorator and with the alias as well.
+
+Ex : 
+If we want to pass the colors for the events as input from the parent component it will like mentioned below.
+
+```
+@Input() defaultColor:string;
+@Input() highlightColor:string;
+
+@HostBinding('style.backgroundColor') color:string;
+@HostListner('onhover') onmouseover(event:Event){
+  this.color = highlightColor
+}
+@HostListner('onleave') onmouseleave(event:Event){
+  this.renderer.setStyle(
+    this.color = defaultColor
+  )
+}
+
+// Parent Component without Alias
+<div appRedEl [defaultColor]="'red'" [highlightColor]="'purple'">This needs to be highlightedM</div>
+
+// With Alias (@Input(directiveName) defaultColor:string;)
+<div [appRedEl]="'red'" [highlightColor]="'purple'">This needs to be highlightedM</div>
+
+```
+
+### Subject in angular
+
+Subject is used for cross component data communication in between components.
+
+Subjects return an observable which can holds the data and calls everytime whenever anything change happens in the data and return the data.
+
+- **Declaration :-** `update = new Subject();`
+
+- **How to pass the data :-** `update.next(data)`
+
+- **How to Catch the data :-** By subsribing it and the code inside it will executed after every change.
+```
+ ngOnInit() {
+    this.todoService.update.subscribe((status)=>{
+      console.log("Todo List Status in App.Component.ts =>",status)
+    })
+  }     
+```
+We can subscribe it in the `ngOnInit()` and it will executed after every change in the data.
+
+### Enviornment Profiling
+
+With the help of enviornment profiling we can create various enviornments for qa, dev, local, stage, and the prod like all.
+
+And the thing while testing which we need to do like we need to change the api urls soo it will be very difficult for us to do the again again soo...
+
+We have profiling in which we create various enviornment and its files with its different base urls and all.
+
+**Steps for the profiling :-**
+
+- Create individual files for the qa, dev, local and all like `enviornment.dev.ts`, '`enviornment.qa.ts`.
+
+- Change the keys and value against it like base url and all the things in the different different files.
+
+- Add the configurations in the `angular.json` under `build and serve`=>configurations=>and the whole object for the enviornments and add the new object with `replace with` files with the respective enviornments in that as like mentioned below.
+
+```
+"local": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ]
+            },
+```
+
+- While serving and building the applications add `--configuration=qa` soo the angular will build the application with the respective files.
 
 
+### Modules Loading Strategies
 
+- **Eager Loading :-**
 
+  Eager loading is the by default module loading option in which all modules will be loaded before starting the applications.
 
+- **Lazy Loading :-**
 
+  As we seen lazy loading module when the user navigates to its corresponding route the module will be downloaded on the client machine.
 
+  But it have an downside where user needs to wait till the download of the module when navigated to that route.
 
+- **Pre Loading (Eager Lazy Loading) :-**
 
+  In the preloading concept the only required and eagerly loading modules will be loaded only at the initialization of the application and the other modules will be loaded silently at the background which was loading only on that routes in the lazy loading.
 
+  Soo only appmodule and required module will be loaded first and other all the modules will be loaded silently at the background.
 
+  **How to enable preloading :-**
+  
+  As its combination of eager and lazy loading it will load the lazy loaded modules in the background soo firstly we need to lazy load the required modules expecting the modules we going to need initially.
 
+  - Lazy load the required modules.
 
+  - Then in the `RouterModule.forRoot(appRoutes)` add the configuration object further in the `app-routing.module.ts` as like mentioned below.
 
+  ```
+  imports:[
+    RouterModule.forRoot(appRoutes, {preLoadingStrategy : PreloadAllModules})
+  ]
+  ```
 
+  Above code will preload the lazy load modules silently in background.
