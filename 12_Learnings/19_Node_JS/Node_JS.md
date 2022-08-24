@@ -374,19 +374,271 @@ Genrally Express simplifies our work.
     
     ```
 
+### Send File without extension with express
+
+Above as we mentioned with the help of `express.static(dirname)` we needed to use the filenames with extensions soo, as its not a good practice we can hendle the thing with the help of `app.sendFile(path/filename)` as like mentioned below.
+
+```
+const express = require('express')
+const app = express()
+
+let dataDir = path.join(__dirname,'data/')
+
+app.get('/data',(req,res)=>{
+    res.sendFile(`${dataDir}/data.js`)
+})
+// app.use(express.static(dataDir))
+
+app.listen(4800)
+```
+
+### 404 routing in expressJs
+
+404 page is the page which appears on the hitting of invalid url and that can be done by mentioning `app.get('*',(req,res)=>{})`.
+
+This will Route to the page or the response which we have sent on the 404 page.
+
+```
+const express = require('express')
+const app = express()
+
+ app.get('*',(req,res)=>{
+        res.send('Invalid URL')
+    })
+```
+
+### Middleware in expressJs (Global - For all Routes)
+
+Middle ware is the intermediator of browser and the server which process the things as per the requirement before fullfilling the response like checking age, uesr login and all.
+
+Middle ware is the function with the 3 params, `(req,res,next)` in which `req, and res` are request and response as usual and `next()` proceeds the request.
+
+```
+  const ageFilter = (req,res,next)=>{
+        if(req.query.age==undefined){
+            res.send("Please provide your age.")
+        }
+        else if(req.query.age<18){
+            res.send('You Cannot acess this url, as your age is not 18+.')
+        }
+        else{
+            next()
+        }
+    }
+    app.use(ageFilter)
+```
+
+### Route Level Middleware
+
+Route level middleware is where we apply middlewares for the perticular routes only and it will not be applied as global middleware.
+
+For creating the route level middleware we need to pass the middlewear in the routes as an arguement after route defination and before callback.
+
+
+```
+const ageFilter = (req,res,next)=>{
+    if(req.query.age==undefined){
+        res.send("Please provide your age.")
+    }
+    else if(req.query.age<18){
+        res.send('You Cannot acess this url, as your age is not 18+.')
+    }
+    else{
+        next()
+    }
+}
+ app.get('/data',filter,(req,res)=>{
+        res.sendFile(`${dataDir}/data.js`)
+      
+    })
+
+```
+We can create the middlewares in the another directory as well, we need to import `const filter = require('./Middlewares/Filters')` and export the middlewear from the file with the help of `module.exports = ageFilter`.
+
+### Middleware for group of routes.
+
+We can't apply the middlewear for the every route soo we need to group the route and we need to apply the middlewear for the route group.
+
+**How to create group routes :-**
+
+- create the router with `const router = express.Router()` which can be used for grouping of routes.
+
+- create the routes with the help of `router.get(path,callback)` rahter than `app.get(path,callback)`.
+
+- use the middleware for the custom router like `router.use(middleware)` it will apply the middleware to the defined routes with it.
+
+- use the router for the app soo it can recognize the routes made with router. `app.use('/',router)`. 
+
+The above step will apply the middleware for the group routes only which are created by the router itself.
 
 
 
+### MongoDb
+
+MongoDb is the NOSQL database in which the data is stored in the format of objects and not in rows and columns.
+
+There are no tables in the mongoDb rather than it have collections which are act as the tables in the mongoDb.
 
 
+### MongoDb compass
+
+MongoDb compass is the gui tool for the mongoDb as like php myadmin form which we can manipulate the databases, collections and all.
+
+**MongoDb Command Line (Basic Commands) :-**
+
+- `show dbs :-` It will list down the all the databases.
+
+- `use database_name :-` It will use the database.
+
+- `db.createCollection('name') :-` It will create collection with name.
+
+- `db.collection_name.drop() :-` It will drop collection.
+
+- `db.dropDatabase() :-` It will drop database.
 
 
+### CRUD in MongoDb CLI
+
+**CRUD through commandline :-**
+
+- `db.collection_name.insertOne(obj) :-` 
+    
+    It will insert data in the form of object in collection.
+
+- `db.collection_name.find() :-` 
+
+    It will list down the data in the collection.
+
+- `db.collection_name.updateOne({name:'mohan'},{$set:{brand:'Oppo'}}) :-`
+
+    This will update the entry where name will be mohan and updates the brand or inserts a key value if key does not exists.
+
+- `db.collection_name.deleteOne({name:'shiv'}) :-`  
+
+    This will delete the entry where name will be shiv.
+
+### CRUD in NodeJs wiht MongoDb
+
+For connecting the mongoDb with nodeJs we need to install `npm i mongodb` which is official driver of the mongoDbl.
+
+**Steps to connection and getting data :-**
+
+- First import `mongoClient` like `const {MongoClient} = require('mongodb')`.
+
+- Create config variables as like mentioned below.
+
+    ```
+    const {MongoClient} = require('mongodb');
+    const url = 'mongodb://localhost:27017';
+    const db_name = 'Users'
+    const collection = 'Users_data'
+
+    const client = new MongoClient(url)
+    ```
+
+- Create Function for the connection in which tell the mongo client about the dbname and collection as like mentioned below and use the mongo Methods on the `col_obj` as like mentioned below.
+
+    ```
+    // Config
+    const {MongoClient} = require('mongodb');
+    const url = 'mongodb://localhost:27017';
+    const db_name = 'Users'
+    const collection = 'Users_data'
+    const client = new MongoClient(url)
+
+    // Connection and get Data Function
+    async function connect() {
+        let connection = await client.connect()
+        // console.log("Connection =>",connection)
+
+        let db = connection.db(db_name)
+        let col_obj = db.collection(collection)
+        let data = await col_obj.find().toArray();
+        console.log("Data =>",data)
+    }
+    
+    // It will return the array of objects in which data will be stored.
+    connect() 
+    ```
+
+In the above process, when we want to get the data from mongo we need to convert the resolve promise into array. like `let data = await col_obj.find().toArray();`.
 
 
+### DB Config File and Calling function in another files
+
+- First create seprate file for database configuration and return the `collection` like mentioned below and weather if it will be function but pass it as variable at the `module.exports = connect`.
+
+    ```
+        const {MongoClient} = require('mongodb');
+        const url = 'mongodb://localhost:27017';
+        const db_name = 'Users'
+        const collection = 'Users_data'
+
+        const client = new MongoClient(url)
+        // let col_obj;
+
+        async function connect() {
+            let connection = await client.connect()
+            // console.log("Connection =>",connection)
+
+            let db = connection.db(db_name)
+            let col_obj = db.collection(collection)
+            return col_obj
+        }
+
+        module.exports = connect
+    ```
+- Import `dbConnection` in the another file like `const connection = require('./db/mongoConfig')`.
+
+- Create the Get Data Function in which call the connection first and use the `await` bcoz it's async function return and which returns the promise.
+`let dbObj =  await connection()`.
 
 
+- And Now we can use the all the collection methods on the dbOnj variable liek get and all as like mentioned below.
+
+    ```
+    const connection = require('./db/mongoConfig')
+
+    async function getData() {
+        let dbObj =  await connection()
+        let data = await dbObj.find().toArray();
+        console.log("Data =>",data)
+    }
+    getData()
+
+    ```
 
 
+### Insert Opration in mongo In nodeJs
+
+Nothing special for the insert opration, same we need to import the connection and we need call it asynchronusly and we need to call the `.insert({name:'shiv'})` for the single insertion and `.insert([{name:'shiv'},{name:'Sai'}])` for the batch insertion.
+
+
+```
+    // For single insertion
+    async function insert(){
+        let dbObj =  await connection()
+
+        let inesrted = await dbObj.insertOne({name:'shiv2'})
+        console.log("Inserted result =>",inesrted)
+    }
+
+    insert()
+
+    // For batch insertion
+    async function batch_insert(){
+        let dbObj =  await connection()
+
+        let inesrted = aw dbObj.insertOne([{name:'shiv2'},{name:'sai2'}])
+        console.log("Inserted result =>",inesrted)
+    }
+
+    batch_insert()
+```
+
+### Update Opration in mongoDb in nodeJs
+
+### Delete Opration in mongoDb in nodeJs
 
 
 
