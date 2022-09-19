@@ -479,6 +479,16 @@ MongoDb is the NOSQL database in which the data is stored in the format of objec
 
 There are no tables in the mongoDb rather than it have collections which are act as the tables in the mongoDb.
 
+**Basic Commands for ubuntu :-**
+
+- **To start the server :-** `sudo service mongod start`
+
+- **To Stop the server :-** `sudo service mongod stop`
+
+- **To restart the server :-** `sudo service monogod restart`
+
+- **To check the status :-** `sudo service mongod status`
+
 
 ### MongoDb compass
 
@@ -517,7 +527,7 @@ MongoDb compass is the gui tool for the mongoDb as like php myadmin form which w
 
     This will delete the entry where name will be shiv.
 
-### CRUD in NodeJs wiht MongoDb
+### CRUD in NodeJs with MongoDb
 
 For connecting the mongoDb with nodeJs we need to install `npm i mongodb` which is official driver of the mongoDbl.
 
@@ -636,10 +646,474 @@ Nothing special for the insert opration, same we need to import the connection a
     batch_insert()
 ```
 
+
+
 ### Update Opration in mongoDb in nodeJs
+
+For the update opration in mongodb through nodejs is done with the help of `dbObj.updateOne({property:'value'},{$set:{proprty:value}})` which checks for the existing proerty and updates the value and if property is no exists will update the property with the provided value.
+
+```
+// Update
+async function update(){
+    let dbObj = await connection()
+    let update = await   dbObj.updateOne({name:'shiv1'},{$set:{name:'First Shiv'}})
+    console.log("Update Result =>",update)
+}
+update()
+```
 
 ### Delete Opration in mongoDb in nodeJs
 
+Delete opration in mongodb through nodejs is done with `dbObj.deleteOne({name:'shiv5'})`.
+
+```
+// Delete 
+async function deleteSingle(){
+    let dbObj = await connection()
+    let deleteSingle = await dbObj.deleteOne({name:'shiv5'})
+    console.log("Deleted Response =>",deleteSingle)
+}
+deleteSingle()
+```
+
+### Get Api with mongoDb
+
+We need to make connection in the get function and we need to get the data with the method `find().toArray()` and we need to send the data as response like `res.send(data)` as like mentioned below.
+
+```
+    app.get('/data',async (req,res)=>{
+        let dbObj = await connection()
+        let data = await dbObj.find().toArray()
+        console.log("Data Fetched =>",data)
+        res.send(data)
+    })
+```
+
+### Post Api with mongoDb
+
+For posting the data most importantly we need to acess the `request.body` and for that we need to use `app.use(express.json())` with the help of this we can acess the body of the request.
+
+And we need to pass the body data to the `insert` function like `dbObj.insert(reqData)` and further as like mentioned below.
+
+```
+// Acessing request body
+    app.use(express.json());
+
+// Post
+    app.post('/user',async (req,resp)=>{
+        let dbObj = connection()
+        let reqData = req.body
+        console.log("Data Recieved in Post=>",reqData)
+        let insert = (await dbObj).insertOne(reqData)
+        resp.send(reqData)
+
+    })
+```
+
+### Put api with mongoDb
+
+For Update api with mongoDb most importantly we need to grab the property and its value from the request.
+
+syntax : `dbObj.updateOne(conditionalObj,{$set:valueObj})`
+
+**Conditional :-** 
+    
+`app.put('/user/:name',callback)`  name will be property of params obj.
+
+`/user/Abhishek` Abhishek will be the value of the name property like `{name:'Abhishek'}`.
+
+**How to acess conditional obj :-**
+
+- `let propertyToUpdate = req.params` This will return an obj `{name:"Abhishek"}` which we can put as the conditional obj in the update Query.
+
+
+- `let dataToUpdate = req.body` This will return the body object as we passed to the body as same as post.
+
+**Update Query dynamic :-**
+
+```
+let update = await dbObj.updateOne(propertyToUpdate,{$set:{...dataToUpdate}})
+```
+
+Whole update function is like mentioned below.
+
+```
+//To acess the request body
+    app.use(express.json());
+
+// Whole update function
+    app.put('/user/:name',async (req,resp)=>{
+        let dbObj = await connection()
+
+        let propertyToUpdate = req.params
+
+        let dataToUpdate = req.body
+
+        console.log("Query Params =>",propertyToUpdate)
+
+        console.log("Data to update =>",dataToUpdate)
+
+        let update = await dbObj.updateOne(propertyToUpdate,{$set:{...dataToUpdate}})
+
+        console.log("Data Updated Resopnse =>",update)
+
+        resp.send(dataToUpdate)
+    })
+```
+
+### Delete Api with mongoDb
+
+In Delete api if we want to delete the data based on the id, 
+
+**In mongoDb id is not only string, its mongodb.ObjectId and we need to convert our id in to the same with `new mongo.ObjectId(req.params.id)`.**
+
+We can delete the object with the query ` let deleting = await dbObj.deleteOne({_id:new mongo.ObjectId(req.params.id)}).`
+
+All the code is mentioned below for the delete.
+
+```
+// Delete
+   app.delete('/user/:id',async (req,resp)=>{
+        
+        console.log("Params =>",req.params.id)
+        let condition = {
+            _id:new mongo.ObjectId(req.params.id)
+        }
+        resp.send(condition)
+
+        // deleting
+        let dbObj = await connection()
+        let deleting = await dbObj.deleteOne(condition)
+        
+        console.log("Condition For delete =>",condition)
+        console.log("Deleted")
+    })
+```
+
+### Mongoose and db Connection in mongoose
+
+Mongoose is also a npm package to connect nodejs with mongodb with some advance features like validations, models, interfaces and all.
+
+**How to connect with db with mongoose :-**
+
+- import mongoose `const mongoose = require('mongoose')`
+
+- then connect with the db with `mongoose.connect(url)`.
+
+### Mongoose Model and Schema
+
+Mongoose have advance functionalities like model and schema which helps us to create interfaces and restrict the data in the format.
+
+- **Schema :-**
+
+    We create schema in the mongoose with the help of `mongoose.schema(schemaObj,collectionObj)` as like mentioned below.
+
+    ```
+    const userSchema = new mongoose.Schema({
+    name:String
+    },
+    {
+        collection:'Users_data'
+    })
+    ```
+
+- **Model :-**
+
+    We create a model which can be used for the further all oprations with the help of collection name and schema as like mentioned below.
+
+    ```
+    let userModel = mongoose.model('Users_data',userSchema)
+
+    // For creating new user
+    let user = new userModel({name:'Mongoose',age:18})
+    let result = await user.save()
+    console.log("Result =>",result)
+    ```
+
+### Crud with mongoose
+
+In the mongoose earlier as we used to get the dbObj instance of `connection()` here we need to create model in every function get, put, post, delete.
+
+First we need prepare userSchema and make connection as like mentioned below.
+
+```
+const mongoose = require('mongoose')
+
+//Schema
+const userSchema = new mongoose.Schema({
+    name:String
+},{
+    collection:'Users_data'
+})
+
+// Connection
+const url = 'mongodb://localhost:27017/Users';
+mongoose.connect(url)
+
+// Model
+const User = mongoose.model('Users_data',userSchema)
+```
+
+- **get :-**
+
+    For fetching all the data from the db as normal we need to call the `Model.find()` method asynchronusly with await as like mentioned below.
+    
+    ```
+    // Get
+    async function getAllData(){
+    let User = mongoose.model('Users_data',userSchema)
+
+    let data = await User.find()
+    console.log("All Data Fetched =>",data.length)
+    }
+
+    getAllData()
+    ```
+- **insert :-**
+
+    For inserting the data into db we need to pass the data to `new Model(data)` as like mentioned below.
+
+    ```
+    // Insert
+
+    async function insert(){
+    let user = new User({name:'Mongoose',age:18})
+    let result = await user.save()
+    console.log("Result =>",result)
+    }
+    insert()
+    ```
+
+- **update :-**
+
+    For updating the record we need to use the 
+    `Model.updateOne(conditionalObj,{$set:valueObj})` same as before.
+
+    ```
+    async function update(){
+    let update = await User.updateOne({name:'Mongoose'},{$set:{name:'Mongo DB'}})
+    console.log("User updated =>",update)
+    }
+
+    update()
+    ```
+
+- **delete :-**
+
+    For deleting the record we need to use the `Model.deleteOne(conditionalObj)` same as before, as like mentioned below.
+
+    ```
+    async function deleteOne(){
+    let deleting = await User.deleteOne({name:'Mongo DB'})
+
+    console.log("Deleting Mongo DB =>",deleting)
+    }
+
+    deleteOne()
+    ```
+### Crud Api's mongoose
+
+First we need to connect with the mongoDb with mongoose with `mongoose.connect(url)` and we need to create schema and model as like mentioned below.
+```
+const userSchema = new mongoose.Schema({
+    name:String
+},{
+    collection:'Users_data'
+})
+const url = 'mongodb://localhost:27017/Users';
+mongoose.connect(url)
+
+var User = mongoose.model('Users_data',userSchema)
+```
+
+After connection we need to create the api's with the help of `app = express()` and with its calls.
+
+- **Get :-**
+
+    For the get api we need call the get method with the route and we need to use find method only on the model like `let data = await User.find()` as like mentinoed below.
+
+    ```
+    app.get('/users',async (req,resp)=>{
+    let data = await User.find()
+    console.log("Data Fetched =>",data)
+    resp.send(data)
+    })
+    ```
+
+- **Post :-**
+
+    For the post api we need to call the post method with the route and we need to creae new Model like `let data = new UserModel(req.body)` and we need to save like `let save = await data.save()` as like mentioned below.
+
+
+    ```
+    app.post('/user',async (req,resp)=>{
+        let reqData = req.body
+        // console.log("Data Recieved in Post=>",reqData)
+        let insert = new User(reqData)
+        let save = await insert.save()
+        resp.send(reqData)
+    })
+
+    ```
+
+- **Put :-**
+
+    For the put api we need to put method with the route and we need to grab the data from the req like `let dataToUpdate = req.body`  and we need to grab the property and its value `let propertyToUpdate = req.params` and finally for the update opration use the `Model.updateOne()` method like `let update = await User.updateOne(propertyToUpdate,{$set:{...dataToUpdate}})` as like mentioned below.
+
+    ```
+    app.put('/user/:name',async (req,resp)=>{
+        let propertyToUpdate = req.params
+        let dataToUpdate = req.body
+
+        console.log("Query Params =>",propertyToUpdate)
+        console.log("Data to update =>",dataToUpdate)
+
+        let update = await User.updateOne(propertyToUpdate,{$set:{...dataToUpdate}})
+
+        console.log("Data Updated Resopnse =>",update)
+        resp.send(dataToUpdate)
+    })
+    ```
+
+- **Delete :-**
+
+    For the delete method we need to grab the id or unique key from the params and create the condition with it like `let condition = {_id:req.params.id}` and we need to call the `Model.deleteOne` method as like mentioned below.
+
+    ```
+    app.delete('/user/:id',async (req,resp)=>{
+
+    console.log("Params =>",req.params.id)
+    let condition = {
+        _id:req.params.id
+    }
+    // resp.send(condition)
+
+    // deleting
+    let deleting = await User.deleteOne(condition)
+    
+    console.log("Condition For delete =>",condition)
+    console.log("Deleted")
+    resp.send(deleting)
+    })
+    ```
+
+Thats how we can create dynamic crud api's with nodejs and mongoose.
+
+### Search Api with nodejs and mongoose
+
+For the search api firstly we need to grab the search value from the url by `req.params.value` and for the search purpose we need to use the find method with ``$or`:[{"name":{$regex:req.params.value}}]` as like mentioned below.
+
+```
+   app.get('/users/:searchVal',async (req,resp)=>{
+        console.log("Search Value =>",req.params.searchVal)
+        let data = await User.find({
+            "$or":[
+                {"name":{$regex:req.params.searchVal}}
+            ]            
+        })
+        console.log("Data Fetched =>",data)
+        resp.send(data)
+    })
+```
+
+### File Upload in Node Js
+
+### Remaining
+---
+
+### OS Module
+
+Os module is the module usefull for grabbing clients systems information in nodejs.
+
+It is usefull when we need to run different conditinos and functionalities based on the different os information and when we need to work on the things os related like showing systeminfo and all then we use os module.
+
+For using the os module we need to install it by `npm i os` and we need to import with `const os = require('os')`.
+
+**Some Usefull methods :-**
+
+- **Architecture (32bit or 64bit) :-** `os.arch()`
+
+- **Free Ram :-** `os.freemem()`
+
+    Freemem returns the free memory in bits and we need to convert it acording to our requriement as like mentioned below.
+
+    - **kb :-** `os.freemem()/(1024)`
+    - **mb :-** `os.freemem()/(1024*1024)`
+    - **gb :-** `os.freemem()/(1024*1024*1024)`
+
+- **Total Ram :-** `os.totalmem()`
+    totalmem returns the free memory in bits and we  need to convert it acording to our requriement as like mentioned below.
+
+    - **kb :-** `os.totalmem()/(1024)`
+    - **mb :-** `os.totalmem()/(1024*1024)`
+    - **gb :-** `os.totalmem()/(1024*1024*1024)`
+    
+- **HostName :-** `os.hostname()`
+
+- **Oprating System :-** `os.platform()`
+
+That's how we can work with os stuff.
+
+### Events and Event Emitters (For Visitors count)
+
+Events and events emitters are also like other events emitters in which we get a kind of single and when its got we can perform certain activity on it.
+
+Best Use of the events can be understand throuh counter programme in which we can emit event in every api call and on the counter we can get the visitors count.
+
+**How to use it :-**
+
+- first import it like `const EventEmitter = require('events')`.
+
+- Then we need to create instance of it like `const event = new EventEmitter()`.
+
+- We can emit the event like `event.emit(something)` 
+
+- To catch the event we can use the `event.on(string,callback)` as like mentioned below.
+
+```
+   const EventEmitter = require('events')
+    const event = new EventEmitter()
+
+    event.on('count',()=>{
+        console.log("Event Called...")
+    })
+
+      app.get('',(req,resp)=>{
+        resp.send("<h1>home</h1>")
+        event.emit('default')
+
+    })
+```
+
+### REPL shell in node
+
+Read Evaluate Print Loop is the thing where we can write the javascript in the terminal itself for the small things and calculations.
+
+For activating the REPL shell type `node` and to exit from it `.exit`.
+
+### MySql connection
+
+Previously we have used nodejs with nosql db with mongodb but here we are going to use the nodejs with sql db and we can run the queries here itself.
+
+**Installation :-** `npm i mysql`
+
+**Connection :-**
+
+- First import mysql module like `const db = require('mysql')`.
+
+- Then we need to create the connection object as like mentioned below.
+
+```
+const conn = {
+    host:'localhost',
+    user:'root',
+    password:'',
+    database:''
+}
+```
+- Then we need to call the `db.connect(cb)` method in which check the error and log the connection status.
+
+    
 
 
 
@@ -661,8 +1135,7 @@ Nothing special for the insert opration, same we need to import the connection a
 
 
 
-
-
+ 
 
 
 

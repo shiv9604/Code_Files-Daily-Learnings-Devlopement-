@@ -531,4 +531,20 @@ We need to import `MatExpansionModule` in module.ts.
   
   Radio buttons used for choose one of the options.
 
-  
+### Material progress spinner (Loader)
+
+We can use progress spinner as a loader when loading the data and the some oprations which will require time.
+
+**Structure :-**
+
+**`<mat-spinner *ngIf="" value=""></mat-spinner>`**
+
+- We can use the loader with the help of ngIf.
+
+- value is defines it cut of gap like at 100 it will be full round and at 10 it would be 10% filled of the spinner.
+
+**How to use the spinner :-**
+
+- First we need to create a common component for the loader in which we need to provide the overlay and z-index soo user cant oprate the things on the ui.
+
+

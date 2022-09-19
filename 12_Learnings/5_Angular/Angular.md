@@ -688,7 +688,7 @@ Ex:
 <h2>{{today | date : "fullDate"}}</h2>
 ```
 
-### Advance Pipes
+### Pipes with parameters
 
 **Pipes for strings**
 How to pass parameters to the pipes and use the multiple pipes on the single element as mentioned below- 
@@ -733,6 +733,9 @@ After creating pipe you will get 2 files only which will be **component.ts** and
 - **How to call that custom pipe** - 
 
 As mentioned below you will get the name of pipe and you need to use that name in your pipe.
+
+**Below created the filter pipe :-**
+
 ```
 // pipe.ts
 @Pipe({
@@ -746,9 +749,19 @@ As mentioned below you will get the name of pipe and you need to use that name i
 })
 export class UsdInrPipe implements PipeTransform {
 
-  transform(value: number, ...args: number[]): unknown {
-    const[x]= args;  
-    return value*x;
+  transform(data:any,value: any): any {
+    if(value!=''){
+      let result = []
+      for(let item of data){
+        if(item.email.toLowerCase().includes(value.toLowerCase())){
+          result.push(item)
+        }
+      }
+      return result
+    }
+    else{
+      return data;
+    }
   }
 
 }
@@ -766,6 +779,23 @@ export class UsdInrPipe implements PipeTransform {
     const[x]= args;  
     return value*x;
     ```
+
+### Pure and Impure pipes
+
+There are 2 types of pipes in angular, Pure which will execute the pipe only when the html initiated and it will not respond if Data will be manipulated and changed but impure pipe will be executed after each and every change detection in the data.
+
+Ex : 
+
+If we have made the search pipe and we are passing array of objects to it, and if we searched with the keyword BUT **After Search results returned by the pipe and at the same time if new entry added, updated or deleted it show the data in the previous condition and not the updated one.** 
+
+Here We have pipes purity in which impure pipes reacts to all the changes and we can make the pipe impure by `pure:false` as like mentioned below.
+
+```
+@Pipe{
+  name:'filter',
+  pure:false
+}
+```
 
 ### Angular Forms
 
@@ -879,6 +909,7 @@ Angular forms are different than others as like mentioned below.
 
           <button class="btn btn-primary">Log In</button>
       </form>
+    </div>
 
     // component.ts (FormGroup Defined)
       loginForm= new FormGroup({
@@ -889,7 +920,6 @@ Angular forms are different than others as like mentioned below.
       userLogin(){
       console.warn(this.loginForm.value)
       }
-    </div>
     ```
 
 ### Form Validations In Reactive Forms
@@ -898,7 +928,7 @@ Angular forms are different than others as like mentioned below.
 
 - We can make the feild required by using **Validators.required** in Formgroup where we defined **FormControl** for that feild like **`username: new FormControl('',[Validators.required])`**.
 
-- To Check the value validation (means value is there or not) we need to create getter and we need to pass the initialized formControl as like mentioned below : 
+- To Check the value validation (means value is there or not) we need to create getter (A function which returns something by calling it like property `username.value`)and we need to pass the initialized formControl as like mentioned below : 
   ```
   // Initialized FormControl
   username: new FormControl('',[Validators.required),
@@ -960,9 +990,13 @@ isNameTaken(contol:FormControlName){
 ```
 It will Push `isNameTaken:true` in `formcontrol.errors` object and same can be used for error message for that field.
 
+If Validator showing error soo use `.bind(this)` in the validations if we have used `this.property` on arguements then we need to bind this with it to tell that its an existing proeprty.
+
 ### Asynchronus Validation
 
 Asynchronus validations are the validation in which we are validating email or username something on the server through api soo it will append class `ng-pending` on which we can show the loader or error message.
+
+While resolving promise of the validations we need to push the `true` with some key and that key will be shown in the errors object.
 
 ```
   isAlreadyPresent(control:FormControl):any{
@@ -1056,6 +1090,80 @@ Form Group is the grouping of the form controls as per the sections in the forms
   }
   ```
 
+### Dynamic Forms in Angular
+
+In the dynamic form we can create forms with the help of json.
+
+In the json we get necessary value like mentinoed below.
+
+```
+[
+  {
+    "id":"name",
+    "label":"Name",
+    "type" : "input",
+    "value":''
+  },
+  {
+    "id":"email",
+    "label":"Email",
+    "type" : "input",
+    "value":''
+  },
+  {
+    "id":"password",
+    "label":"Password",
+    "type" : "password",
+    "value":''
+  }
+]
+```
+
+Steps :-
+
+**Getting json Data and genrating form :-**
+
+  - First we need to create json.file in asset folder.
+
+  - And secondly we need to get api call on that form and we need to put path in the url.
+
+  - You need to call the get call on `ngOnIt()`.
+
+  - In the HTML you need to crete each input type div with input element and label.
+
+  - We need to show that feild as per the type.
+
+  - Soo it will go inside the div and as per the input type it will create form feild.
+
+  - On the external div we need to loop through that json soo on each itratration it will create input feild according to its type.
+
+  - All Form will be rendered on the basis of type and label.
+
+**Creating form Controls :-**
+
+  - First we need to create empty formgroup variable in which we need to assign new FormGroup and emppty controls.
+
+  - On `ngOnInit()` itself we need to create a function which will loopthrough on the array recieved from json and we need to add form controls to the empty form group which we declaerd with the help of `.addControl('firstName', new FormControl(''))`.
+
+
+**Binding Form Controls to HTML fields :-**
+
+  - We need to bind the formControl and formGroup to the form.
+
+  - `[FormGroup]="dummyFormName"` thats how we need to bind the form group to it.
+
+  - `[FormControlName]="item.field"` thats how we can bind the fieldName.
+
+  - Create an div with json pipe and see the binding values chaging or not.
+
+**Getting Form Values :-**
+
+  - As we binded the values to the formControl our formControl values are updating realtime.
+
+  - Create an Submit button which calls an method which prints the values of the form.
+
+**Validations :-**
+
 ### Directives in Angular
 
 Directive provides additional funcionality to HTML elements.
@@ -1069,7 +1177,7 @@ EX : **`*ngFor,*ngIf,*ngSwitch`**
 
 3. In the constructor we need to take **`constructor(el:ElementRef)`** like this and inside the constructor we can write the properties for it.
 
-4. Then we need to nativeElement on that to change is poperties like mentioned below.
+4. Then we need to acess the `nativeElement` property on the elements refrence for manipulating that element on that to change is poperties like mentioned below.
 
 ```
 constructor(private element:ElementRef) { 
@@ -1084,6 +1192,85 @@ constructor(private element:ElementRef) {
   selector: '[appRedEl]'
 })
 ```
+
+### Advance Custom Directives (Renderer2 & @HostBinding())
+
+In angular we can create custom directives in which previously we used to change the styling like `element.nativeElement.style.color = "red"` but we are doing this with the help of the javascript which can cause unexpected errors.
+
+- **renderer2 :-**
+
+  Soo for that we can use the `renderer2` for the custom directive which will not manipulate the html elemnt instead it will render the elements in the modified way.
+
+  We need to use the renderer functions like setStyle, addClass and all for the manipulating it while rendering it and we need pass the arguements as its required.
+
+  ex : 
+  ```
+  constructor(private element:ElementRef, private renderer:Renderer2) { 
+      this.renderer.setStyle(element.nativeElement,'color','red')
+    }
+  ```
+- **@HostBinding :-**
+
+  With the help of `@HostBinding('property') var:type` we can create the variable of the target style,class and etc for the element.
+
+  Rather than `this.renderer.setStyle(element.nativeElement,'color','red')` we can shorten it and bind it to variable as like mentoined below.
+
+  ```
+  @HostBinding('style.backgroundColor') color:string;
+   constructor(private element:ElementRef, private renderer:Renderer2) { 
+    }
+
+  @HostListner('onhover') onmouseover(event:Event){
+    this.color = 'red'
+  }
+  ```
+
+The above mentioned code we have binded the property to the variable and we just providing the value to the variable.
+
+
+### Directive oprations on the events (@HostListner())
+
+On the html element on which we are using the custom directive, if we want to do the oprations on the specific events like mouseover, mouseout and all we can do that with the help of `@HostListner('name') event(event:Event){opration}` like mentiond below.
+
+Ex : If we want to change the background color on the mouse over it would be like mentioned below.
+
+```
+@HostListner('onhover') onmouseover(event:Event){
+  this.renderer.setStyle(
+    element.nativeElement,'color','red'
+  )
+}
+```
+
+### Sending Data to Directives
+
+We can send the data as well to the directives as well with the help of `@input()` decorator and with the alias as well.
+
+Ex : 
+If we want to pass the colors for the events as input from the parent component it will like mentioned below.
+
+```
+@Input() defaultColor:string;
+@Input() highlightColor:string;
+
+@HostBinding('style.backgroundColor') color:string;
+@HostListner('onhover') onmouseover(event:Event){
+  this.color = highlightColor
+}
+@HostListner('onleave') onmouseleave(event:Event){
+  this.renderer.setStyle(
+    this.color = defaultColor
+  )
+}
+
+// Parent Component without Alias
+<div appRedEl [defaultColor]="'red'" [highlightColor]="'purple'">This needs to be highlightedM</div>
+
+// With Alias (@Input(directiveName) defaultColor:string;)
+<div [appRedEl]="'red'" [highlightColor]="'purple'">This needs to be highlightedM</div>
+
+```
+
 
 ### Routing in Angular
 
@@ -1138,7 +1325,29 @@ Soo therefore we need to use the dynamic routing.
   - Then we can print the id in the console like 
 
     **console.warn(this.route.snapshot.paramMap.get('id'))**.
-  
+
+**Default Page Routing :-**
+
+  Default page routing is the route which will be redirected if no routes will be there in the application and by default at the loading application that page will be loaded at first.
+
+  ```
+  const routes = [
+    {
+      path:'',
+      rediretTo:'login'
+    },
+    {
+      path:'home',
+      component:HomeComponent
+    }, 
+    {
+      path:'login',
+      component:LoginComponent
+    }
+  ]
+  ```
+  The above mentioned empty route will be redirected to the login page at the start and that will be its default route.
+
 **404 Page in Routing** - 
   
   When we accidently hit the invalid URL to our webpage then the 404 error occurs.
@@ -1188,31 +1397,31 @@ Query parameter is the thing with which we can send the data in the url and we c
 **We dont need to do anything with its route in routing module.ts file.**
 
 - we can pass query parameter as like mentioend below : 
-```
-import {Router} '@angular/core'
-constructor(public router:Router){
+  ```
+  import {Router} '@angular/core'
+  constructor(public router:Router){
 
-}
+  }
 
-navWithQueryParams(wishId:any,eveId:any){
-   this.router.navigate([`/contribution-details`],{queryParams:{eveId:eveId,wishId:wishId}})
-}
-```
+  navWithQueryParams(wishId:any,eveId:any){
+    this.router.navigate([`/contribution-details`],{queryParams:{eveId:eveId,wishId:wishId}})
+  }
+  ```
 
 - We can get the data as like mentioned below : 
-```
-import {ActivatedRoute} from '@angular/core'
+  ```
+  import {ActivatedRoute} from '@angular/core'
 
-constuctor(public currentRoute : ActivatedRoute){
+  constuctor(public currentRoute : ActivatedRoute){
 
-}
+  }
 
-getParamData(){
-  this.currentRoute.params.subscribe((res)=>{
-    console.log(res)
-  })
-}
-```
+  getParamData(){
+    this.currentRoute.params.subscribe((res)=>{
+      console.log(res)
+    })
+  }
+  ```
 
 **QueryParamsHandeling :-**
 
@@ -1305,13 +1514,23 @@ this.router.fragment.subscribe(res=>console.log("Fragment =>",res))
   **Creating Module and exporting components :**
   - We can create module with routing file with the command **`ng g m admin --routing `**.
 
-  - We can create the routing file manually by creating the dummy file which will contain same code as **app-routing.ts** but we just need to change **.forRoot** to **.forChild**.
+  - We can create the routing file manually by creating the dummy file which will contain same code as **app-routing.ts** but we just need to change **.forRoot** to **.forChild** in the `routing.module.ts` of the copied one.
 
   - After that we need to create the components inside the module like 
   
     **`ng g c admin/login`** AND **`ng g c admin/signup`**
 
-  - We need to export that component globally in application in **module.ts** file.
+  - We need to export that component globally in application in **module.ts** file as like mentioned below.
+    ```
+    imports:[
+      loginPageComponent,
+      signupPageComponent
+    ],
+    exports:[
+      loginPageComponent,
+      signupPageComponent
+    ]
+    ```
 
   - We can use the components now globally.
 
@@ -1335,6 +1554,10 @@ Hence And we can use the routes defined in **module.routing.ts** file in app com
 - **Routing Enter Guards :-**
 
   As an example Routing Guards which checks something before routing to page, if it will be true it will route the page and it not it will not route to the page and can route to the route we mentinoed.
+
+  **ng g guard name :-** 
+
+    Creates the auth guard service with canActivate method.
 
   - **Routing Enter Guard For Parent Component :-** 
   
@@ -1396,9 +1619,62 @@ Hence And we can use the routes defined in **module.routing.ts** file in app com
 
   - **canDeactivate() :-**
 
+  CanDeactive guard is executed when the route is leaving that route to another.
+
+  Ex : 
+
+  If we have 2 routes `a, b` and if we are moving from route `a` to `b` then can deactivate will be called in `a` component.
+
+  ```
+   // auth-guard.service.ts
+    canDeactivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
+        let loggedIn = false;
+        if(loggedIn){
+          return true
+        }
+        else{
+          this.router.navigate(['/404'])
+        }
+      }
+
+    // For Which Route we need to use
+    {
+        path:'test-home',
+        component:TestHomeComponent,
+        canDeactivate:[AuthGuardService]
+      }
+
+  ```
+  
+
   - **canDeactivateChild() :-**
 
------------------------Remaining-----------------------------
+    With this authguard user can navigate to the child component but on that parent component if user want to leave the child component and if we want to execute somthing then we can use the `canDeactivateChild()` guard.
+    
+  ```
+    // Auth Guard Service code
+      canDeactivateChild(parentRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot):any{
+        if(this.loggedIn){
+          return true
+        }
+        else{
+          this.router.navigate(['/404'])
+        }
+      }
+
+    // For which route we need to use
+      {
+        path:'form',
+        component:FormComponent,
+        children:[
+          {
+            path:'reactive-form',
+            component:ReactiveFormComponent
+          }
+        ],
+        canDeactivateChild:[AuthGuardService]
+      },
+  ```
 
 ### Resolver Guard in Angular Routing
 
@@ -1406,7 +1682,11 @@ Resolver is the thing in the angular routing in which if we want to get the data
 
 Ex : If we want to load the edit page only after getting the data from the api and binding with the form then only.
 
------------------------Remaining-----------------------------
+---
+
+### Remaining
+
+---
 
 
 ### Lazy Loading in Angular (Module)
@@ -1521,81 +1801,88 @@ If we want to use the function,or the same data in multiple components rather th
 
 With the help of http client we can integrate the api's in out application.
 
+**Basic Steps :-**
+
+- First create service in services folder.
+
+- First we need to import **HttpClient** and **HttpClientsModule** in **service.ts** and **module.ts**.
+
+  **`import {HttpClient} from '@angular/common/http'`**
+
+  **`import { HttpClientModule } from '@angular/common/http';`**
+
+- Initialize **HttpClient** it in the constructor of **service.ts**.
+  **`constructor(private http:HttpClient) {}`**
+
+
+
 - **Get data from API and display**
 
-  As we know angular cannot directly connect to databse soo we interact with API.
+    For Getting the data from the server we need to use the `get` method of http client by passing url as like mentioned below.
 
-  - First create service in services folder.
+  ```
+  // api service
 
-  - First we need to import **HttpClient** and **HttpClientsModule** in **service.ts** and **module.ts**.
-
-    **`import {HttpClient} from '@angular/common/http'`**
-
-    **`import { HttpClientModule } from '@angular/common/http';`**
-
-  - Initialize **HttpClient** it in the constructor of **service.ts**.
-    **`constructor(private http:HttpClient) {}`**
-
-  - **Call the get function of http with the server link as like mentioned below.**
-  **`this.http.get(this.url)`**
-
-  - Import the service in **component.ts** file and intialize it as well as like mentioned below.
-  **`constructor(private userData:UsersDataService){}`**
-
-  - **How to Fetch the data from the service Now?**
-    - Call the component.ts(Initializer).service.ts(Initializer).subscribe(()=>{
-      console.warn(data)
-    }) as like mentioned below :
-
-    ```
-    users:any;
-    constructor(private userData:UsersDataService){
-    userData.users().subscribe((data)=>{
-      this.users=data
-      console.warn("users Data is =>",this.users)
-    })
-    ```
+  get(url:sting){
+    return http.post(url)
+  }
+  ```
 
 - **Post the Data to API**
 
- - First create service in services folder.
+  While posting the data to api we need to call the `post` method of http client by passing it url and data as like mentionend below.
 
-  - First we need to import **HttpClient** and **HttpClientsModule** in **service.ts** and **module.ts**.
+  ```
+  // api service
 
-    **`import {HttpClient} from '@angular/common/http'`**
+  post(url:sting,data:any){
+    return http.post(url,data)
+  }
+  ```
 
-    **`import { HttpClientModule } from '@angular/common/http';`**
+- **Update Data on Api**
 
-  - Initialize **HttpClient** it in the constructor of **service.ts**.
-    **`constructor(private http:HttpClient) {}`**
+    As we have used the post method before we can use the `http.put(id,obj)` which takes the id as an first arguement and the dataObject as the second and updates the object in the api.
 
-  - **Call the post function of http with the server link as like mentioned below.**
-  **`this.http.post(this.url)`**
+  ```
+  // api service
 
-  - Import the service in **component.ts** file and intialize it as well as like mentioned below.
-  **`constructor(private userData:UsersDataService){}`**
+  put(url:sting, id:any, data:any){
+    return http.put(url,id,data)
+  }
+  ```
 
-  - **How to Post the data from the service Now?**
-    - Call the component.ts(Initializer).service.ts(Initializer).subscribe(()=>{
-      console.warn(data)
-    }) as like mentioned below and :
 
-    ```
-    users:any;
-    constructor(private userData:UsersDataService){
-    userData.users().subscribe((data)=>{
-      this.users=data
-      console.warn("users Data is =>",this.users)
-    })
+- **Delete Data on Api**
 
-    // Make the post data function and make call to addUser function which is made in service.ts
+    As we have used the other method we have delete method which takes id as an arguement `http.delete(id)` which deletes the record in the api's.
 
-    postData(item:userType){
-    console.log(item)
-    this.userData.addUser(item).subscribe((result)=>{
-      console.log(result)
-    })
-    ```
+  ```
+  // api service
+
+  delete(id:any){
+    return http.delete(id)
+  }
+  ```
+
+**How to utilize the service :-**
+
+Import the service in **component.ts** file and intialize **`constructor(private api:ApiService){}`** and call the service functions by passing them the arguements and subscribe them and further your oprations as like mentioned below.
+
+```
+users:any;
+constructor(private api:ApiService){}
+
+getUsers(){
+  let url = `localhost:4800/users`
+
+  this.api.get(url).subscribe(res=>{
+    this.users = res;
+  })
+}
+```
+
+
 ### HTTP Headers
 
 We can add the http headers which will holds the api configration in which we can put `application/json` and auth key and all the things in the http headers.
@@ -1619,7 +1906,7 @@ We can add the http headers which will holds the api configration in which we ca
 
 ### Query Params in http requests
 
-Normally we add the query params in the http url's for the purpose of the search and page size for the paginatio and other all userfull things.
+Normally we add the query params in the http url's for the purpose of the search and page size for the pagination and other all userfull things.
 
 We can add the params in the same object of configuration which we pass as the last arguement in the request with the key `params: new HttpParams().set('search','shiv')` .
 
@@ -1682,7 +1969,7 @@ providers:[
 
 ### Manipulating Request Object with HTTP_INTERCEPTOR
 
-While manipulating the request object in interceptors we can directly manipulate the request object directly like `req.url = 'something'` for that we need to make another instance with `req.clone({manipulations})` and inside that we can do our manipulations.
+While manipulating the request object in interceptors we can't directly manipulate the request object directly like `req.url = 'something'` for that we need to make another instance with `req.clone({manipulations})` and inside that we can do our manipulations.
 
 ```
 
@@ -1742,45 +2029,6 @@ export interface userType{
 
 After initializing the interface we can use it anywhere in the application by just simply importing **import { userType } from './userType';** interface like this.
 
-
-### Automation testing in Angular
-
-**Manual Testing** :- Basically manual testing is the thing where a person tests your angular application step by step like he checks the login,signup,webflow,clicks,and all.
-
-**Automation Testing** :- If your application is too big manual tesrting can take upto 3-4 days rather than that we have automation testing in which we write some code which tests our full application in just few minutes.
-
-**Types of automation testing** :-
-
-- Unit Test case : This is the testing in which we test some specific or some important functions of our angular app.
-
-- Integration testing : This is the testing in which we test the functionality as well as the dependencies regarding to it.
-
-- End-To-End Testing : In the end to end testing our application gets fully tested end to end.
-
-**Angular Automation Testing** : 
-
-1. Protactor - Run Test case on browser.
-
-2. Jasmine - Testing Enviornment, Run spec file for the latest test case.
-
-3. Karma - Run test case in Multiple browser. (Karma.config.json)
-
-
-### Angular Testing
-
-**To check the default test cases** - **`ng test`**
-
-
-### API Integration Angular
-
-1. Set base url and version in enviornment.ts and enviornment.prod.ts file. Take the api links till the api(baes url) and concate with it version and further reuired end points and path.
-
----
-## Remaining Total Flow 
----
-
-
-
 ### MatInput type number maxlength functonality
 
 We can set `maxLength` property with the `mat-input` `type=text` but it dont work with the `type="number"` soo we need to do it with manually.
@@ -1799,7 +2047,7 @@ Classes in the angular used to store anything specific things at one place itsel
 
 - `ng g class models/Urls/Urls` - It will create Urls class inside the urls folder in models folder.
 
-- In the class we need to use `static` , `public` , `private` , `readonly` for the variables. we can't use constants for the variables as its properties of the class.
+- In the class we need to use `static` , `public` , `private` , `readonly` for the variables. we can't use consatants for the variables as its properties of the class.
 
 - Then we can import the class anywhere in the project where we want to use it and we can acess the variables with `.` dot notation and `['']` bracket notation.
 
@@ -1815,79 +2063,6 @@ export class Urls{
 So it will check the value length and slice the value if value will be greater than maxLength.
 
 
-### Dynamic Forms in Angular
-
-In the dynamic form we can create forms with the help of json.
-
-In the json we get necessary value like mentinoed below.
-
-```
-{
-  {
-    "id":"name",
-    "label":"Name",
-    "type" : "input",
-    "value":''
-  },
-  {
-    "id":"email",
-    "label":"Email",
-    "type" : "input",
-    "value":''
-  },
-  {
-    "id":"password",
-    "label":"Password",
-    "type" : "password",
-    "value":''
-  }
-}
-```
-
-Steps :-
-
-**Getting json Data and genrating form :-**
-
-  - First we need to create json.file in asset folder.
-
-  - And secondly we need to get api call on that form and we need to put path in the url.
-
-  - You need to call the get call on `ngOnIt()`.
-
-  - In the HTML you need to crete each input type div with input element and label.
-
-  - We need to show that feild as per the type.
-
-  - Soo it will go inside the div and as per the input type it will create form feild.
-
-  - On the external div we need to loop through that json soo on each itratration it will create input feild according to its type.
-
-  - All Form will be rendered on the basis of type and label.
-
-**Creating form Controls :-**
-
-  - First we need to create empty formgroup variable in which we need to assign new FormGroup and emppty controls.
-
-  - On `ngOnInit()` itself we need to create a function which will loopthrough on the array recieved from json and we need to add form controls to the empty form group which we declaerd with the help of .addControl('firstName', new FormControl('')).
-
-
-**Binding Form Controls to HTML fields :-**
-
-  - We need to bind the formControl and formGroup to the form.
-
-  - `[FormGroup]="dummyFormName"` thats how we need to bind the form group to it.
-
-  - `[FormControlName]="item.field"` thats how we can bind the fieldName.
-
-  - Create an div with json pipe and see the binding values chaging or not.
-
-**Getting Form Values :-**
-
-  - As we binded the values to the formControl our formControl values are updating realtime.
-
-  - Create an Submit button which calls an method which prints the values of the form.
-
-**Validations :-**
 
 ### File Reader in Angular
 
@@ -2020,83 +2195,170 @@ We cant use the `@viewChild()` for the `ng-content` bcoz the html does not exist
 
 - **@ContentChild('') user:any** 
 
-### Advance Custom Directives (Renderer2 & @HostBinding())
+### Observables in angular(rxjs)
 
-In angular we can create custom directives in which previously we used to change the styling like `element.nativeElement.style.color = "red"` but we are doing this with the help of the javascript which can cause unexpected errors.
+Observable is an interface to handle variety of asynchronus oprations.
 
-- **renderer2 :-**
+Observable is a function that converts the ordinary stream of data into an observable stream of data. 
 
-  Soo for that we can use the `renderer2` for the custom directive which will not manipulate the html elemnt instead it will render the elements.
+Observables are too much sensitive which can cause the memory leakage problem bcoz its not component dependant it keeps running even if the component is destroyed, soo to handle this things if we are using observables by our own we should unsuscribe then on destroy.
 
-  ex : 
+**Angular Inbuilt observables like params, http and all gets automatically unsuscribed on the component destrouyed.**
+
+**Custom Observables :-**
+
+There are Multiple oprators in the rxjs which returns the observable but we can create our own observable as like mentioned below.
+
+```
+
+// Custom observable
+let customInterval = Observable.create(observer=>{
+  let count = 0;
+  observer.next(count)
+  setTimeout(()=>{
+    count++;
+  })
+})
+```
+
+**Suscribe :-**
+
+  We can register to the observable by register method and when you register to the observable you will get every new value whenever the next method is called.
+
   ```
-  constructor(private element:ElementRef, private renderer:Renderer2) { 
-      this.renderer.setStyle(element.nativeElement,'color','red')
-    }
+  ngOnit(){
+    this.costomInterval.subscribe((res)=>{
+      console.log(res)
+    })
+  }
   ```
-- **@HostBinding :-**
+**Error :-**
 
-  With the help of `@HostBinding('property') var:type` we can create the variable of the target style.
+  In the observable if something error occured then error block will be executed. we can throw the error by `observer.error('')` and the observable will execute the error block.
 
-  Rather than `this.renderer.setStyle(element.nativeElement,'color','red')` we can shorten it and bind it to variable as like mentoined below.
+  We can throw the error as like mentioned below.
 
   ```
-  @HostBinding('style.backgroundColor') color:string;
-   constructor(private element:ElementRef, private renderer:Renderer2) { 
-    }
+  let customInterval = Observable.create(observer=>{
+  let count = 0;
+  observer.next(count)
+  setTimeout(()=>{
+    count++;
+  })
 
-  @HostListner('onhover') onmouseover(event:Event){
-    this.color = 'red'
+  if(count>3){
+    observer.error("Count Exceeded")
+  }
+  })
+  ```
+**Catching Error :-**
+
+  We can catch the error by callback at the second position in the suscriber.
+  ```
+   ngOnit(){
+    this.costomInterval.subscribe((res)=>{
+      console.log(res)
+    },(err)=>{
+      console.log("Error Occured",err)
+    })
+  }
+  ```
+**Complete :-** 
+
+  We can mark the observable as complete with `observer.complete('')` as like mentioned below.
+
+  ```
+  let customInterval = Observable.create(observer=>{
+  let count = 0;
+  observer.next(count)
+  setTimeout(()=>{
+    count++;
+  })
+
+  if(count>3){
+    observer.error("Count Exceeded")
+  }
+  else if(count>5){
+    observer.complete("Observable completed")
+  }
+  })
+  ```
+
+**Catching Complete :-**
+
+  We can catch the complete method as the third callback function in the suscriber like `.subscribe((data=>{}),(err=>{}),(complete=>{}))` as like mentioned below.
+
+  ```
+    ngOnit(){
+    this.costomInterval.subscribe( res =>{
+      console.log(res)
+    },( err =>{
+      console.log("Error Occured",err)
+    }),() => {
+      console.log("Observable Completed")
+    })
+    )
   }
   ```
 
-The above mentioned code we have binded the property to the variable and we just providing the value to the variable.
+**How to unsuscribe custom observable :-**
 
+  First we need to store its subscription in a variable and then only we can unsuscribe the variable like mentioned below.
 
-### Directive oprations on the events (@HostListner())
+  ```
+  // property
+  custom_Observable:any;
 
-On the html element on which we are using the custom directive, if we want to do the oprations on the specific events like mouseover, mouseout and all we can do that with the help of `@HostListner('name') event(event:Event){opration}` like mentiond below.
+  //  assinging subscription to variable
+  this.custom_Observable = this.interval.subscribe(res=>console.log(res),err=>console.log(err),()=>console.log("Counter Completed"))
 
-Ex : If we want to change the background color on the mouse over it would be like mentioned below.
+  // unsuscribing
+  ngOnDestroy() {
+      this.custom_Observable.unsubscribe()
+  }
+  ```
+### Pipe Oprator (Modify the observable response before subscription) 
+
+If we want to modify the data in between the next method and the subscription then we can use the pipe oprator which modifies the data with the map oprator like ` this.custom_Observable = this.interval.pipe(map(res)=> return "Count" + res).subscribe(res=>console.log(res))` as like mentioned below.
+
+Ex : In the mentioned example observable returning counter on 1 sec of interval.
 
 ```
-@HostListner('onhover') onmouseover(event:Event){
-  this.renderer.setStyle(
-    element.nativeElement,'color','red'
-  )
-}
+// We are adding counter string to the response before subscription.
+
+this.custom_Observable = this.interval.pipe(map(data=>{
+  return "Counter "+data
+})).subscribe(res=>console.log(res),err=>console.log(err),()=>console.log("Counter Completed"))
 ```
 
-### Sending Data to Directives
+### Filter Oprator (rxjs) and applying multiple oprators
 
-We can send the data to the directives as well with the help of `@input()` decorator and with the alias as well.
+Filter oprator filters the value and only pass further if the condition is met as like mentioned below.
 
 Ex : 
-If we want to pass the colors for the events as input from the parent component it will like mentioned below.
+In the mentioned example observable returning counter on 1 sec of interval and its count starting from 0 and we need to filter it to not get the zero and we need append the string as well to the value as like mentiond below.
 
 ```
-@Input() defaultColor:string;
-@Input() highlightColor:string;
-
-@HostBinding('style.backgroundColor') color:string;
-@HostListner('onhover') onmouseover(event:Event){
-  this.color = highlightColor
-}
-@HostListner('onleave') onmouseleave(event:Event){
-  this.renderer.setStyle(
-    this.color = defaultColor
-  )
-}
-
-// Parent Component without Alias
-<div appRedEl [defaultColor]="'red'" [highlightColor]="'purple'">This needs to be highlightedM</div>
-
-// With Alias (@Input(directiveName) defaultColor:string;)
-<div [appRedEl]="'red'" [highlightColor]="'purple'">This needs to be highlightedM</div>
-
+  this.custom_Observable = this.interval.pipe(filter(val=>{
+    if(val==0){
+      return false
+    }
+    else{
+      return true
+    }
+  }),map(data=>{
+    return "Counter "+data
+  })).subscribe(res=>
+  {
+    console.log(res)
+  })
 ```
+
+And We can add the multiple oprators like `pipe(o1,o2)` but it should must return values.
 
 ### Subject in angular
+
+**In the observables we can use the next method only inside observables but in the subjects we can use the `.next()` method outside the observable as well and its the most usefull rsjs oprator.**
 
 Subject is used for cross component data communication in between components.
 
@@ -2179,3 +2441,42 @@ We have profiling in which we create various enviornment and its files with its 
   ```
 
   Above code will preload the lazy load modules silently in background.
+
+### Important Arguements for the serval functionalities
+
+- **Custom Directive :-** `element`
+
+- **Custom Pipe :-** `Data,custom args`
+
+- **Auth Guard :-** `Route,State`
+
+- **HTTP_Interceptor :-** `request,handler`
+
+- **Lazy Component Loading :-** `vcr(View Container ref),cfr (Component Factory Resolver)`
+
+### Automation testing in Angular
+
+**Manual Testing** :- Basically manual testing is the thing where a person tests your angular application step by step like he checks the login,signup,webflow,clicks,and all.
+
+**Automation Testing** :- If your application is too big manual tesrting can take upto 3-4 days rather than that we have automation testing in which we write some code which tests our full application in just few minutes.
+
+**Types of automation testing** :-
+
+- Unit Test case : This is the testing in which we test some specific or some important functions of our angular app.
+
+- Integration testing : This is the testing in which we test the functionality as well as the dependencies regarding to it.
+
+- End-To-End Testing : In the end to end testing our application gets fully tested end to end.
+
+**Angular Automation Testing** : 
+
+1. Protactor - Run Test case on browser.
+
+2. Jasmine - Testing Enviornment, Run spec file for the latest test case.
+
+3. Karma - Run test case in Multiple browser. (Karma.config.json)
+
+
+### Angular Testing
+
+**To check the default test cases** - **`ng test`**
