@@ -516,7 +516,7 @@ MongoDb compass is the gui tool for the mongoDb as like php myadmin form which w
     It will insert data in the form of object in collection.
 
 - `db.collection_name.find() :-` 
-
+    
     It will list down the data in the collection.
 
 - `db.collection_name.updateOne({name:'mohan'},{$set:{brand:'Oppo'}}) :-`

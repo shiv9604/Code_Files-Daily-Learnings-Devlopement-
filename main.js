@@ -1,5 +1,6 @@
-// console.log("1. This is line 1")
+// Promises Understanding
 
+// console.log("1. This is line 1")
 // const prepareData = () => {
 //     return new Promise((res, rej) => {
 //         setTimeout(() => {
@@ -72,7 +73,7 @@
 
 // function one(){
 //     console.log("one")
-// }
+// }    
 // one()
 // function two(){
 //     setTimeout(()=>{
@@ -135,8 +136,34 @@
 //     return answer;
 //   }
 
-// Inspection
-// Given a string s1 and a string s2, write a snippet to say whether s2 is a rotation of s1?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Programmes Asked For the Interviews
+
+// Programme For Given a string s1 and a string s2, write a snippet to say whether s2 is a rotation of s1?
 // (eg given s1 = ABCD and s2 = CDAB, return true, given s1 = ABCD, and s2 = ACBD , return false)
 
 // function shoutWordPairs(arr) {
@@ -164,7 +191,9 @@
 
 // O(n*m)
 
-// Create a for loop that iterates up to 100 while outputting "shiv" at multiples of 3, "kounsalye" at multiples of 5 and "shivkounsalye" at multiples of 3 and 5 without using if else.
+
+
+// Programme for Create a for loop that iterates up to 100 while outputting "shiv" at multiples of 3, "kounsalye" at multiples of 5 and "shivkounsalye" at multiples of 3 and 5 without using if else.
 
 // for(let i=0; i<100 ; i++){
 //   if(i!=0){
@@ -187,12 +216,13 @@
 //   }
 // }
 
-// Given a string, reverse each word in the sentence.
-// For example Welcome to this Javascript Guide! should be become emocleW ot siht tpircsavaJ !ediuG.
+
+
+// Programmer for Given a string, reverse each word in the sentence. For example Welcome to this Javascript Guide! should be become emocleW ot siht tpircsavaJ !ediuG.
+
 
 // function reverifyString(string) {
 //   let strArr = string.split(" ");
-
 //   let resultStr = "";
 //   strArr.forEach((res) => {
 //     console.log("Single Word =>", res);
@@ -208,12 +238,18 @@
 // }
 
 // reverifyString("Welcome to this Javascript Guide!");
+
+
+
+// Programe for Scope
 // var a=10;
 
 // let a=20;   
-   
- 
 // console.log(a)
+
+
+
+// Programme for Start Patterns
 
 // *
 // * * *
@@ -240,49 +276,81 @@
     
 // }
 
-// function returnReject(){
-//     return new Promise((res,rej)=>{
-//         res("Error Occured")
+
+
+// Programme For Given an array A of positive integers. Your task is to find the leaders in the array. An element of an array is leader if it is greater than or equal to all the elements to its right side. The rightmost element is always a leader.
+
+// let arr = [16,19, 17, 18, 4, 3, 5, 2]
+// for(let i of arr){
+//     let furtherArr = arr.slice(arr.indexOf(i),arr.length)
+//     // console.log("Further Array =>",furtherArr)
+//     let sorterFurther =   furtherArr.sort((a,b)=>{
+//         return b-a
 //     })
+//     let max = sorterFurther[0]
+//     // console.log("Max of Further Array",max)
+//     if(i>=max){
+//         console.log(`${i} is Leader`)
+//     }
 // }
-
-// async function  exeCute(){
-//     try{
-//         let response = await returnReject()
-//         console.log("Promise Resolved =>",response)
-//         }
-//         catch(e){
-//         console.log("Promise Rejected =>",e)
-//         }
-// }
-// exeCute()
-
-
-// Given an array A of positive integers. Your task is to find the leaders in the array. An element of an array is leader if it is greater than or equal to all the elements to its right side. The rightmost element is always a leader.
-
-let arr = [16,19, 17, 18, 4, 3, 5, 2]
-
-for(let i of arr){
-
-    let furtherArr = arr.slice(arr.indexOf(i),arr.length)
-
-    // console.log("Further Array =>",furtherArr)
-
-    let sorterFurther =   furtherArr.sort((a,b)=>{
-        return b-a
-    })
-
-    let max = sorterFurther[0]
-
-    // console.log("Max of Further Array",max)
-
-    if(i>=max){
-        console.log(`${i} is Leader`)
-    }
-}
 
 // let max =   arr.sort((a,b)=>{
 //     return b-a
 // })
-
 // console.log("Max =>",max)
+
+
+
+
+// Programme for resolve string expression and get results of its calculations
+
+// let input = "( ( 5 * 2 ) / ( 2 + 3 ) * ( 234 + 1 ) )"
+// function parseInput(input){
+//     let inputArr = input.split('(')
+//     console.log(inputArr)
+// }
+// parseInput(input)
+
+
+
+// Programme Extraction Of Sec string and notation string from secNotation string 45AM
+
+// let str = '45PM'
+// let sec = str.match(/[^a-z]/g).join('')
+// let notation = str.match(/[^0-9]/g).join('')
+// console.log("Sec =>",sec)
+// console.log("Notation =>",notation)
+
+
+
+// Programme For Conversion of 12Hrs Time into 24Hrs like (07:05:45PM) to (19:05:45)
+
+// function timeConversion(s) {
+//     // 07:05:45PM
+//     // Extraction Of Values
+//     let [hrs,min,secWithNotation] = s.split(':')
+//     let sec = secWithNotation.match(/[^a-z]/gi).join('')
+//     let notation = secWithNotation.match(/[^0-9]/gi).join('')
+
+//     console.log("Hrs : ",hrs)
+//     console.log("Min : ",min)
+//     console.log("Sec : ",sec)
+//     console.log("Notation : ",notation)
+    
+//     // Logic
+//     let timeIn24hrs = ''
+//     if(notation=='PM'){
+//         let parsedHrs = parseInt(hrs)
+//         parsedHrs = parsedHrs==12?parsedHrs : 12 + parsedHrs
+//         typeof parsedHrs=='number' ? parsedHrs.toString() : parsedHrs
+//         hrs = parsedHrs
+//         timeIn24hrs = `${hrs}:${min}:${sec}`
+//     }
+//     else if(notation=='AM'){
+//         hrs = hrs==12? '00' : hrs
+//         timeIn24hrs = `${hrs}:${min}:${sec}`
+//     }
+//     console.log("Time in 24HRS FORMAT==>",timeIn24hrs)
+// }
+
+// timeConversion('12:05:45AM')

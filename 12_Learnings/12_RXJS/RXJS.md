@@ -21,12 +21,9 @@ These all the data streams are processed differently in js with different proces
 In rxjs we can process all the streams in observables.
 
 ### Observer
-
 Observer are the components where we suscribe to the observables and the observers will get the response if observable calls the next method and on the response they can execute the block of code and they will get the latest data through subscription.
 
 ### Observables
-
-
 
 
 ### Subjects
