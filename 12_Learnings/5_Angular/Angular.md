@@ -1549,7 +1549,7 @@ Hence And we can use the routes defined in **module.routing.ts** file in app com
 
 **Why we need Group Routing** : If we have 2 modules and we have same components in the both then it will problematic while routing the same component soo we need the group routing in which with routes we pass the module as well with it soo it looks like **admin/login** and **User/login**.
 
-### Routing Guards
+  ### Routing Guards
 
 - **Routing Enter Guards :-**
 
@@ -2476,7 +2476,7 @@ We have profiling in which we create various enviornment and its files with its 
 
 3. Karma - Run test case in Multiple browser. (Karma.config.json)
 
-
 ### Angular Testing
 
 **To check the default test cases** - **`ng test`**
+

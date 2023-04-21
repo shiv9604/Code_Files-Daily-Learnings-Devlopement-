@@ -149,3 +149,4 @@ We can change the orders of div's in the same container by using :
 
 **order-md-1** - It will set the order as per the devices we gave or it will aply to the current device size.
 
+

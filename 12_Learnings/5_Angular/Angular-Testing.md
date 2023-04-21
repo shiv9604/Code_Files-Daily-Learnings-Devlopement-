@@ -1300,3 +1300,29 @@ it('navigateToUsers() should navigate to /users,inject([Router],(router:Router)=
   expect(router.navigate).toHaveBeenCalledWith(url,{config});
 }))
 ```
+### Unit Testing For Lazy Loaded Module For Routing Files
+
+For Unit Testing For Routing We need most importantly `RouterTestingModule` in which we need to provide the routes like `RouterTestingModule.forRoot(routes)` and We will most importantly need `SpyNgModuleFactoryLoader` in providers for lazy loaded modules.
+
+Whole TestBed Configuration for routing and lazy loaded modules will be followed.
+
+```
+let location:Location;
+let router:Router;
+
+// Import From your routing module file.
+let routes = appRoutes;
+
+beforeEach(async () =>{
+  TestBed.configureTestingModule({
+    imports: [RouterTestingModule,YourRoutingModule],
+    providers: [RouterTestingModule.withRoutes(routes)]
+  }).compileComponents();
+})
+
+beforeEach(() =>{
+  router = TestBed.inject(Router);
+  location = TestBed.inject(Location);
+  router.initialNavigation();
+});
+```
