@@ -1428,7 +1428,6 @@ Cold Observables are the unicasting observables which produce the values inside 
 
 Hot Observables are the multicasting observables which produce the values outside the observable and which will execute atleast once even if there is no observer assigned to it like `fromEvent(domRef,'eventName')`.
 
-
 Subjects plays very important role while converting the cold observable into hot observable by providing the single subscription to source observable to let it execute only once as well as emitting the values at multiple things at the same time.
 
 
@@ -1469,17 +1468,17 @@ Soo We can simply convert the cold observable into a hot observable by generatin
     }, 3000);
 
 
-    // Now observable1$ will send the same values in both observables as the subject only once subscribed to it and rest observers will receive the latest emitted values.
+      // Now observable1$ will send the same values in both observables as the subject only once subscribed to it and rest observers will receive the latest emitted values.
 
-    const observable1$ = interval(1000);
-    const subject$ = new Subject();
-    observable1$.subscribe(subject$)
+      const observable1$ = interval(1000);
+      const subject$ = new Subject();
+      observable1$.subscribe(subject$)
 
-    subject$.subscribe(res=>console.log("Observer 1 Res "+res))
+      subject$.subscribe(res=>console.log("Observer 1 Res "+res))
 
-    setTimeout(() => {
-      subject$.subscribe(res=>console.log("Observer 2 Res "+res))  
-    }, 3000);
+      setTimeout(() => {
+        subject$.subscribe(res=>console.log("Observer 2 Res "+res))  
+      }, 3000);
 ```
 
 We can convert the cold observables to hot observable with the rxjs Oprators like `multicast` and `unicast` and which we will have look onwards.
@@ -4442,4 +4441,199 @@ In the above code we had provided closing selector on the interval of 3 seconds 
 - When we want to control the closing of window which started with initial observable emission.
 - If we want to get stored data on button click at once and start new window from its last closing.
 - Windowing the data on the some time interval or some timeout.
+
+## Differences Between Set of similar RXJS operators
+
+### merge VS mergeAll VS mergeMap
+
+1. **merge :-** 
+  
+  Operator merges multiple observables into single observable which emits the latest value whenever any of observable emits an value, merge can be used for avoiding multiple subscribers when source observables are different for same kind of data and to take the all values at one place by merging them into single observable.
+
+  ```
+      let s1$ = interval(500).pipe(take(3),map(val=>"Source 1 "+val));
+      let s2$ = interval(1000).pipe(take(3),map(val=>"Source 2 "+val));
+      let s3$ = interval(2000).pipe(take(3),map(val=>"Source 3 "+val))
+
+      merge(s1$, s2$, s3$).subscribe(val=>console.log(val));
+  ```
+
+  Here we are getting values identified by observable itself but we need all values at one place within single subscription.
+
+2. **mergeAll :-** 
+  
+  flattens the higher order observables and merges into singular observable which emits the value from all the observables which can be used as flattner on the observables with same kind of data but in the form of observable of observables.
+
+  ```
+      let s1$ = of(interval(500).pipe(take(3),map(val=>"Source 1 "+val)));
+      let s2$ = of(interval(1000).pipe(take(3),map(val=>"Source 2 "+val)));
+      let s3$ = of(interval(2000).pipe(take(3),map(val=>"Source 3 "+val)))
+
+      
+    // Wrong approach for handelling for observable of observables
+    merge(s1$, s2$, s3$).subscribe(val=>val.subscribe(val=>console.log(val)));
+
+    // Flatting observable of observables And the right approach
+    merge(s1$, s2$, s3$).pipe(mergeAll()).subscribe(val=>console.log(val));
+  ```
+  
+  Here we are having observable which holds the values emitted from `interval()` if we directly subscribe to it observables will be printed not its values so we had flattened the higer order observables to its values directly.
+
+3. **mergeMap :-**
+
+  `mergeMap()` takes the all emitted values from source observable at once and passes to another operator which also returns observable. to avoid subscription inside subscription we use mergeMap operator so inner observable values would be directly sent to subscriber without wrapping with outer observable.
+
+  ```
+      const obsOfValWithName = (string,val) => {
+        return of(string + " " + val)
+      }
+
+      let s1$ = interval(500).pipe(take(3));
+
+      s1$.pipe(mergeMap(val=>obsOfValWithName("Observable=>",val))).subscribe(val=>console.log(val));
+  ```
+
+  Here we have method obsOfValWithName which also returns the observable by combining string with value so if we do it in map we will receive observable in subscriber rather than values so we need are mapping val from source observable which is outer observaable to inner observable returned by method and subscribing directly to inner observable values.
+
+
+### concat VS concatAll VS concatMap
+
+1. **concat :-**
+
+  we use concat to force the execution multiple observables in order of one by one and getting all observables values at single place by converting into single observable which subscribes to observables one by one and executes their values.
+
+  ```
+     let s1$ = interval(500).pipe(take(3),map(val=>"Source 1 "+val));
+      let s2$ = interval(1000).pipe(take(3),map(val=>"Source 2 "+val));
+      let s3$ = interval(2000).pipe(take(3),map(val=>"Source 3 "+val))
+
+      concat(s1$, s2$, s3$).subscribe(val=>console.log(val));
+  ```
+
+  Here we have multiple observables which emits the values randomly without any sequence but we had organised their sequence and emitting all observables values one by one at single place.
+
+2. **concatAll :-**
+
+  when we have observable of observables and we need to flatten their values along with sequential execution order then we use concatAll which flattens the values of observable of observables and send values to subscription in provided sequential order.
+
+  ```
+      let s1$ = of(interval(500).pipe(take(3),map(val=>"Source 1 "+val)));
+      let s2$ = of(interval(1000).pipe(take(3),map(val=>"Source 2 "+val)));
+      let s3$ = of(interval(2000).pipe(take(3),map(val=>"Source 3 "+val)))
+
+      concat(s1$, s2$, s3$).pipe(concatAll()).subscribe(val=>console.log(val));
+  ```
+
+  Here we have 3 observable of observables holding values from interval but we getting all flattened values at single place sequentially rather than observables.
+
+3. **concatMap :-**
+
+  when we want to map source observable values to some another observable which could take time to finish but we want to finish its execution before considering next value from source observable for further operations.
+
+  ```
+     const converToIntervalWith3Values = (number) => {
+      return interval(number*1000).pipe(take(3),map(val=>{
+        return `Interval For ${number*1000} => ${val}`
+      }))
+    }
+      let s1$ = interval(500).pipe(take(3));
+
+      s1$.pipe(concatMap(val=>converToIntervalWith3Values(val))).subscribe(val=>console.log(val));
+  ```
+
+  Here we want to return inteval of `sourceVal * 1000` for its first 3 values which are observables itself, with the help of concatMap it will wait until completion of interval for first value and after its completion only it will start the next interval for 3 values for second value.
+
+
+  ### mergeMap VS concatMap VS switchMap vs exhaustMap
+
+  Differences between above this can be found in their words itself.
+
+  - **mergeMap :-** Merge Outputs in single source.
+
+  Merge all outputs in single source observables by subscribing all of them at once and emit the values in their execution order.
+
+  Use when you want want all values at single place at most priority.
+
+  ```
+     const converToIntervalWith3Values = (number) => {
+      return interval(number*1000).pipe(take(3),map(val=>{
+        return `Interval For ${number*1000} => ${val}`
+      }))
+    }
+      let s1$ = interval(1000).pipe(take(3));
+
+      s1$.pipe(mergeMap(val=>converToIntervalWith3Values(val))).subscribe(val=>console.log(val));
+  ```
+
+  Here we have inner observable which takes some time but we are not waiting for its completion before starting the execution of next value emitted by source observable.
+
+
+  - **concatMap :-** One after another in single source.
+
+  Waits for the completion of current observable and then subscribes to next observables and so on sequentially.
+
+  Use when you care about the execution order at most priority.
+
+  ```
+    const converToIntervalWith3Values = (number) => {
+      return interval(number*1000).pipe(take(3),map(val=>{
+        return `Interval For ${number*1000} => ${val}`
+      }))
+    }
+      let s1$ = interval(1000).pipe(take(3));
+
+      s1$.pipe(concatMap(val=>converToIntervalWith3Values(val))).subscribe(val=>console.log(val));
+  ```
+
+  Here we have inner observable which takes some time but we are waiting for its completion before starting the execution of next value emitted by source observable.
+
+
+  - **switchMap :-** switch from one to next. 
+
+  Switches to next observable by discarding the currrent execution if next observable emits any value.
+
+  Use when you care about the latest values most at priority than all values.
+
+  ```
+      const converToIntervalWith3Values = (number) => {
+      return interval(number*1000).pipe(take(3),map(val=>{
+        return `Interval For ${number*1000} => ${val}`
+      }))
+    }
+        let s1$ = interval(500).pipe(take(3));
+
+      s1$.pipe(switchMap(val=>converToIntervalWith3Values(val))).subscribe(val=>console.log(val));
+
+  ```
+
+   Here we have inner observable which takes some time but we are switching to next execution even before completion of previous inner observable whole execution when the next value is emitted from source observable.
+
+- **exhaustMap :-**
+
+  Ignores the in between observables which emits while completion of inner observable.
+
+
+  Use when your priority is getting throughout data form set observables without missing any values.
+
+  ```
+      const converToIntervalWith3Values = (number) => {
+      return interval(number*1000).pipe(take(3),map(val=>{
+        return `Interval For ${number*1000} => ${val}`
+      }))
+    }
+      let s1$ = interval(500).pipe(take(3));
+
+      s1$.pipe(exhaustMap(val=>converToIntervalWith3Values(val))).subscribe(val=>console.log(val));
+  ```
+
+  Here while execution of interval with value 1 for 3 seconds interval for 2 starts unconditionally after 2 seconds but first one still not completed so it will drops the execution of interval with 2.
+
+
+### End of RXJS
+
+we are done with almost all category of rxjs operators, subjects, schedlers, hot and cold observables etc.
+
+Wd had around 110 operators in the rxjs from which how you can identify which one would suit for your problem statement and scenario so that could be derived from the RXKS operator decision tree.
+
+We can choose the right operator form the rxjs operator decision tree and we can use those by prefrerring our this documentation for its thoroughly understanding.
 

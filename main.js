@@ -421,4 +421,121 @@
 // }    
 // console.log(maxSubArray(arr))
 
+// Constructor Functions
+// function counter() {
+//   let count = 0;
+//   console.log("Please call increse or decrease to manipulate counter ", count);
+//   function increment() {
+//     count++;
+//     console.log("Count Increased to =>", count);
+//   }
 
+//   function decrement() {
+//     count--;
+//     console.log("Count decreased to =>", count);
+//   }
+//   this.increment = increment;
+//   this.decrement = decrement;
+// }
+// let createCounter = new counter();
+// createCounter.increment();
+// createCounter.increment();
+// createCounter.increment();
+
+// Closures
+// function one(){
+// 	let a = 1;
+// 	// console.log(c)
+//   return 	function two(){
+// 		let b = 2;
+//     return 		function three(){
+// 			let c = 3;
+// 			console.log(a,b)
+// }
+// }
+// }
+
+// one()()();
+
+// Named function expression
+// var b = function xyz(){
+// 	console.log("b called");
+// 	counter++;
+// }
+// b() ; // b called
+// xyz(); // xyz is not defined.
+
+// Named function expression which can be called itself inside the function but cant be called with function name in the global scope as its used as value and assigned to b variable which got created in global space.
+// let counter = 0;
+// var b = function xyz(){
+// 	console.log("b called");
+// 	counter++;
+// 	if(counter<=3) xyz();
+	
+
+// }
+// b() 
+
+
+// First Class functions (Passing functions as arguements)
+//   function logger(childfunction){
+// 	childfunction();
+// }
+
+// logger(function (){
+// 	console.log("Child function called");
+// })
+
+// Named function expression which can be called itself inside the function but cant be called with function name in the global scope as its used as value and assigned to b variable which got created in global space.
+// let counter = 0;
+// var b = function xyz(){
+// 	console.log("b called");
+// 	counter++;
+// 	if(counter<=3) xyz();
+	
+
+// }
+// b() 
+
+
+// First Class functions (Passing functions as arguements)
+//   function logger(childfunction){
+// 	childfunction();
+// }
+
+// logger(function (){
+// 	console.log("Child function called");
+// })
+
+// First Class functions (W hich is already taking funciton as an arguement & Returning functions from functions)
+// function logger(childfunction){
+// 	childfunction();
+// 	return function (){
+// 		console.warn("Returned function is called");
+// 	}
+// }
+
+// const returnedFunction = logger(function (){
+// 	console.log("Child function called");
+// });
+
+// returnedFunction();
+
+// Immediately Invoked functions
+// function one(){
+// 	return (function (){
+// 		const privateMessage = 'IIFE Called';
+// 		console.log(privateMessage);
+// 	})();
+// }
+// one();
+
+
+function x(y){
+	console.log('x called');
+	y();
+}
+
+x(function (){
+	console.log('Y called')
+})

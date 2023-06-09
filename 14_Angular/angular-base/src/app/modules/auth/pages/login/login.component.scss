@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap');
+@import 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.main {
+  width: 100%;
+}
+
+.baner {
+  background-image: url('../../../../../assets/login/bg.jpg');
+  height: 100vh;
+  overflow: hidden;
+  background-size: cover;
+}
+
+.baner .overlay {
+  height: inherit;
+  width: 100%;
+  z-index: 1;
+  background-color: rgb(0, 128, 117);
+  opacity: 60%;
+}
+
+.heading {
+  font-size: 38px;
+  font-weight: 500;
+}
+
+.subheading {
+  font-size: 24px;
+  color: darkgray;
+}
+
+.headings {
+  margin-top: 20vh;
+}
+
+form {
+  width: 50%;
+  text-align: center;
+}
+
+input {
+  height: 40px;
+  border-radius: 20px;
+  padding-left: 50px;
+}
+
+input::placeholder {
+  color: rgb(204, 204, 204);
+}
+
+.field {
+  position: relative;
+}
+.field .user {
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  top: 3px;
+  left: 15px;
+}
+.field .lock {
+  width: 23px;
+  height: 23px;
+  position: absolute;
+  top: 8px;
+  left: 18px;
+}
+
+.valid {
+  border: none;
+  width: 120px;
+  height: 40px;
+  border-radius: 20px;
+  color: #fff;
+  background-color: rgb(56, 212, 191);
+}
+.invalid {
+  border: none;
+  width: 120px;
+  height: 40px;
+  border-radius: 20px;
+  color: #fff;
+  background-color: rgb(204, 204, 204);
+}
+.forgotpass {
+  color: rgb(204, 204, 204);
+  text-decoration: underline;
+  margin-left: 60%;
+}
+
+.social {
+  color: rgb(204, 204, 204);
+}
+.accounts {
+  width: 50%;
+}
+.accounts img {
+  width: 35px;
+  height: 35px;
+}
+
+.emailerr {
+  margin: 0% 0 0 -57%;
+  font-size: 12px;
+  color: red;
+}
+
+.passerr {
+  margin: 0% 0 0 -53%;
+  font-size: 12px;
+  color: red;
+}
+
+.item{
+  border: 1px solid red;
+  background-color: gainsboro;
+}

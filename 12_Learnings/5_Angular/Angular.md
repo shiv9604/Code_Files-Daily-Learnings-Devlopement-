@@ -1325,6 +1325,7 @@ Soo therefore we need to use the dynamic routing.
   - Then we can print the id in the console like 
 
     **console.warn(this.route.snapshot.paramMap.get('id'))**.
+    **console.warn(this.route.params.subscribe(res=>console.log(id))**.
 
 **Default Page Routing :-**
 
@@ -1983,35 +1984,6 @@ intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEven
 
 ```
 
-### Dealing with auth_token
-
-In almost all the applications we need to build the login functionality in which after login request we will get the authToken for the user and further we need to preserve that `userToken` and pass it to the all api's.
-
-- **Storing Auth Token :-**
-
-  - We can create a service for getting the auth token, setting the auth token and updating the auth token and clearing the localstorage.
-
-  - We can store the auth token in localstorage with the help of service.
-
-- **Passing auth token to apis :-**
-
-  We can pass the auth token to all the apis with the help of `http-header-intercepter` and we need to prevent the thing for the login and api with the help of conditions.
-  
-- **Already Login :-**  
-
-  We can develop auto login functionality by checking the auth token in the localstorage and routing the user to the home page.
-
-- **Auto Logout :-**  
-
-  We can develop the auto logout functionality which will call the logout method at the auth token expiration time.
-
-- **Preventing Routes With Auth Token :-**
-
-  We can check the auth token in the auth guard service and if it will be true return `true` else `false`.
-
-
-
-
 ### Model (Interface) in Angular
 
 Model is nothing but the **Interface** to define the datatype of an object.
@@ -2062,8 +2034,6 @@ export class Urls{
 
 So it will check the value length and slice the value if value will be greater than maxLength.
 
-
-
 ### File Reader in Angular
 
 We can read the files in the angular with the help of `FileReader()` api with javascript as like mentioned below.
@@ -2095,20 +2065,6 @@ readFile(file:any){
 }
 ```
 
-### Send HTML data to child component
-
-In angular we can send html data as well to the child component with the help of `<ng-content>` which will tells the component, the html written in between the component tag will be shown in the child component.
-
-```
-// Parent Component
-<app-user>
-<p>This is the HTML written in Parent Component.</p>
-</app-user>
-
-
-// Child Component
-<ng-content></<ng-content>
-```
 
 ### Angular LifeCycle Hooks
 
@@ -2174,6 +2130,21 @@ There is a lifecycle of every service, component, directive and all in the angul
   ex : 
   If we want to reset all the values of the component before destroying the component.
 
+
+### Send HTML data to child component
+
+In angular we can send html data as well to the child component with the help of `<ng-content>` which will tells the component, the html written in between the component tag will be shown in the child component.
+
+```
+// Parent Component
+<app-user>
+<p>This is the HTML written in Parent Component.</p>
+</app-user>
+
+
+// Child Component
+<ng-content></<ng-content>
+```
 
 ### Acessing HTML Element in .ts file
 
@@ -2317,66 +2288,95 @@ let customInterval = Observable.create(observer=>{
       this.custom_Observable.unsubscribe()
   }
   ```
-### Pipe Oprator (Modify the observable response before subscription) 
 
-If we want to modify the data in between the next method and the subscription then we can use the pipe oprator which modifies the data with the map oprator like ` this.custom_Observable = this.interval.pipe(map(res)=> return "Count" + res).subscribe(res=>console.log(res))` as like mentioned below.
+### Difference between ng-template, ng-container, ng-templateOutlet & ng-content
 
-Ex : In the mentioned example observable returning counter on 1 sec of interval.
+This above mentioned above directive's are the key core concepts of angular and how the angular templates work under the hood.
 
-```
-// We are adding counter string to the response before subscription.
+**Differences :-**
 
-this.custom_Observable = this.interval.pipe(map(data=>{
-  return "Counter "+data
-})).subscribe(res=>console.log(res),err=>console.log(err),()=>console.log("Counter Completed"))
-```
+- **ng-template :-**
 
-### Filter Oprator (rxjs) and applying multiple oprators
+  ng-template is the directive in angular which doesn't render the template in the dom until and unless we direct it to render it.
 
-Filter oprator filters the value and only pass further if the condition is met as like mentioned below.
+  We can control rendering of the template with the ng-template and we can keep the content for the multiple purpose only on perticular scenarios but not to render elsetimes.
 
-Ex : 
-In the mentioned example observable returning counter on 1 sec of interval and its count starting from 0 and we need to filter it to not get the zero and we need append the string as well to the value as like mentiond below.
+  ```
+  <ng-container *ngIf="data else loading">
+  <p *ngFor="let item of data">{{item}}</p>
+  </ng-container>
 
-```
-  this.custom_Observable = this.interval.pipe(filter(val=>{
-    if(val==0){
-      return false
-    }
-    else{
-      return true
-    }
-  }),map(data=>{
-    return "Counter "+data
-  })).subscribe(res=>
-  {
-    console.log(res)
-  })
-```
+  <ng-template #loading>
+  Loading...
+  </ng-template>
+  ```
 
-And We can add the multiple oprators like `pipe(o1,o2)` but it should must return values.
+  In the above example you can see loading template will not render in the dom and you dont even need to handle with `!properties`, when the condition will get false only then the ng-template will be rendered.
 
-### Subject in angular
+  **Applications :-**
 
-**In the observables we can use the next method only inside observables but in the subjects we can use the `.next()` method outside the observable as well and its the most usefull rsjs oprator.**
+  - We can use `ng-template` to hold the content which will be used in structual directives.
 
-Subject is used for cross component data communication in between components.
 
-Subjects return an observable which can holds the data and calls everytime whenever anything change happens in the data and return the data.
+- **ng-container :-**
 
-- **Declaration :-** `update = new Subject();`
+  ng-container is used to prevent creation of extra dom elements which doesn't holds any content in the terms of using multiple structural directives on single element.
 
-- **How to pass the data :-** `update.next(data)`
+  Ex : 
+  ```
+  // HTML
+  <div class="values" *ngFor="let value of values">
+                <p *ngIf="value.id">{{value.id}}</p>
+  </div>
 
-- **How to Catch the data :-** By subsribing it and the code inside it will executed after every change.
-```
- ngOnInit() {
-    this.todoService.update.subscribe((status)=>{
-      console.log("Todo List Status in App.Component.ts =>",status)
-    })
-  }     
-```
-We can subscribe it in the `ngOnInit()` and it will executed after every change in the data.
+  // TS
+  values: any[] = [{id:0,name:'zero'},{name:'one'},{id:2,name:'two'},{id:3,name:'three'}];
+  ```
+  <img src="./without-ng-container.png" >
+
+  In the above code the ngFor will run even for the object which does not have id and internal div will not project if it does not have id but still the empty div's will be created for the objects without id's.
+
+  To avoid this empty div's we can use ng-container which does not create any dom element but on which we can use structural directives like `*ngFor, *ngIf, *ngSwitch, etc.`
+
+**With ng-container :-**
+
+  ```
+    <ng-container class="values" *ngFor="let value of values">
+                <p *ngIf="value.id">{{value.id}}</p>
+    </ng-container>
+  ```
+  <img src="./ng-container-usecase.png">
+
+- **ng-content :-**
+
+
+### Dealing with auth_token
+
+In almost all the applications we need to build the login functionality in which after login request we will get the authToken for the user and further we need to preserve that `userToken` and pass it to the all api's.
+
+- **Storing Auth Token :-**
+
+  - We can create a service for getting the auth token, setting the auth token and updating the auth token and clearing the localstorage.
+
+  - We can store the auth token in localstorage with the help of service.
+
+- **Passing auth token to apis :-**
+
+  We can pass the auth token to all the apis with the help of `http-header-intercepter` and we need to prevent the thing for the login and api with the help of conditions.
+  
+- **Already Login :-**  
+
+  We can develop auto login functionality by checking the auth token in the localstorage and routing the user to the home page.
+
+- **Auto Logout :-**  
+
+  We can develop the auto logout functionality which will call the logout method at the auth token expiration time.
+
+- **Preventing Routes With Auth Token :-**
+
+  We can check the auth token in the auth guard service and if it will be true return `true` else `false`.
+
+
 
 ### Enviornment Profiling
 
@@ -2442,18 +2442,6 @@ We have profiling in which we create various enviornment and its files with its 
 
   Above code will preload the lazy load modules silently in background.
 
-### Important Arguements for the serval functionalities
-
-- **Custom Directive :-** `element`
-
-- **Custom Pipe :-** `Data,custom args`
-
-- **Auth Guard :-** `Route,State`
-
-- **HTTP_Interceptor :-** `request,handler`
-
-- **Lazy Component Loading :-** `vcr(View Container ref),cfr (Component Factory Resolver)`
-
 ### Automation testing in Angular
 
 **Manual Testing** :- Basically manual testing is the thing where a person tests your angular application step by step like he checks the login,signup,webflow,clicks,and all.
@@ -2479,4 +2467,3 @@ We have profiling in which we create various enviornment and its files with its 
 ### Angular Testing
 
 **To check the default test cases** - **`ng test`**
-

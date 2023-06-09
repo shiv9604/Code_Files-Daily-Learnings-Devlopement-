@@ -1,0 +1,62 @@
+<div class="main container-fluid row" *ngIf="loginForm">
+  <div class="baner col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+    <div class="overlay"></div>
+  </div>
+  <div class="form col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+    <div class="headings">
+      
+      <p class="text-center heading">Welcome</p>
+      <br />
+      <p class="text-center subheading">Log in to your account to continue</p>
+    </div>
+    <div class="form ml-auto my-5">
+      <form class="mx-auto" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="field mb-4">
+          <input
+            type="text"
+            class="form-control email"
+            placeholder="johndoe@user.com"
+            formControlName="user"
+            id="email"
+          />
+          <img src="../../../assets/login/user.png" alt="" class="user" />
+          <span class="emailerr" *ngIf="loginForm.invalid && loginForm.touched"
+            >Email is required</span
+          >
+        </div>
+        <div class="field">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="pass"
+            placeholder="**********"
+            id="pass"
+          />
+          <img src="../../../assets/login/lock.png" alt="" class="lock" />
+
+          <span class="passerr" *ngIf="loginForm.invalid && loginForm.touched"
+            >Password is required</span
+          >
+        </div>
+        <p class="forgotpass mt-3">Forgot Password?</p>
+        <button
+          class="mt-1"
+          [ngClass]="loginForm.invalid ? 'invalid' : 'valid'"
+          type="submit"
+          [disabled]="loginForm.invalid"
+        >
+          Log In
+        </button>
+
+        <div class="social container-fluid mt-5">
+          <p>Dont have an account? <u>Sign up!</u></p>
+          <div class="accounts mt-4 mx-auto d-flex justify-content-around align-items-center">
+            <img src="../../../assets/login/facebook.png" alt="" />
+            <img src="../../../assets/login/twitter.png" alt="" />
+            <img src="../../../assets/login/linkedin.png" alt="" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

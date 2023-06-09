@@ -1,6 +1,17 @@
 # Git
 Git is version control system to keep the record of your all versions of your project,we can go to code files of any version and it we can put this files to cloud soo we can acess them from anywhere in the world.
 
+### SSH setup (System specific)
+
+For acess four git repositories from an perticular machine you need to create SSH key for every system you use and you need to store that ssh key in your git.
+
+After saving your system ssh key to your git repository you will be able to access all the projects you are invited to and your own public and private repositories.
+
+**Steps to setup SSH key :-**
+
+- First generate ssh key for your system with ``
+
+
 ### Terminal Basic Commands
 - `pwd` - It gives you present working directory
 

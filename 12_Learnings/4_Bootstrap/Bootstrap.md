@@ -143,7 +143,7 @@ We can make any component display flex with only bootstrap as mentioned below.
 - justify-contnet-center : make justify content center
 - align-contnet-center : make align content center
 
-### Order of items in bootstrap
+### Order of items in bootstrap1
 
 We can change the orders of div's in the same container by using : 
 
