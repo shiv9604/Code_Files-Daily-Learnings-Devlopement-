@@ -530,12 +530,15 @@
 // }
 // one();
 
+// CallBacks (When we pass first class functions into another function as an arguement)
 
-function x(y){
-	console.log('x called');
-	y();
-}
+// function x(y){
+// 	console.log('x called');
+// 	y();
+// }
 
-x(function (){
-	console.log('Y called')
-})
+// x(function (){
+// 	console.log('Y called')
+// })
+
+

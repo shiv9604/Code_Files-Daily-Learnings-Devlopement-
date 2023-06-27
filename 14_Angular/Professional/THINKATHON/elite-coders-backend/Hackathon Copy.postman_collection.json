@@ -1,0 +1,347 @@
+{
+	"info": {
+		"_postman_id": "15a5da87-c31c-41fa-922f-a6f427e5bd80",
+		"name": "Hackathon Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\":\"super_admin\",\n    \"password\":\"admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/hack/auth/:user-type/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"hack",
+						"auth",
+						":user-type",
+						"login"
+					],
+					"variable": [
+						{
+							"key": "user-type",
+							"value": "admin"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"refreshToken\":\"eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzQ1MDkwMjEsImV4cCI6MTY3NDUxMDgyMX0.4s9k6mMxj4bSjco3EdMK1sD3wVJueOAufqTlHj6Iqko\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/hack/auth/:user-type/refresh-token",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"hack",
+						"auth",
+						":user-type",
+						"refresh-token"
+					],
+					"variable": [
+						{
+							"key": "user-type",
+							"value": "admin"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"user\",\n    \"lastName\": \"user\",\n    \"phoneNumber\": \"1234567890\",\n    \"roles\": [\n        \"USER_READ_SELF\"\n    ],\n    \"email\": \"user1@read.com\",\n    \"dob\": \"1999/10/16\",\n    \"userName\":\"user_read_1\",\n    \"password\": \"Test@123\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/hack/auth/:user-type/register",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"hack",
+						"auth",
+						":user-type",
+						"register"
+					],
+					"variable": [
+						{
+							"key": "user-type",
+							"value": "admin"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Read by Id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzMWNjOTZlOC01YzFlLTQyNTItOTUzMS01YTJmOWI3ZGRlMmYiLCJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9VU0VSUyxST0xFX1VTRVJfQ1JFQVRFIiwiaWF0IjoxNjc1MDU3OTUwLCJleHAiOjE2NzUwNTg1NTB9.2E6uqIaVFj1DeaKvkdLerq9fzwjXDApufF40cgP7tqE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/hack/test/users/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"hack",
+						"test",
+						"users",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "31cc96e8-5c1e-4252-9531-5a2f9b7dde2f"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Read by Id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhM2QyOTFhNi00M2JlLTRhY2EtYWZhOC05OTM2YTkzYzk2MzciLCJzdWIiOiJzdXBlcl9hZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTl9DUkVBVEUsUk9MRV9BRE1JTl9ERUxFVEUsUk9MRV9BRE1JTl9ERUxFVEVfU0VMRixST0xFX0FETUlOX1JFQUQsUk9MRV9BRE1JTl9SRUFEX1NFTEYsUk9MRV9BRE1JTl9VUERBVEUsUk9MRV9BRE1JTl9VUERBVEVfU0VMRixST0xFX1VTRVJTLFJPTEVfVVNFUl9DUkVBVEUsUk9MRV9VU0VSX0RFTEVURSxST0xFX1VTRVJfREVMRVRFX1NFTEYsUk9MRV9VU0VSX1JFQUQsUk9MRV9VU0VSX1JFQURfU0VMRixST0xFX1VTRVJfVVBEQVRFLFJPTEVfVVNFUl9VUERBVEVfU0VMRiIsImlhdCI6MTY3NTA1ODY5MywiZXhwIjoxNjc1MDU5MjkzfQ.qLD1yiN-2U02yUvKiqa6pj26B5p_QRIyAl9-gHaM2YQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/hack/test/admins/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"hack",
+						"test",
+						"admins",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "a3d291a6-43be-4aca-afa8-9936a93c9637"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sample entity",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\":\"sample\",\n    \"lastName\":\"name\",\n    \"userName\":\"sample_name\",\n    \"phoneNumber\":\"9889898989\",\n    \"email\":\"sample@email.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/hack/auth/sample",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"hack",
+						"auth",
+						"sample"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sample entity",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/hack/auth/sample/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"hack",
+						"auth",
+						"sample",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "b65a6ede-01e1-4365-9275-d2643f218064"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sample entity by Id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"b65a6ede-01e1-4365-9275-d2643f218064\",\n    \"firstName\":\"updaated\",\n    \"lastName\":\"updated 4\",\n    \"userName\":\"new-User\",\n    \"email\":\"new@email.com\",\n    \"phoneNumber\":\"9889898989\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/hack/auth/sample",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"hack",
+						"auth",
+						"sample"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Sample entity",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhM2QyOTFhNi00M2JlLTRhY2EtYWZhOC05OTM2YTkzYzk2MzciLCJzdWIiOiJzdXBlcl9hZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTl9DUkVBVEUsUk9MRV9BRE1JTl9ERUxFVEUsUk9MRV9BRE1JTl9ERUxFVEVfU0VMRixST0xFX0FETUlOX1JFQUQsUk9MRV9BRE1JTl9SRUFEX1NFTEYsUk9MRV9BRE1JTl9VUERBVEUsUk9MRV9BRE1JTl9VUERBVEVfU0VMRixST0xFX1VTRVJTLFJPTEVfVVNFUl9DUkVBVEUsUk9MRV9VU0VSX0RFTEVURSxST0xFX1VTRVJfREVMRVRFX1NFTEYsUk9MRV9VU0VSX1JFQUQsUk9MRV9VU0VSX1JFQURfU0VMRixST0xFX1VTRVJfVVBEQVRFLFJPTEVfVVNFUl9VUERBVEVfU0VMRiIsImlhdCI6MTY3NTA5NzY1MCwiZXhwIjoxNjc1MDk4MjUwfQ.diGO8M1BJjTZqACf_WEa0fqFDcWQrJsMmWn0rmNvyso",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/hack/auth/sample?page=0",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"hack",
+						"auth",
+						"sample"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "firstName",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "search",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "swagger API test",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/v2/api-docs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"v2",
+						"api-docs"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

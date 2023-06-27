@@ -201,6 +201,58 @@ Pushing means updating your branch on the remote and pushing all the files which
 **How to push code to remote repo :-** `git push origin branchname`
 
 
+### Git Commit Message Standards
+Whenever we add commit messgaes to any project repository we use our own language to write the commit messgaes which are not quite readable. This
+
+Git Difference can tell the changes but not the purpose of changes so ideally commit message should contain the purpose of the commit.
+
+**Types of Commits :-**
+
+- **Full Descriptive Commit :-**
+
+    We can write the full descriptive commits by using the title of `50 chars` & Body with `72 Chars`. As we know we can write the commit messgaes in gnu editor.
+
+    We can setup a tempate text file for commit message with the help of `git config --global commit.template ~/.gitmessage.txt` and writing commit with `git commit` only.
+    
+    ```
+    Subject line (try to keep under 50 characters)
+
+    Multi-line description of commit,
+    feel free to be detailed.
+
+    [Ticket: X]
+    # Please enter the commit message for your changes. Lines starting
+    # with '#' will be ignored, and an empty message aborts the commit.
+    # On branch master
+    # Changes to be committed:
+    #   (use "git reset HEAD <file>..." to unstage)
+    #
+    # modified:   lib/test.rb
+    #
+    ~
+    ~
+    ".git/COMMIT_EDITMSG" 14L, 297C
+    ```
+
+- **Single Liner Commit :-**
+
+    Mostly we use single liner commit in which we can add the commit message with the help of `git commit -m "Imperative Mood titles"` in which imperative mood means spoken or written as giving the command which git uses itself.
+
+    ```
+    // Imperative Messages
+    Refactor subsystem X for readability
+    Update getting started documentation
+    Remove deprecated methods
+    Release version 1.0.0
+    ```
+
+
+    ```
+    // Normal Messgaes
+    Fixed bug with Y
+    Changing behavior of X
+    ```
+
 
 
 
