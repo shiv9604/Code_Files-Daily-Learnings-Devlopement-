@@ -1,0 +1,38 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.task ul li{
+    display: flex;
+    align-items: center;
+    height: 45px;
+
+}
+.deleteicon{
+    height: inherit;
+    padding: auto 0;
+}
+.taskcontainer{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.taskitem{
+    display: flex;
+}
+.checkbox{
+    height: inherit;
+}
+.tasktext p{
+    margin: auto 0;
+}
+.tasktext{
+    overflow:hidden
+}
+.deleteicon span{
+    cursor: pointer;
+}
+
+
+

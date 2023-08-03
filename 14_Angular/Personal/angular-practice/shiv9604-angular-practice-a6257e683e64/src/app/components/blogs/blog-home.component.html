@@ -1,0 +1,36 @@
+<div class="main">
+    <h1>All Blogs</h1>
+    <hr>
+    <div class="blogs">
+        <div class="blog" *ngFor="let item of allblogs" (click)="comments(item.id)">
+        <mat-card [class]="item.id%2!=0?'odd':'normal'">
+            
+            <!-- <p class="label">userId : <span class="value">{{item.userId}}</span></p> -->
+            <!-- <p class="title">title : <span class="value">{{item.title}}</span></p>
+
+            <p class="cardbody">body : <span class="value">{{item.body}}</span></p> -->
+            
+            <div class="content">
+               <p class="key" >ID</p>  
+                <p class="value" >: {{item.id}}</p>
+            </div>
+            <div class="content">
+               <p class="key" >userId</p>  
+                <p class="value" >: {{item.userId}}</p>
+            </div>
+
+            <div class="content" >
+                <p class="key">title</p>  
+                 <p class="value">: {{item.title}}</p>
+             </div>
+
+             <div class="content" >
+                <p class="key">body</p>  
+                 <p class="value bvalue">: {{item.body}}</p>
+             </div>
+
+            
+        </mat-card>
+    </div>
+    </div>
+</div>

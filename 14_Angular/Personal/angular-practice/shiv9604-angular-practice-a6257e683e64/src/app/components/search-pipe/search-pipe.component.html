@@ -1,0 +1,20 @@
+<div class="main">
+    <h1>Type-Code Todos</h1>
+    <hr>
+    <div class="todos">
+      <div class="search manual">
+        <mat-form-field appearance="outline">
+          <mat-label>Search</mat-label>
+          <input type="text" matInput #searchinput [(ngModel)]="searchVal"/>
+        </mat-form-field>
+        <p style="font-weight: 500;color: brown;">Please Hover On the Headers to Get Sort Buttons</p>
+      </div>
+    </div>
+    <div class="list">
+        <mat-card *ngFor="let item of todos | filter:searchVal">
+            <p>Id : {{item.id}}</p>
+            <p>Email : {{item.email}}</p>
+        </mat-card>
+    </div>
+  </div>
+  

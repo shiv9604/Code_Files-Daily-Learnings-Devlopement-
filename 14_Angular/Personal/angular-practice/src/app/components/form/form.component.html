@@ -1,0 +1,11 @@
+<div class="container p-5 my-5 border w-25" >
+    <h2>Template Driven Form</h2>
+    <form #loginForm="ngForm" (ngSubmit)="userLogin(loginForm.value)">
+      <input type="text" class="form-control my-4" placeholder="Enter Name" name="name" ngModel >
+      <input type="password" class="form-control my-4" placeholder="Enter Password" name="password" ngModel>
+      <button class="btn btn-primary">Log In</button>
+    </form>
+    <button class="btn btn-primary my-3"><a routerLink="reactive-form" class="text-light">Reactive-Form</a></button>
+  </div>
+
+ <router-outlet></router-outlet>

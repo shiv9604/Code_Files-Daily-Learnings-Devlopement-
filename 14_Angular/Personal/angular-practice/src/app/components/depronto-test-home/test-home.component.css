@@ -1,0 +1,59 @@
+.main{
+        width: 100%;
+        padding: 1% 2%;
+        /* border: 1px solid red; */
+}
+h1{
+    text-align: center;
+}
+.actions{
+    width: 100%;
+    /* border:1px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1% 2%;
+    margin: auto;
+    /* text-align: center; */
+}
+.section h3{
+    font-weight: 500;
+    font-size: 18px;
+}
+.section{
+    /* border: 1px solid red; */
+    min-width: 200px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    background-color: gainsboro;
+    cursor: pointer;
+    margin: 0% 7%;
+}
+.content{
+    /* border: 1px solid red; */
+    width: max-content;
+    margin: auto;
+    text-align: center;
+    
+}
+mat-icon{
+    font-size: 35px;
+}
+::ng-deep .mat-icon{
+    width: auto !important;
+    height: auto !important;
+}
+
+@media only screen and (max-width: 600px) {
+    
+    .actions{
+        display: flex;
+        flex-direction: column;
+        padding: 0%;
+    }
+    .section{
+        margin: 7% 0%;
+    }
+}

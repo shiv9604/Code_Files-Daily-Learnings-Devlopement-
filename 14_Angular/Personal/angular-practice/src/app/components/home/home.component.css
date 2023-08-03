@@ -1,0 +1,32 @@
+.main{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    padding: 3% 5%;
+}
+
+.menu{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 15px;
+}
+h2{
+    text-align: center;
+}
+
+mat-card{
+    min-height: 180px;
+    min-width: 180px;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+}
+
+mat-card p{
+    font-weight: 500;
+    font-size: 16px;
+}
+mat-card:hover{
+    background-color: gainsboro;
+    transition: 0.5s;
+}

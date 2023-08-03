@@ -1,0 +1,60 @@
+<div class="main mt-5">
+  <div class="counter-output">
+    <app-counter-output></app-counter-output>
+  </div>
+  <div class="counter-name">
+    <app-counter-name></app-counter-name>
+  </div>
+  <br />
+  <div class="counter-actions">
+    <app-counter-actions></app-counter-actions>
+  </div>
+  <br />
+  <div class="custom-counter">
+    <h3>Custom Input to Add to Counter</h3>
+    <mat-form-field appearance="outline">
+      <mat-label>Cusom Counter Input</mat-label>
+      <input type="number" matInput [(ngModel)]="customVal" placeholder="Please Enter Value" min=1/>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button color="primary" (click)="addCounter()">Submit</button>
+  </div>
+
+  <br>
+  <hr>
+  <br>
+  <div class="posts" >
+    <h2>POSTS</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let post of posts">
+        <td>{{post.id}}</td>
+          <td>{{post.name}}</td>
+          <td>{{post.age}}</td>
+          <td style="cursor: pointer;" fxLayout fxLayoutGap="15px" fxLayoutAlign="center center">
+            <button mat-mini-fab (click)="updatePost(post)" color="primary">
+              <mat-icon >edit</mat-icon>
+            </button>
+
+            <button mat-mini-fab (click)="deletePost(post.id)" color="warn">
+              <mat-icon >delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <p>{{posts | async | json}}</p> -->
+  </div>
+
+  <div class="add-post">
+    <button mat-raised-button color="primary" (click)="addPost()">Add Post</button>
+  </div>
+</div>

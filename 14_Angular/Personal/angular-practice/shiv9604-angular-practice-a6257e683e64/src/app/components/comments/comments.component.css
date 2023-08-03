@@ -1,0 +1,32 @@
+.main{
+    padding: 1% 2%;
+    /* border: 1px solid red; */
+    width: 100%;
+
+}
+.main h1{
+    text-align: center;
+}
+
+mat-card{
+    background-color: rgb(226, 226, 226);
+    margin-bottom: 10px;
+}
+
+
+.key{
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.value{
+    font-size: 16px;
+}
+
+.comment{
+    cursor: pointer;
+}
+.content{
+    display: flex;
+    width: 100%;
+}

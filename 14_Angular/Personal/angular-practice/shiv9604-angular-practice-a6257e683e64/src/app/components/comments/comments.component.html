@@ -1,0 +1,34 @@
+<div class="main">
+    <h1>Comments</h1>
+    <hr>
+    <div class="comments">
+        <div class="comment" *ngFor="let item of comments">
+        <mat-card>
+            <!-- <p class="label">Post Id : <span class="value">{{item.postId}}</span></p>
+            <p class="title">Name : <span class="value">{{item.name}}</span></p>
+            <p class="body">Email : <span class="value">{{item.email}}</span></p>
+            <p class="body">Body : <span class="value">{{item.body}}</span></p> -->
+            
+            <div class="content">
+                <p class="key" >Post Id</p>  
+                 <p class="value" >: {{item.postId}}</p>
+             </div>
+ 
+             <div class="content" >
+                 <p class="key">Name</p>  
+                  <p class="value">: {{item.name}}</p>
+              </div>
+ 
+              <div class="content" >
+                 <p class="key">Email</p>  
+                  <p class="value">: {{item.email}}</p>
+              </div>
+
+              <div class="content" >
+                <p class="key">Body</p>  
+                 <p class="value">: {{item.body}}</p>
+             </div>
+        </mat-card>
+    </div>
+    </div>
+</div>
