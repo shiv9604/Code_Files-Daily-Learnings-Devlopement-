@@ -17,11 +17,13 @@
   <br />
   <br />
   <h4 class="text-start mt-5">Your Todo List</h4>
+  <button class="btn btn-primary" (click)="refreshTodos()">Refresh</button>
+
   <hr />
 
   <div class="container p-3 task">
-    <ul *ngFor="let item of tasks" style="margin-left: -40px">
-      <li style="list-style: none; font-size: 1.2rem">
+    <ul style="margin-left: -40px">
+      <li style="list-style: none; font-size: 1.2rem" *ngFor="let item of tasks" >
         <div class="taskcontainer">
           <div class="taskitem">
             <div class="checkbox">

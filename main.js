@@ -73,7 +73,7 @@
 
 // function one(){
 //     console.log("one")
-// }    
+// }
 // one()
 // function two(){
 //     setTimeout(()=>{
@@ -244,7 +244,7 @@
 // Programe for Scope
 // var a=10;
 
-// let a=20;   
+// let a=20;
 // console.log(a)
 
 
@@ -418,7 +418,7 @@
 //         if(sum<0) sum=0;
 //     }
 //     return maxi;
-// }    
+// }
 // console.log(maxSubArray(arr))
 
 // Constructor Functions
@@ -474,7 +474,7 @@
 	
 
 // }
-// b() 
+// b()
 
 
 // First Class functions (Passing functions as arguements)
@@ -495,7 +495,7 @@
 	
 
 // }
-// b() 
+// b()
 
 
 // First Class functions (Passing functions as arguements)
@@ -542,3 +542,57 @@
 // })
 
 
+// CypherText Encryption
+// function replaceCharacterByIndex(string, index, replacement) {
+//     return (
+//       string.slice(0, index) +
+//       replacement +
+//       string.slice(index + replacement.length)
+//     );
+// }
+
+// function replacer(str, shift, alphabets) {
+//     for (let i = 0; i < str.length; i++){
+//         const char = str[i];
+//         const indexForCharShift = alphabets.indexOf(char)+ shift > 25 ? (alphabets.indexOf(char) + shift) - alphabets.length : alphabets.indexOf(char)+ shift;
+//         const shiftedChar = alphabets[indexForCharShift];
+//         str = replaceCharacterByIndex(str, i, shiftedChar);
+//     }
+//     return str;
+// }
+
+// function caesarRedux(sentence, shift) {
+//     const constrains = !sentence || !shift || (shift <= 0 || shift > 25);
+//     if (constrains) return console.log("Invalid Input");
+//     let alphabets = 'abcdefghijklmnopqrstuvwxyz';
+//     const isPlainText = sentence.includes('the');
+//     if (isPlainText) alphabets = alphabets.split('').reverse().join('');
+//     const result = sentence.split(' ').map(word => replacer(word, shift, alphabets)).join(' ')
+//     console.log(result);
+//     return result
+// }
+
+
+// caesarRedux('we accept the ieeextreme challenge',19);
+// caesarRedux('qbspbz',19);
+
+// Decimal Places Restrictor
+function decimalRestrictor(ctrlValue,beforeDecimal,afterDecimal) {
+      let value;
+    let isNum = typeof ctrlValue == 'number';
+    console.log("IsNum :", isNum);
+      isNum ? value = ctrlValue.toString() : value = ctrlValue.toString();
+      if (!value.includes('.')) { 
+        value = value.slice(0, beforeDecimal);
+          ctrlValue = value;
+          console.log("Non Decimal Restricted value:",value)
+        return;
+      } 
+      let [before, after ] = value.split('.');
+      before = before.length != beforeDecimal ? before.slice(0, beforeDecimal) : before;
+      after = after.length != afterDecimal ? after.slice(0, afterDecimal) : after;
+    value = [before, after].join('.');
+    console.log("Decimal Restricted value:", value);
+}
+
+decimalRestrictor("123456789", 8, 6);

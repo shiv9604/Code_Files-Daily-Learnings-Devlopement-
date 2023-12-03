@@ -40,7 +40,8 @@ export class TodoListComponent implements OnInit {
     let task = this.todoForm.value['task']
     console.log("Task to be Added =>", task)
     if(task!=''){
-      this.todoService.addTodo(task)
+      this.todoService.addTodo(task);
+      this.refreshTodos();
     }
   } 
 
@@ -52,7 +53,8 @@ export class TodoListComponent implements OnInit {
     let task = this.todoForm.value['task']
     let index = this.todoForUpdate['id'] -1
     console.log("Updated Value =>",task)
-    this.todoService.updateTodo(index,task)
+    this.todoService.updateTodo(index, task)
+    this.refreshTodos();  
   }
 
   editTodo(obj: any) {
@@ -63,5 +65,9 @@ export class TodoListComponent implements OnInit {
 
   getAllTodos(){
     this.tasks = this.todoService.getAllTodos()
+  }
+
+  refreshTodos() {
+    this.getAllTodos();
   }
 }

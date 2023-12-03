@@ -27,8 +27,8 @@ const routes: Routes = [
     component:LoginAuthComponent
   },
   {
-    path:'admin',
-    loadChildren:()=> import('./Modules/admin/admin.module').then(mod=>mod.AdminModule)
+    path:'auth',
+    loadChildren:()=> import('./modules/auth/auth.module').then(mod=>mod.AuthModule)
   },
   {
     path:'home',
@@ -36,7 +36,7 @@ const routes: Routes = [
   },
   {
     path:'user',
-    loadChildren:()=> import('./Modules/user/user.module').then(mod=>mod.UserModule)
+    loadChildren:()=> import('./modules/user/user.module').then(mod=>mod.UserModule)
   },
   {
     path:'form',

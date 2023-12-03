@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { AdminRoutingModule } from './admin-routing.module';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { AuthRoutingModule } from './auth-routing.module';
 
 console.log("Admin Module Loaded...")
 
@@ -14,11 +13,11 @@ console.log("Admin Module Loaded...")
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AuthRoutingModule
   ],
   exports:[
     LoginComponent,
     SignupComponent
   ]
 })
-export class AdminModule { }
+export class AuthModule { }

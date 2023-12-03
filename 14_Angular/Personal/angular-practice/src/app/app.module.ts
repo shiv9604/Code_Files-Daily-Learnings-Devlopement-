@@ -30,7 +30,6 @@ import { LoginAuthComponent } from './components/login-auth/login-auth.component
 import { HeaderInterceptor } from './services/intercepter-services/headers/header.interceptor';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
-
 import { CounterComponent } from './counter/counter/counter.component';
 import { CounterOutputComponent } from './counter/counter-output/counter-output.component';
 import { CounterActionsComponent } from './counter/counter-actions/counter-actions.component';
@@ -89,7 +88,6 @@ import { NumStrenthPipe } from './pipes/num-strenth.pipe';
     StoreRouterConnectingModule.forRoot({
       serializer:NgrxRouterSerializer
     })
-    
   ],
   providers: [{provide:HTTP_INTERCEPTORS,useClass:HeaderInterceptor,multi:true}],
   bootstrap: [AppComponent],

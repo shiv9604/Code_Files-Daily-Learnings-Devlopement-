@@ -3,10 +3,10 @@
 ### Installation
 - First install nodejs into your system to use npm module.
 - Installation of cli module (Angular)
-    **`npm install -g @angular/cli`**
+    `npm install -g @angular/cli`
 
 ### Creating Your First Angular App
- - **`ng new my-app`**
+ - `ng new my-app`
 
 ### Running Your Default Template
 1. First bring your terminal to the current directory by 
@@ -19,21 +19,21 @@
 
 ### Important Angular CLI Commands
 
-- **`npm install -g @angular/cli`** - To install angular cli in your system globally.
+- `npm install -g @angular/cli` - To install angular cli in your system globally.
 
-- **`ng new my-Angular-App`** - To Create new project in angular
+- `ng new my-Angular-App` - To Create new project in angular
 
-- **`ng serve`** - To run your ANGULAR application.
+- `ng serve` - To run your ANGULAR application.
 
-- **`ng help`** - It will provide us the some angular basic CLI commands which are necessary.
+- `ng help` - It will provide us the some angular basic CLI commands which are necessary.
 
-- **`"ng generate component newComponent" Shortform :- ("ng g c newComponent")`** - It will create new component in our angular project.
+- `ng generate component newComponent` - It will create new component in our angular project. It can be used as `ng g c componentName` as shorthand.
 
-- **`"ng generate module newComponent" Shortform :- ("ng g m newComponent")`** - It will create new Module in our angular project.
+- `ng generate module newComponent` - It will create new Module in our angular project. It can be used as `ng g c componentName` as shorthand.
 
-- **`"ng genrate class newclass"`** - It creates class for us with 2 files 1.classname.ts & 2.classname.spec.ts
+- `ng genrate class newclass` - It creates class for us with 2 files 1.classname.ts & 2.classname.spec.ts
 
-- **`"ng build"`** - it will create our application for the production and it will create the dist folder in your directory and it we can run our application on the serve by putting that folder on the server.
+- `ng build` - it will create our application for the production and it will create the dist folder in your directory and it we can run our application on the serve by putting that folder on the server.
 
 ### Angular File Structure
 
@@ -59,8 +59,6 @@ In `src/app` folder App-Files :
 
 - **app.component.ts** - Which will contain TypeScript code for the main app.
 
-- **app.component.ts** - Which will contain TypeScript code for the main app.
-
 - **app.component.spec.ts** - Which will contain TypeScript code for the testing of the app.
 
 - **app-routing.module.ts** - Which will contain TypeScript code for the routing of the main app.
@@ -78,60 +76,54 @@ Which things we can't use inside the interpolation :
 
 ### Angular Components
 
-It will create component all 4 files in components folder.
- 
- **`ng generate component 
- foldername/component-name`**
+`ng generate component foldername/component-name`
 
-In the default files component.html will contain only code will be `<p>Component works</p>`
+It will create component all 4 files in components folder.
+
+In the default files component.html will contain only code will be `<p>Component works!</p>`
 
 We dont need to import the each and every component inside our **app.component.ts** file like react or other frameworks.
 
 1.  **Types of Component**
 
     1. **inline-style component** - 
-     
-        we can genrate inline-style component by command **`ng generate component myComponent --inline-style`** in which we can skip css file and we can add css in **component.ts** file where url's are declared inside the [`.class{color:red}`].
+          
+        we can genrate inline-style component by command `ng generate component myComponent --inline-style` in which we can skip css file and we can add css in **component.ts** file where url's are declared inside the [`.class{color:red}`].
 
     2. **inline-template component** - 
-    
-        we can genrate inline-template component by command **`ng generate component myComponent --inline-template`** in which we can skip HTMl file and we can add HTML in **component.ts** file where url's are declared inside the **[`<h1>This is the header</h1>`]**.
+
+        we can genrate inline-template component by command `ng generate component myComponent --inline-template` in which we can skip HTMl file and we can add HTML in `component.ts` file where url's are declared inside the [`<h1>This is the header</h1>`].
 
     3. **inline-style and inline-template component** - 
 
-        we can genrate inline-style and inline-template component by command **`ng genrate component myComponent --inline-style --inline-template`** in which we can skip both HTML and CSS file and and we can write HTML&CSS in **component.ts** file.
+        we can genrate inline-style and inline-template component by command `ng genrate component myComponent --inline-style --inline-template` in which we can skip both HTML and CSS file and and we can write HTML&CSS in `component.ts` file.
 
 2.  **Loading-Component In APP**
 
-    To load the component in the **app.component.html** we need to use it like HTML tag **<app-component></app-component>** and component will be automatically loaded inside our app. 
+    To load the component in the `app.component.html` we need to use it like HTML tag `<app-component></app-component>` and component will be automatically loaded inside our app. 
 
 3. **Taking or using Input in the component**
 
-    If we want to use attributes to the component tag like **`<app-component [text]="'Add'" ></app-component>`**
+    If we want to use attributes to the component tag like `<app-component [text]="'Add'" ></app-component>`
 
     - First we need to initialize the input in the component.ts file 
         ```
         import {Input} from '@angular/core'
         @Input() text:string;
         ```
-    - Then we can use that variable inside the component's html file for the value and then we can pass it value by attribute in **app.component.html** as like mentioned below.
-    ```
-    // Button Component Ts
-    <button 
-    [ngStyle]="{'background-color': color, color:fontcolor}"
-    class="btn"
-    (click)="onclick()"
-    >{{text}}</button>
+    - Then we can use that variable inside the component's html file for the value and then we can pass it value by attribute in `app.component.html` as like mentioned below.
 
-    // App Component Ts
-    <app-button color="purple" text="Add" fontcolor="white"></app-button>
-    ```
+      ```
+      // Button Component Ts
+      <button 
+      [ngStyle]="{'background-color': color, color:fontcolor}"
+      class="btn"
+      (click)="onclick()"
+      >{{text}}</button>
 
-4. **Inline CSS in Components**
-
-    For that we need to use ngdirective to use inline styline as mentioned below : 
-
-    **[ngStyle] = "{'property-property':'value'/variable,property:'value'}"**
+      // App Component Ts
+      <app-button color="purple" text="Add" fontcolor="white"></app-button>
+      ```
 
 ### Types of selectors in angular
 
@@ -165,58 +157,79 @@ As like this we can use the components with the different types in the html.
 
 Modules are the group of components or a complete functionality like **user-authentication** in which it can contain login,register,forgotpwd,etc.
 
-Modules are not reusable but components containing inside a model we can use that components.
+Modules are not reusable but components containing inside a module can be reusable components.
 
 1. **How to genrate module** 
 
-    We can generate module by using command  **`ng generate module user-auth`** in which we get only 1 file in folder ***user-auth.module.ts***.
+    We can generate module by using command  `ng generate module user-auth` in which we get only 1 file in folder `user-auth.module.ts`.
 
-    In ***user-auth.module.ts*** file it will have some imports,declarations in which in ***imports:[CommonModule]*** contains the module names and ***declarations:[log-in]*** it will contain components declarations.
+    In `user-auth.module.ts` file it will have some imports,declarations in which in `imports:[CommonModule]` contains the module names and `declarations:[LoginComponent]` it will contain components declarations,`exports:[Components needs to be used out of the module]`,`providers:[Contains Services or Classes which are not injectable]` & `entryComponents:[Contains Popup components]`.
 
 2. **How to generate component in module**
 
-    We can genrate component in module by using command **`ng generate component folderName/componentName`**
+    We can genrate component in module by using command `ng generate component moduleDirectory/componentName` or `ng g component --module=app`
 
-    BUT
+    when we create component inside  module directory it will declare component  inside `directory module` not in `app.module.ts` 
 
-    when we create component in some module it will declare inside ***created module*** not in ***app.module.ts*** 
+3. **How to register module in app.component.ts**
 
-3. **For using that component created inside any module**
-    
-    As We know...
-    when we create component in some module it will declare inside ***created module*** not in ***app.module.ts*** 
+    First of all we need to import that module like `import {UserAuthModule} from './user-auth/user-auth.module'` and we need to register that module in the `imports:[UserAuthModule]`.
 
-    soo.. 
+4. **Using any modules component in application :-**
 
-    We need to register that component inside the ***app.module.ts*** file and then we can use it.
-
-4. **How to register module in app.component.ts**
-
-    First of all we need to import that module like **`import {UserAuthModule} from './user-auth/user-auth.module'`** and we need to register that module in the **imports:[UserAuthModule]**.
-
-5. **Using that component inside the app anywhere**
-
-    If we use the component it will throw an error bcoz angular doesn't know the component exists.
+    If we directly use the component it will throw an error bcoz angular doesn't know the component exists.
 
     SOO... 
     
-    We need to export that component to the angular app by **exports:[LoginComponent]** below the imports and then the component in the `UserModule` is globally available in your angular app.
+    We need to export that component from that module `exports:[LoginComponent]` then if we want to use that component globally we need to import that module in `app.module.ts`.
+
+    If we want to use that component only in some other module without globally loading it then we need to import component containing module into consumption module.
+
+    **Note - If we want to consume any modules component then we need to import that module as well as add the component in exports array`exports:[Component]` then only it can be used.**
+
+
+    **Confusions Related to Modules:-**
+
+      1. **Can we use component from an fetaure module in application anywhere just by exporting that component from that module ? :-**
+
+          We cant use the components of some module just by exporting that component from that module, we need to import module associated with it as well then only component can be used.
+
+      2. **How Can we use component declared in app moudle anywhere in application?:-**
+
+---
+Remaining
+
+---
 
 ### Shared Module
+---
+Remaining
 
-Shared module is nothing but the common imports module in which we can import all the necessary modules, like formsmodule and all and all the directives, pipes and all soo rather than adding single single things in the shared module we can directly import the shared module in the modules for the acessibility of all the things.
-
+---
 ### Core Module
 
-Core Module is the module which we create for the all the necessary services, providers and http interceptors.
+---
+Remaining
 
-And we can directly import that core module in the `app.module.ts` for the usage of all the services.
+---
 
 ### Functions in Angular
 
-The most important point in functions in angular is we are declaring functions inside the class as we know angular is class based framework soo we dont need to use **function** keyword while declaring the function and let,var and all while declaring the variables.
+The most important point in functions in angular is we are declaring functions inside the class as we know angular is class based framework soo we dont need to use `function` keyword while declaring the function and let,var and all while declaring the variables.
 
-EX: 
+This can be called as methods, and inside the function we can consume class properties with `this` keyword.
+```
+class AppComponent{
+
+  title:string = "App";
+
+  greet(){
+    console.log("Module title : ",this.title)
+  }
+}
+```
+In the angular before 11 we didn't got errors or we was not compulsed to define the data types but in the angular 12 strict mode is on soo we need to use the datatypes as per typescript in angular 12.
+
 ```
 getName(name:string,name2:string)
 {
@@ -224,86 +237,140 @@ getName(name:string,name2:string)
     console.log(name2)
 }
 ```
-In the angular before 11 we didn't got errors or we was not compulsed to define the data types but in the angular 12 strict mode is on soo we need to use the datatypes as per typescript in angular 12.
-
 
 ### Styling in Angular
 **Types of Styling in Angular** : 
 
-- **global styling** - which we do in style.css and which is applicable to all elements we styled in global styling.
+- **global styling**
+  
+  The classes and styling declared `style.css` is applicable to all elements we styled with that clss in throughout application.
 
-- **external styling** - which we do in component.css file.
+- **external styling** - 
+  
+  which we do in `component.css` file.
 
-- **Internal styling** - which we do inside the component.html file in `<style></style>` tag.
+- **Internal styling** - 
+  
+  which we do inside the component.html file in `<style></style>` tag.
 
-- **inline style** - which we do in inline element in basic style attribute.
+- **inline style** - 
+  
+  which we do in inline element in basic style attribute.
 
 ### Dynamic Styling in Angular
 
-In the angular if we want to use the dynamic style means if we want it to be an variable and it could be depending on some functions we can use the dynamic styling.
+We can apply the dynamic styling in angular with 2 inbuit directives. First one is `[ngStyle]` & `[ngClass]`.
 
-In the dynamic styling we use the `objec`t aginst the `[ngStyle]` attrubute like 
+- **ngStyle :-**
 
-**Syntax :-**
-```
-<div [ngStyle]="{css property:value}">
-This is content
-</div>
-```
+  1. We can use `[ngStyle]` with object containing CSS properties and their Value like `[ngStyle]="{'property':'value"}"`.
 
-Ex : 
-If we want to change the background of the div based on its status it will be like mentioned below.
+      Ex : 
+      ```
+      <div>
+          <h1 [ngStyle]="{'color':'12px'}">Heading Tag 1</h1>
+        </div>
+      ```
+      We can use expressions as well in the place of values like `[ngStyle]="{'color':userPreferedSize=='Big' ? '12px' : '10px'}`.
 
-```
-// component.html
-<p [ngStyle]="{background-color:getBgColour(user.value)}" #user>online</p>
+      We can specify the units as well with `.notation` in property like `[ngStyle]="{'color.px':userPreferedSize=='Big' ? 12 : 12}` then we dont need to specify the value with unit.
 
-// component.ts
-getBgColour(value:any){
-  if(value=='online'){
-    return 'green'
-  }
-  else{
-    rerurn 'red'
-  }
-}
-```
+      At the place of values in string we can use variables containing classes as well.
 
-### Dynamic Classes
-With the help of dynamic classes we can apply the different classes on the different scenarios.
+  2. We can use style binding for dyamic styling like if we want to give the styling like colors and all from our component.ts file then we use style binding like `[style.<property>]="'value' | variable"`.
 
-**Syntax :-**
-```
-<div [ngClass]="{classname : true}">online</div>
-```
-```
-<div [ngClass]="isOnline ? 'online' : 'offline'">online</div>
-```
+      We need to use the style binding `<h1 [style.color]="'white'" >Heading Tag 1</h1>` which is equals to `<h1 style="color:white" >Heading Tag 1</h1>`.
 
-With the mentioned above 2 options we can use the dyanamic classes to the html elements.
+      Ex:
+      ```
+      // Variables from the component.ts file.
+      fontColor = "teal"
+      backgroundColor=""
+        bgc(){
+          this.backgroundColor="teal"
+          this.fontColor = "white"
+        }
+
+      // component.html
+      <div>
+        <h1 [style.color]="fontColor" [style.backgroundColor]="backgroundColor">Heading Tag 1</h1>
+        <button (click)="bgc()">Chage the background-Color</button>
+      </div>
+      ```
+      At the place of variables we can use directly css Values as well in the form of string.
 
 
-###  If-Else Statements in Angular (*ngIf)
+- **ngClass :-**
 
-*ngIf is the functionality of the angular in which we can check the conditino inside the component.html page in html attribute `<p *ngIf=true>Visible</p>`.
+  1. We can achieve dynamic styling with `[ngClass]` directive as well where we can set the dynamic classes to HTML elements based on certain conditions, through variables as like mentioned below.
 
-it will show the element onlyif condition will true.
+      We can set the classes with dynamic variable based on some conditions as like mentioned below.
 
-Types of If-Else Statements - 
+      Ex : 
+      ```
+      // Template
+      <div>
+            <h1 [ngClass]="headerClass">Heading Tag 1</h1>
+      </div>
+
+      // Ts File
+      headerClass="header-bold"
+      ```
+
+      We can use teh expressions as well while using dynamic classes like `[ngClass]="headerPrefrence=='big' ? 'big-header' : 'normal-header'"` 
+
+      At the place of values in string we can use variables containing classes as well.
+
+  2. We can use object litral as well for setting dynamic classes depending upong the certain critirias or the expression which will return boolean value as like mentioned below.
+
+      Ex : 
+      ```
+      // Template
+      <div>
+            <h1 [ngClass]="{headerClass : true}">Heading Tag 1</h1>
+      </div>
+
+      // Ts File
+      headerClass="header-bold"
+      ```
+
+      We can expressions as well at the place of boolean value like `headerClass==='big' ? true : false` etc.
+
+      At the place of values in string we can use variables containing boolean value as well.
+
+  3. There is alternative syntax for achieving the same functionality for the single class as like mentioned below.
+
+      We can use `[class.<className>]="expression | booleanValue"` as like mentioned below.
+
+      Ex : 
+      ```
+      // Template
+      <div>
+            <h1 [class.header-bold]="true">Heading Tag 1</h1>
+      </div>
+      ```
+
+      We can expressions as well at the place of boolean value like `headerClass==='big' ? true : false` etc.
+      
+      At the place of values in string we can use variables containing boolean value as well.
+
+###  Conditional in templates with directive (*ngIf)
+
+`*ngIf` is the structural directive provided by the angular which we can apply on any html element in template file like `<p *ngIf=true>Visible</p>`.
+
+it will show the element only if condition will true.
+
+**Types of If-Else Statements -**
 
 - **Simple if statement** : 
 
-    **`<h1 *ngIf="true">This is a heading</h1>`**
-
-
-    in this statement the element will be visible on the screen when the condition will be true.
+    `<h1 *ngIf="true">This is a heading</h1>` in this statement the element will be visible on the screen when the condition will be true.
 
 - **IF statement with varibale** : 
 
+    `<h1 *ngIf="showStatus">This is a  heading</h1>` in this statement `showStatus` can be a boolean variable.
 
-    **`<h1 *ngIf="showStatus">This is a  heading</h1>`** 
-
-    in this statement **showStatus** can be a variable or condition in the **component.ts** file it will be visible when that variable or function will be true.
+    We can use expressions as well like `<h1 *ngIf="status==1">This is a  heading</h1>` 
 
 - **if with else statement(ng-template)** - 
     ```
@@ -336,7 +403,7 @@ in this statement we will give **;** to the showStatus and we will put keyword *
     in this statement we are checking the value of **showCondition=='shiv'** **then ifblock else elseblock** it  will check the value fo showCondition if it will true it will execute if block else it will execute else block.
 
 
-### IF else statement with [ngIF] attribute - 
+### Conditionals in templates with [ngIF] attribute - 
 
 - **For case if with else, we can use **ngIf** and **ngIfElse**.** : 
     ```
@@ -374,10 +441,11 @@ in this statement we will give **;** to the showStatus and we will put keyword *
 
 ### Switch Case in Angular
 
-We use **switch case** when we have multiple condition more than 3-4 then we usually use the switchcase.
+We use `switch case` when we have multiple condition more than 3-4 then we usually use the switchcase.
 ex : - Days of week(7),Months of year(12)
 
-In angular we have attributes which are usefull for the switchcase as followed : 
+**directives for the switchcase :-** 
+
 - **[ngSwitch]** - It will create a switchcase its a initialization of switchcase.
 
 - **[ngSwitchCase]** - We can use this on the case.
@@ -400,10 +468,12 @@ Uses of all the attributes are mentioned below :
   <h1 *ngSwitchDefault style="color: black;">Default color</h1>
 </div>
 ```
-
+In the above mentioned code `color` is the property of component class from `.ts` file for which we would be going to check the values in swichcase.
 ### Loops in Angular (*ngFor)
 
-*ngFor is the functionality of the angular which we can use inside the HTML as like for loop as mentioned below.
+`*ngFor` directive is on HTML element as like for loop to repeat the elements as mentioned below.
+
+We can access the index of current item as well with `*ngFor="let item of array; index as i"`
 
 **Simple For loop over an array** : 
 
@@ -432,10 +502,11 @@ users=[
     {name:'doe',password:'doe@123'}
   ]
 
-<div *ngFor="let user of users">
+<div *ngFor="let user of users; index as i">
   <hr>
   <p>Username : {{user.name}}</p>
   <p>Password:{{user.password}}</p>
+  <p>Index : {{i}}</p>
 </div>
 ```
 
@@ -464,31 +535,285 @@ and accessing the values of that objects and the array of the object value as we
 </div>
 ```
 
-Here we are just using **let item of user.socialprofiles** for nested array thats it not the rocket science in that.
+Here we are just using `let item of user.socialprofiles` for nested array thats it not the rocket science in that.
 
-### Style Binding
-We can use style binding for dyamic styling like if we want to give the styling like colors and all from our component.ts file then we use style binding.'
+**Getters In *ngFor Directive :-**
 
-We need to use the style binding **`<h1 [style.color]="fontColor" >Heading Tag 1</h1>`** rather than **`<h1 style="color:white" >Heading Tag 1</h1>`**.
+As we have seen the count was an example of getter itself. we can use the getters like `index as variableName` so the value of that getter would be assigned to the associated variable.
 
-Ex:
+- **index :-**
+  We can get to know about the index of current elemnt with `index` getter. We can consume index getter like `;count as i` where i is variable name as like mentioned below.
+
+ ```
+  users=[
+    {name:'shiv',password:'shiv@123'},
+    {name:'raj',password:'raj@123'},
+    {name:'dan',password:'dan@123'},
+    {name:'john',password:'john@123'},
+    {name:'doe',password:'doe@123'}
+  ]
+
+  <div *ngFor="let user of users; index as i">
+    <hr>
+    <p>Username : {{user.name}}</p>
+    <p>Password:{{user.password}}</p>
+    <p>Index : {{i}}</p>
+  </div>
+  ```
+
+- **count :-**
+
+  We can get to know about the length of provided array with `count` getter. We can consume count getter like `;count as c` where c is variable name as like mentioned below.
+
+  ```
+    users=[
+      {name:'shiv',password:'shiv@123'},
+      {name:'raj',password:'raj@123'},
+      {name:'dan',password:'dan@123'},
+      {name:'john',password:'john@123'},
+      {name:'doe',password:'doe@123'}
+    ]
+
+    <div *ngFor="let user of users; count as c">
+      <hr>
+      <p>Username : {{user.name}}</p>
+      <p>Password:{{user.password}}</p>
+      <p>Length of users : {{c}}</p>
+    </div>
+    ```
+
+- **first :-**  
+  We can get to know if the current element's `index===0` through `first` getter. We can consume it like `;first as f` where f is variable name as like mentioned below.
+
+  We can use this for dynamic styling for first element for for the buissness logic for the first element.
+
+  ```
+  users=[
+    {name:'shiv',password:'shiv@123'},
+    {name:'raj',password:'raj@123'},
+    {name:'dan',password:'dan@123'},
+    {name:'john',password:'john@123'},
+    {name:'doe',password:'doe@123'}
+  ]
+
+  <div *ngFor="let user of users; first as f">
+    <hr>
+    <p>Username : {{user.name}}</p>
+    <p>Password:{{user.password}}</p>
+    <p>IsFirst : {{f}}</p>
+  </div>
+  ```
+
+- **last :-**
+  
+  We can get to know if the current element's `index===array.length-1` through `last` getter. We can consume it like `;last as l` as like mentioned below.
+
+  We can use this for dynamic styling for last element for for the buissness logic for the last element.
+  
+  ```
+  users=[
+    {name:'shiv',password:'shiv@123'},
+    {name:'raj',password:'raj@123'},
+    {name:'dan',password:'dan@123'},
+    {name:'john',password:'john@123'},
+    {name:'doe',password:'doe@123'}
+  ]
+
+  <div *ngFor="let user of users; last as l">
+    <hr>
+    <p>Username : {{user.name}}</p>
+    <p>Password:{{user.password}}</p>
+    <p>IsLast : {{l}}</p>
+  </div>
+  ```
+
+- **even :-**
+
+  We can get to know if the current element's `index%2===0` through `even` getter. We can consume it like `;even as isEven` as like mentioned below.
+
+  We can use this for dynamic styling for even elements for for the buissness logic for the even elements.
+
+  ```
+    users=[
+      {name:'shiv',password:'shiv@123'},
+      {name:'raj',password:'raj@123'},
+      {name:'dan',password:'dan@123'},
+      {name:'john',password:'john@123'},
+      {name:'doe',password:'doe@123'}
+    ]
+
+    <div *ngFor="let user of users; even as isEven">
+      <hr>
+      <p>Username : {{user.name}}</p>
+      <p>Password:{{user.password}}</p>
+      <p>IsEven : {{isEven}}</p>
+    </div>
+  ```
+
+  
+
+- **odd :-**
+
+  We can get to know if the current element's `index%2!==0` through `odd` getter. We can consume it like `;odd as isOdd` as like mentioned below.
+
+  We can use this for dynamic styling for odd elements for for the buissness logic for the odd elements.
+
+  ```
+    users=[
+      {name:'shiv',password:'shiv@123'},
+      {name:'raj',password:'raj@123'},
+      {name:'dan',password:'dan@123'},
+      {name:'john',password:'john@123'},
+      {name:'doe',password:'doe@123'}
+    ]
+
+    <div *ngFor="let user of users; odd as isOdd">
+      <hr>
+      <p>Username : {{user.name}}</p>
+      <p>Password:{{user.password}}</p>
+      <p>IsOdd : {{isOdd}}</p>
+    </div>
+  ```
+
+**How to use `*ngFor` with ng-template :-**
+
+`*` in `*ngFor` itself informs angular that weare using structural directives which are shorthands for using `ng-template` element
+
+If we want to use for loop on ng-template then we need to use the directives associated with `*ngFor` shortHand like `ngFor` `let-item` & `[ngForOf]=array | async` as like mentioned below.
+
 ```
-// Variables from the component.ts file.
-fontColor = "teal"
-backgroundColor=""
-  bgc(){
-    this.backgroundColor="teal"
-    this.fontColor = "white"
-  }
+// Normal Way of using *ngFor with other elements
+<div *ngFor="let user of users; odd as isOdd">
 
-// component.html
-<div>
-  <h1 [style.color]="fontColor" [style.backgroundColor]="backgroundColor">Heading Tag 1</h1>
-  <button (click)="bgc()">Chage the background-Color</button>
+// Same purpose achieved with ng-template
+<ng-template ngFor let-user  let-index="i" let-count="c" let-first="f" let-last="l" let-even="e" let-odd="o" [ngForOf]="users">
+  <hr>
+      <p>Username : {{user.name}}</p>
+      <p>Password:{{user.password}}</p>
+      <p>Index : {{i}}</p>
+      <p>Count : {{c}}</p>
+      <p>IsFirst : {{f}}</p>
+      <p>IsLast : {{l}}</p>
+      <p>IsOdd : {{o}}</p>
+      <p>IsEven : {{e}}</p>
+</ng-template>
+
+// Template
+users=[
+    {name:'shiv',password:'shiv@123'},
+    {name:'raj',password:'raj@123'},
+    {name:'dan',password:'dan@123'},
+    {name:'john',password:'john@123'},
+    {name:'doe',password:'doe@123'}
+  ]
+```
+
+**ngFor TrackBy (Advance Performance Enhancement :-):-**
+
+By defult whenever we update, remove, add any item in array which is passed for `*ngFor` angular reassigns all the data and rerenders all the items in the element.
+
+When we have huge number of records in array and we have calculation or some buissness logic on each & every row then it would take lot of time to reprocess the data which slows down our applcation.
+
+To deal with this scenario we have `trackBy` in `*ngFor` which will tells angular that to perform any actions only on incoming or outgoing records rathare than processing again the whole array.
+
+We need to create a method to assign like `trackBy:method` in which method should return the items unique id on which we want to track it.
+
+```
+// Normal Way of using *ngFor with other elements
+
+
+// Same purpose achieved with ng-template
+<div *ngFor="let user of users; odd as isOdd;trackBy:refreshUsers">
+  <hr>
+      <p>Username : {{user.name}}</p>
+      <p>Password:{{user.password}}</p>
 </div>
+
+// Template
+users=[
+    {name:'shiv',password:'shiv@123'},
+    {name:'raj',password:'raj@123'},
+    {name:'dan',password:'dan@123'},
+    {name:'john',password:'john@123'},
+    {name:'doe',password:'doe@123'}
+  ]
+
+refreshUsers(index:number,user:any){
+  return user.name;
+}
 ```
 
-### Toggle Button or Events in Angular
+### Events in Angular
+We have multiple events in angular like button click, hover, input etc. We can bind the html events in anglular with `<button (click)="method()">Click Me</button>`. We
+
+**List of Usefull events in angular :-**
+
+- **click :-**
+  
+  Click event can be bind to button & html elements which you want to make them clickable. The binding can be done as like mentioned below.
+
+  ```
+  // Template
+  <button (click)="onClick()">Click Me</button>
+
+  // Class
+  onClick(){
+    console.log('Button clicked');
+  }
+  ```
+
+- **dblclick :-**
+
+  Double Click event can be bind to button & html elements which you want to make them clickable. The binding can be done as like mentioned below.
+
+  ```
+  // Template
+  <button (dblclick)="onClick()">Click Me</button>
+
+  // Class
+  onDoubleClick(){
+    console.log('Button clicked twice');
+  }
+  ```
+
+- **ngSubmit :-**
+
+  ngSubmit event can be used on form only & triggered when the form gets submitted. by default if any button exists in form elements is acts as `type="submit"` and its submits the form.
+
+  ```
+  // template
+  <form [formGroup]="getNameForm" (ngSubmit)="onSubmit()">
+  <input type="text" formControlName="name">
+  </form>
+
+  // Class
+  getNameForm = new FormGroup({
+    name: new FormControl('')
+  })
+
+  onSubmit(){
+    console.log("Form Values =>",this.getNameForm.value)
+  }
+  ```
+  
+- **blur :-**
+- **focus :-**
+- **scroll :-**
+- **cut :-**
+- **copy :-**
+- **paste :-**
+- **keyup :-**
+- **keypress :-**
+- **keydown :-**
+- **mouseup :-**
+- **mousedown :-**
+- **mouseenter :-**
+- **drag :-**
+- **drop :-**
+- **dragover :-**
+
+
+### Toggle Button in Angular
 
 Toggle event is the event which toggles some opration like to show or hide a content as mentioned below : 
 
@@ -507,11 +832,47 @@ Toggle event is the event which toggles some opration like to show or hide a con
 
 ### Adding Bootstrap with single line of command : 
 
+Bootstrap is the ui library made for quick web devlopement with predefined CSS, Javascript & ui components which speeds up our devlopement process.
+
+**Installation :-**
 - **npm install bootstrap** - it will install bootstrap in your node modules.
 - Then you need to add the bootstrap styling and js path to to the **build** array in angular.json.
+- 
+- **For CSS** - `"./node_modules/bootstrap/dist/css/bootstrap.min.css"`
+- **For JS** - `"./node_modules/bootstrap/dist/js/bootstrap.js"`
 
-- For CSS - **"./node_modules/bootstrap/dist/css/bootstrap.min.css"**
-- For JS - **"./node_modules/bootstrap/dist/js/bootstrap.js"**
+### NGX Bootstrap
+
+NGX bootstrap is the bootstrap library itself which wrapper of bootstrap for angular specifically.
+
+In NGX bootstrap we can use the bootstrap components in the angular way and those are built for angular specifically with its directives, bindings, api's in angular supporting manner.
+
+**Installation :-**
+
+- Install ngx bootsrap with `npm i ngx-bootstrap --save` command.
+
+- Include ngx bootstrap styling in `styles:["node_modules/animate.css/animate.min.css","node_modules/bootstrap/dist/css/bootstrap.min.css" ]` so its styling would be applicable.
+
+- Install the perticular module which ui component you want to use in your app of feature module as like example below.
+
+    ```
+    import { TooltipModule } from 'ngx-bootstrap/tooltip';
+
+      @NgModule({
+        ...
+        imports: [TooltipModule.forRoot(),...]
+        ...
+      })
+    ```
+
+After completion of above setps for installing perticular module for ui component and sytling we can use the component as like mentioned below.
+
+```
+<button type="button" class="btn btn-primary"
+        tooltip="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+  Simple demo
+</button>
+```
 
 ### Send the Data to child component
 
@@ -530,7 +891,7 @@ We can send the data to child component by using **@Input()** in the **component
 
 - Thats how we passed the data to child component.
 
-### Send the Data to child component.
+### Itrating over child component.
 
 - First create the component.
 
@@ -551,6 +912,7 @@ We can send the data to child component by using **@Input()** in the **component
   ```
 - Import the input in the **child.component.ts** file and intake the item with the input function.
   ```
+  
   // Child.component.ts
   import {Input} from '@angular/core'
 
@@ -563,22 +925,24 @@ We can send the data to child component by using **@Input()** in the **component
 - And Thats how we passed the for loop value to the child component.
 
 
-### How to pass function to child component (To take data from the child to parent)
+### How to get data from child to parent component
 
 - First we need to create the child component.
 
-- Declare the function in the **component.ts** file as like mentioned below.
+- Declare the function in the `parent.component.ts` file as like mentioned below.
   ```
   // app.component.ts file
   getData(item:any){
     console.log(item)
   }
   ```
-- Pass the function with the **$event** to the child component as like mentioned below.
+- Pass the function with the `$event` to the child component as like mentioned below.
   ```
   <app-child (getData)="getData($event)"></app-child>
   ```
-- import the **Output** and **EventEmitter** from angular core in the **child.component.ts** file and initialize the taken function with output and Eventemitter as like mentioned below.
+- import the `Output` and `EventEmitter` from angular core in the `child.component.ts` file and initialize the output and Eventemitter as like mentioned below.
+
+  **Note :- declared event emitter name should be same in template where you binded parent component method like `app-child (eventEmitterNameInChild)="parentMethod($event)`**
 
   ```
   // Child.component.ts
@@ -588,7 +952,7 @@ We can send the data to child component by using **@Input()** in the **component
   @Output() getData = new EventEmitter<string>();
   @Output() getUser = new EventEmitter<any>();
   ```
-- And now we can pass use that function in child component and we can pass the data to it to the parent in **child.component.html** file.
+- And now we can emit the data from child component with the help of event to the parent component.
   ```
   <input type="text" #inputBox>
   <button (click)="getData.emit(inputBox.value)"></button>
@@ -601,36 +965,45 @@ We can send the data to child component by using **@Input()** in the **component
 
   // Or how to emit event in .ts file.
 
-  emit(){
-    this.getData.emit()
+  emit(value){
+    this.getData.emit(value)
   }
   ```
+  Binded parent method will be called with the data in its arguement when the `eventemitter.emit(data)` method called.
+
 - And thats how we passed the data to parent component and the function will print the data in the console.
 
 ### 1 way binding
 By using one way binding, data can be shown only on html but it cannot be changed from the html, it will be used for only display purpose.
 
+- First we need to import `FormsModule` from `'.@angular/forms'` in components module and we need to initialize it in the imports.
 
+- We can use one way binding as like mentioned below.
 
-- **In Reactive Forms :-**
+  ```
+  // app.html
+    <div class="container my-5 p-5 border w-25">
+    <h3>One Way binding in angular</h3>
+    <input type="text" class="form-control my-4" [ngModel]="inputValue">
+    <h5>{{inputValue}}</h5>
+    </div>
 
-We can use one way binding in reactive forms with the help of `[ngModel]="var"` .
-
-- **In Template Driven Form :-**
-
+    // app.ts
+    inputValue:any;
+  ```
 
 
 ### 2 way binding in Angular
 
-In angular 2 way binding update the properties realtime and display them without reloading.
+In angular 2 way binding can update binded the properties realtime and display them without reloading.
 
-For 2 way binding we need to use **[(ngModel)]** for binding the properties.
+For 2 way binding we need to use `[(ngModel)]` for binding the properties, Properties will be updated form html itself like through user input etc.
 
-- First we need to import **FormsModule** from **'.@angular/forms'** and we need to initialize it in the imports.
+- First we need to import `FormsModule` from `'.@angular/forms'` and we need to initialize it in the imports.
 
-- then we need to create an property with which we want to bind the input value with it. 
+- Then we need to create an property with which we want to bind the input value with it. 
 
-- Simply just display that property in required tag like **{{value}}**.
+- Simply just display that property in required tag with interpolation **{{value}}**.
 
 ```
 // app.html
@@ -639,15 +1012,16 @@ For 2 way binding we need to use **[(ngModel)]** for binding the properties.
     <input type="text" class="form-control my-4" [(ngModel)]="inputValue">
     <h5>{{inputValue}}</h5>
     </div>
+    
 // app.ts
     inputValue:any;
 ```
 
 ### Template refrence Variable
 
-Template refrence variable nothing different than providing the id to the input field like **#inputBox**.
+Template refrence variable nothing different than providing the id to the input field like `#inputBox`.
 
-And After that we can acess its each and every value like name,placeholder,class,value and soo on.
+And After that we can acess that html element through its template refrence as like mentioned below.
 
 ```
 // app.html
@@ -661,15 +1035,15 @@ And After that we can acess its each and every value like name,placeholder,class
 
 // app.ts
  value:string=""
-  getVal(item:HTMLInputElement)
+  getVal(value)
   {
-    console.warn(item);
-    this.value=item
+    console.warn(value);
+    this.value=value
   }
 ```
 
 ### Basic Pipes in Angular
-Pipes are those things in angular which is used to update or modify the strings dates and all with very easy easy rather than normal.
+Pipes are pure functions to transform the html element, We can create pipe for common data transformation and we can use that pipe at such places.
 
 We can use the basic pipes for strings as mentioned below - 
 Ex :
@@ -690,7 +1064,8 @@ Ex:
 
 ### Pipes with parameters
 
-**Pipes for strings**
+**Pipes for strings :-**
+
 How to pass parameters to the pipes and use the multiple pipes on the single element as mentioned below- 
 Ex:
 ```
@@ -698,19 +1073,22 @@ Ex:
 ```
 For multiple parameters or passing parameters we use **":"** and for multiple pipes we use **"|"**.
 
-**Pipes for objects**
+**Pipes for objects :-**
+
 For printing the full array data which we can't print with just putting **{{userDetails}}** we can use the pipe **json** as mentioned below.
 
 ```
 <h2>{{userDetails | json | uppercase}}</h2>
 ```
-**Pipes for Numbers**
+**Pipes for Numbers :-**
+
 In the numbers pipes we can pass the parameters like how much values to show before points and after points like **2.2-3** it means that before point show 2 values and after point show 2 or max 3 values as like mentioned below. - 
 
 ```
 <h3>{{0000223.564000 | number : '2.3'}}</h3>
 ```
-**Pipes for currency**
+**Pipes for currency :-**
+
 We can show currency symbol before our value in numbers by just using currency pipe and passing value to it as per our requirement of symbol.
 
 ```
@@ -724,49 +1102,49 @@ We can pass the all currency values like USD,GBP,INR soo on.
 
 ### Making Custom pipe in Angular
 
-Command For Creating custom pipe in angular - **`ng g p pipes/customPipe`**
+Command For Creating custom pipe in angular `ng g p pipes/customPipe`.
 
 Always create your pipes in specific folder and keep it organized.
 
-After creating pipe you will get 2 files only which will be **component.ts** and **spec.ts** and our work will be totally in .ts file.
+After creating pipe you will get 2 files only which will be **pipe.ts** and **pipe.spec.ts** and our work will be totally in .ts file.
 
 - **How to call that custom pipe** - 
 
-As mentioned below you will get the name of pipe and you need to use that name in your pipe.
+  As mentioned below you will get the name of pipe and you need to use that name in your pipe.
 
-**Below created the filter pipe :-**
+  **Below created the filter pipe :-**
 
-```
-// pipe.ts
-@Pipe({
-  name: 'usdInr'
-})
-```
+  ```
+  // pipe.ts
+  @Pipe({
+    name: 'usdInr'
+  })
+  ```
 
-```
-@Pipe({
-  name: 'usdInr'
-})
-export class UsdInrPipe implements PipeTransform {
+  ```
+  @Pipe({
+    name: 'usdInr'
+  })
+  export class UsdInrPipe implements PipeTransform {
 
-  transform(data:any,value: any): any {
-    if(value!=''){
-      let result = []
-      for(let item of data){
-        if(item.email.toLowerCase().includes(value.toLowerCase())){
-          result.push(item)
+    transform(data:any,value: any,...args): any {
+      if(value!=''){
+        let result = []
+        for(let item of data){
+          if(item.email.toLowerCase().includes(value.toLowerCase())){
+            result.push(item)
+          }
         }
+        return result
       }
-      return result
+      else{
+        return data;
+      }
     }
-    else{
-      return data;
-    }
-  }
 
-}
-```
-- By default that return value is set to be null so you need to make it as value so it will print the value.
+  }
+  ```
+  - By default that return value is set to be null so you need to make it as value so it will print the value.
 
 - **How to pass arguements to custom pipes** - 
 
@@ -774,7 +1152,7 @@ export class UsdInrPipe implements PipeTransform {
 
     2. That passed arguement will be come in **..args array**
     which is `...args: number[]`.
-    3. You need to take the arguement value by using const or let and we are multiplied the value with the value.
+    3. You need to take the arguement value by using array destructuring and we are multiplied the value with the value.
     ```
     const[x]= args;  
     return value*x;
@@ -802,12 +1180,12 @@ Here We have pipes purity in which impure pipes reacts to all the changes and we
 Angular forms are different than others as like mentioned below.
 
 
-**<u>Most imp in the angular forms we cannot connect angular with the databases like SQL,MongoDB etc like others.Rather than that we need to connect with the database with the help of api in angular.We call the API's throught the forms and API automatically send data to database.</u>**
+**Note :- In the angular forms we cannot connect angular with the databases like SQL,MongoDB etc like others.Rather than that we need to connect with the database with the help of api in angular.We call the API's throught the forms and API automatically send data to database.**
 
 **Types of forms**
-- Template Driven Form :- In template driven forms most of the work will complete in the HTML file only like form,data,validation etc.
+- **Template Driven Form :-** In template driven forms most of the work will complete in the HTML file only like form,data,validation etc.
 
-- Reactive Form :-  In reactive forms most of the work will complete in the TypeScript file only like form,data,validation etc.
+- **Reactive Form :-**  In reactive forms most of the work will complete in the TypeScript file only like form,data,validation etc.
 
 1. **Template Driven Form** - 
 
@@ -852,8 +1230,8 @@ Angular forms are different than others as like mentioned below.
     
     In the Reactive form we import as mentioned below : 
 
-    - **`import { ReactiveFormsModule } from '@angular/   forms';`**
-    - **`import {FormControl,FormGroup} from '@angular/forms'`**
+    - `import { ReactiveFormsModule } from '@angular/forms';`
+    - `import {FormControl,FormGroup} from '@angular/forms'`
 
     **Most Imp Thing** 
     - In the reactive form **we need to use the same formgroupname** in the **component.ts** file as well as in HTML file as well.
@@ -924,9 +1302,9 @@ Angular forms are different than others as like mentioned below.
 
 ### Form Validations In Reactive Forms
 
-- First we need to import Validatiors like **`import {Validators} from '@angular/forms'`**
+- First we need to import Validatiors like `import {Validators} from '@angular/forms'`
 
-- We can make the feild required by using **Validators.required** in Formgroup where we defined **FormControl** for that feild like **`username: new FormControl('',[Validators.required])`**.
+- We can make the feild required by using `Validators.required` in Formgroup where we defined **FormControl** for that feild like `username: new FormControl('',[Validators.required])` in it.
 
 - To Check the value validation (means value is there or not) we need to create getter (A function which returns something by calling it like property `username.value`)and we need to pass the initialized formControl as like mentioned below : 
   ```
@@ -953,7 +1331,7 @@ Angular forms are different than others as like mentioned below.
 
   **`username: new FormControl('',[Validators.required,Validators.email]`**
 
-- **Password & Custom Validations :-**
+- **Validations with Regex :-**
   
   We can validate with the patterns as well on the intialized field in the formgroup in **component.ts** file like 
   **`username: new FormControl('',[Validators.required,Validators.pattern('[a-zA-Z]+$')]),`**
@@ -967,7 +1345,7 @@ Angular forms are different than others as like mentioned below.
     ```
     <button [disabled]="form.invalid"></button>
     ```
-- **Field Read For invalid and touched :-**
+- **CSS depending on validations :-**
 
   We can add the css as well when the input element get touched and invalid with the help of `input.ng-touched.ng-invalid{}`.
 
@@ -978,14 +1356,16 @@ We can create custom Validations in the `components.ts` file and bind it to vali
 ```
 // Validation method
 names:any = ['shiv','sai']
-isNameTaken(contol:FormControlName){  
+isNameTaken(contol:AbstractControl){  
   if(this.names.includes(control.value)){
     return {isNameTaken:true}
   }
 }
 
 // Validation Binding
- username: new FormControl('',[Validators.required,this.isNameTaken.bind(this)),
+ username: new FormControl('',[Validators.required,this.isNameTaken),
+ username: new FormControl('',[Validators.required,this.isNameTaken),
+
 
 ```
 It will Push `isNameTaken:true` in `formcontrol.errors` object and same can be used for error message for that field.
@@ -996,7 +1376,7 @@ If Validator showing error soo use `.bind(this)` in the validations if we have u
 
 Asynchronus validations are the validation in which we are validating email or username something on the server through api soo it will append class `ng-pending` on which we can show the loader or error message.
 
-While resolving promise of the validations we need to push the `true` with some key and that key will be shown in the errors object.
+We can do asynchronus validation with promises or observables, While resolving promise of the validations we need to push the `true` with some key and that key will be shown in the errors object.
 
 ```
   isAlreadyPresent(control:FormControl):any{
@@ -1018,10 +1398,39 @@ Form Group is the grouping of the form controls as per the sections in the forms
 
 **FormGroup in Both Forms :-**
 
-- **FormGroup in template driven forms :-**
+- **FormControl Grouping in template driven forms :-**
+
+  We can group the ngmodels with `ngModelGroup` directive which we bind to template refrence variable with this directive & we name it with `ngModelGroup="name"`
+    
+  ```
+    <form class="form" #f="ngForm" novalidate>
+
+    <div class="form-group" #fgName="ngModelGroup" ngModelGroup="name" [class.has-error]="!fgName.valid">
+      <input type="text" class="form-control" name="firstName"
+              [(ngModel)]="user.firstName"
+              placeholder="first name"
+              required>
+
+      <input type="text" class="form-control" name="lastName"
+              [(ngModel)]="user.lastName"
+              placeholder="last name"
+              required>
+    </div>
+
+    <div class="form-group">
+      <input type="text" class="form-control" name="address"
+              [(ngModel)]="user.address"
+              placeholder="address"
+              required>
+    </div>
+
+    <button class="btn btn-primary" [disabled]="!f.valid">Submit</button>
+  </form>
+  ```
 
 - **FormGroup in Reactive forms :-**
 
+  We can group the formcontrols by creating new nested formGroup inside 
   ```
   // Grouping in FormControls in ts file
 
@@ -1046,11 +1455,11 @@ Form Group is the grouping of the form controls as per the sections in the forms
   </div>
   </form>
   ```
-### ValueChanges and StatusChanges & SetValues in reactive forms
+### Reactive Form Observables
 
 - **Value Changes and Status changes :-**
 
-  To catch the status and the value changes in the reactive form we can use the `form.statusChanges.subscribe(callback)` && `form.valueChanges.subscribe(callback)`.
+  To catch the status and the value changes in the reactive form we can use the `form.statusChanges` & `form.valueChanges` Observables like `form.statusChanges.subscribe(callback)` && `form.valueChanges.subscribe(callback)`.
 
   For that we need to do call the observable methods in the `ngOnInit()` itself.
 
@@ -1071,6 +1480,10 @@ Form Group is the grouping of the form controls as per the sections in the forms
     })
   }
   ```
+
+### Reactive Form Usefull Properties & Methods
+
+FormGrups provide set of method for doing dynamic tasks with the formgroup with the provided methods & properties with formGroup.
 
 - **SetValue :-**
 
@@ -1141,7 +1554,7 @@ Steps :-
 
 **Creating form Controls :-**
 
-  - First we need to create empty formgroup variable in which we need to assign new FormGroup and emppty controls.
+  - First we need to create empty formgroup variable in which we need to assign new FormGroup and empty controls.
 
   - On `ngOnInit()` itself we need to create a function which will loopthrough on the array recieved from json and we need to add form controls to the empty form group which we declaerd with the help of `.addControl('firstName', new FormControl(''))`.
 
@@ -1162,36 +1575,45 @@ Steps :-
 
   - Create an Submit button which calls an method which prints the values of the form.
 
-**Validations :-**
-
 ### Directives in Angular
 
-Directive provides additional funcionality to HTML elements.
-EX : **`*ngFor,*ngIf,*ngSwitch`**
+Directive provides additional functionality to HTML elements, There are 2 types of directives in angular. First are the structural directives & another are attributal directives.
 
-1. **ng g d Directives/redEl** - it will create the directive  in which there will be only 2 files will be there.
+Angular provides some inbuilt structural & attributal directives as followed.
 
-    - **Directive.ts**
-    - **Directive.spec.ts**
-2. In the **Directive.ts** file we need to **`import ElementRef from '@angular/core'`**.
+**Structural Directives :-**
 
-3. In the constructor we need to take **`constructor(el:ElementRef)`** like this and inside the constructor we can write the properties for it.
+EX : `*ngFor,*ngIf,*ngSwitch`
 
-4. Then we need to acess the `nativeElement` property on the elements refrence for manipulating that element on that to change is poperties like mentioned below.
+**Attributal directives :-**
 
-```
-constructor(private element:ElementRef) { 
-    element.nativeElement.style.color="red"
-  }
-```
+EX : `ngClass, ngStyle, ngModel`
 
-5. To use that directive in the HTML element we already have provided the directive name in the file and we need to use that directive by that name.
-```
-// Our Directive Selector mentioned below.
-@Directive({
-  selector: '[appRedEl]'
-})
-```
+**Custom Directives in angular :-**
+
+  1. **ng g d Directives/redEl** - it will create the directive  in which there will be only 2 files will be there.
+
+      - **Directive.ts**
+      - **Directive.spec.ts**
+  2. In the **Directive.ts** file we need to **`import ElementRef from '@angular/core'`**.
+
+  3. In the constructor we need to take **`constructor(el:ElementRef)`** like this and inside the constructor we can write the properties for it.
+
+  4. Then we need to acess the `nativeElement` property on the elements refrence for manipulating that element on that to change is poperties like mentioned below.
+
+  ```
+  constructor(private element:ElementRef) { 
+      element.nativeElement.style.color="red"
+    }
+  ```
+
+  5. To use that directive in the HTML element we already have provided the directive name in the file and we need to use that directive by that name.
+  ```
+  // Our Directive Selector mentioned below.
+  @Directive({
+    selector: '[appRedEl]'
+  })
+  ```
 
 ### Advance Custom Directives (Renderer2 & @HostBinding())
 
@@ -1219,58 +1641,50 @@ In angular we can create custom directives in which previously we used to change
   @HostBinding('style.backgroundColor') color:string;
    constructor(private element:ElementRef, private renderer:Renderer2) { 
     }
+  ```
+  The above mentioned code we have binded the property to the variable and we just providing the value to the variable.
 
+- **@HostListner :-**
+  
+  On the html element on which we are using the custom directive, if we want to do the oprations on the specific events like mouseover, mouseout and all we can do that with the help of `@HostListner('name') event(event:Event){opration}` like mentiond below.
+
+  Ex : If we want to change the background color on the mouse over it would be like mentioned below.
+
+  ```
   @HostListner('onhover') onmouseover(event:Event){
-    this.color = 'red'
+    this.renderer.setStyle(
+      element.nativeElement,'color','red'
+    )
   }
   ```
 
-The above mentioned code we have binded the property to the variable and we just providing the value to the variable.
+- **Sending Data to Directives :-**
 
+  We can send the data as well to the directives as well with the help of `@input()` decorator and with the alias as well.
 
-### Directive oprations on the events (@HostListner())
+  Ex : 
+  If we want to pass the colors for the events as input from the parent component it will like mentioned below.
 
-On the html element on which we are using the custom directive, if we want to do the oprations on the specific events like mouseover, mouseout and all we can do that with the help of `@HostListner('name') event(event:Event){opration}` like mentiond below.
+  ```
+  @Input() defaultColor:string;
+  @Input() highlightColor:string;
 
-Ex : If we want to change the background color on the mouse over it would be like mentioned below.
+  @HostBinding('style.backgroundColor') color:string;
+  @HostListner('onhover') onmouseover(event:Event){
+    this.color = highlightColor
+  }
+  @HostListner('onleave') onmouseleave(event:Event){
+    this.renderer.setStyle(
+      this.color = defaultColor
+    )
+  }
 
-```
-@HostListner('onhover') onmouseover(event:Event){
-  this.renderer.setStyle(
-    element.nativeElement,'color','red'
-  )
-}
-```
+  // Parent Component without Alias
+  <div appRedEl [defaultColor]="'red'" [highlightColor]="'purple'">This needs to be highlightedM</div>
 
-### Sending Data to Directives
-
-We can send the data as well to the directives as well with the help of `@input()` decorator and with the alias as well.
-
-Ex : 
-If we want to pass the colors for the events as input from the parent component it will like mentioned below.
-
-```
-@Input() defaultColor:string;
-@Input() highlightColor:string;
-
-@HostBinding('style.backgroundColor') color:string;
-@HostListner('onhover') onmouseover(event:Event){
-  this.color = highlightColor
-}
-@HostListner('onleave') onmouseleave(event:Event){
-  this.renderer.setStyle(
-    this.color = defaultColor
-  )
-}
-
-// Parent Component without Alias
-<div appRedEl [defaultColor]="'red'" [highlightColor]="'purple'">This needs to be highlightedM</div>
-
-// With Alias (@Input(directiveName) defaultColor:string;)
-<div [appRedEl]="'red'" [highlightColor]="'purple'">This needs to be highlightedM</div>
-
-```
-
+  // With Alias (@Input(directiveName) defaultColor:string;)
+  <div [appRedEl]="'red'" [highlightColor]="'purple'">This needs to be highlightedM</div>
+  ```
 
 ### Routing in Angular
 
@@ -1279,27 +1693,28 @@ Routing is used in angular for navigating from one location to another on anothe
 **Basic routing** -
  - First we need to create routes in the **routing.ts** **in routes array.**.
  - How to create routes? We just need to give the path and component in the object as like mentioned below.
-  ```
-  import { FormComponent } from './components/form/form.component'
-  {
-    path:'form',
-    component:FormComponent
-  },
-  ```
-- After creating the routes we ca pass it to anchor tag as like mentioned below.
+    
+    ```
+    import { FormComponent } from './components/form/form.component'
+    const routes:Routes[] = [
+      {
+      path:'form',
+      component:FormComponent
+      },
+    ]
+    ```
 
-  **`<a routerLink="form" class="text-light">Form</a>`**
+- After creating the routes we can pass it to anchor tag as like mentioned below.
 
-- But the component will not appear soo we need to write the tag in the **app.component.html** as like mentioned below.
-  **`<router-outlet></router-outlet>`**
+  `<a routerLink="form" class="text-light">Form</a>`
+
+- But the component will not appear soo we need to create the router outlet where we want to load the perticular component according to route, we can do that with by writing `<router-outlet></router-outlet>` in **app.component.html** as like mentioned below so the components will be loaded in `app.component.html` which is entrance file for angular applications.
 
 - Finally we can provide anywhere the page as routerlink in anchor tag in our whole app.
 
 **Dynamic routing** - 
 
-Basically we can make the single single routes for the parents or the groups but we cant make it single single for mutiple numbers like 200 or 300.
-
-Soo therefore we need to use the dynamic routing.
+Basically routes can be declared for constant paths but for the variable paths we need to create dynamic routes as like mentioned below.
 
 **We just pass the ID for route ad get that id in that component.ts file**
 
@@ -1324,8 +1739,8 @@ Soo therefore we need to use the dynamic routing.
     **`constructor(private route: ActivatedRoute)`**.
   - Then we can print the id in the console like 
 
-    **console.warn(this.route.snapshot.paramMap.get('id'))**.
-    **console.warn(this.route.params.subscribe(res=>console.log(id))**.
+    `console.warn(this.route.snapshot.paramMap.get('id'))`
+    `console.warn(this.route.params.subscribe(res=>console.log(id))`
 
 **Default Page Routing :-**
 
@@ -1363,9 +1778,9 @@ Soo therefore we need to use the dynamic routing.
   ```
 **Child Routing** - 
 
-Child routing is the concept in which there are pages available which are already routed and we need to route that page as well soo we need to use child routing.
+Child routing is the concept in which there are pages available which are already routed and we need to route another page inside of existing page then we need to use child routing.
 
-- For Child routing we need to create **childerns [array]** in the main component rout and in the childerns array there will be objects of the child routes as like mentioned below.
+- For Child routing we need to create **childerns:[]** in the parent route object and in the childerns array there will be objects of the child routes as like mentioned below.
 
   Ex : 
   ```
@@ -1382,13 +1797,34 @@ Child routing is the concept in which there are pages available which are alread
       ]
     }
   ```
-- After that we need to give that child links in the main **component.html** file like this.
+- After that we need to provide the url with its child as well like `parent/child`  for navigating to that child route.
+
   ```
-  <a routerLink="reactive-form" class="text-light">Reactive-Form</a>
+  <a routerLink="form/reactive-form" class="text-light">Reactive-Form</a>
   ```
-- And Most important we need to create **router-outlet** in the **parent comopnent.html** file.
+- And Most important we need to create **router-outlet** in the **parent route comopnent.html** file as like mentioned below.
+
+  ```
+  // Routing File
+  const routes:Routes[] = [
+    {
+      path:'form',
+      component:FormComponent,
+      childerns:[
+        {
+          path:'reactive',
+          component:ReactiveFormComponent
+        }
+      ]
+    }
+  ]
+
+  // Form component template
+  <router-outlet></router-outlet>
+  ```
 
 - And Thats how we have routed our child components as well in the parent components.
+
 ### Query Paramerters 
 
 Query parameter is the thing with which we can send the data in the url and we can get that data in that component.
