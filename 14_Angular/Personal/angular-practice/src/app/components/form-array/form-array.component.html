@@ -1,0 +1,34 @@
+
+<div class="main container">
+    <h2>We can Add, Remove form fields dynamically with formarray</h2>
+
+    <form class="form" [formGroup]="form">
+        <div class="personal-details">
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input type="text" matInput formControlName="name">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input type="text" matInput formControlName="email">
+            </mat-form-field>
+        </div>
+        <br>
+        <div class="skills" *ngFor="let control of skills?.controls;index as i" formArrayName="skills">
+            <div class="field">
+                <mat-form-field appearance="outline">
+                    <mat-label>Skill</mat-label>
+                    <input type="text" matInput [formControlName]="i">
+                </mat-form-field>
+                <button mat-icon-button color="warn" (click)="remove(index)">
+                    <mat-icon class="mat-18" >delete</mat-icon>
+                </button>
+            </div>
+        </div>
+    </form>
+    <div class="d-flex d-flex justify-content-between w-25">
+        <button mat-flat-button color="primary" (click)="save()">Save</button>
+        <button mat-flat-button color="warn" (click)="addSkill()">Add Skill</button>
+        <button mat-flat-button color="accent">Cancel</button>
+      </div>
+</div>

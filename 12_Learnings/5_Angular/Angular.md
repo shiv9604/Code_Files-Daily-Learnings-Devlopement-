@@ -125,34 +125,6 @@ We dont need to import the each and every component inside our **app.component.t
       <app-button color="purple" text="Add" fontcolor="white"></app-button>
       ```
 
-### Types of selectors in angular
-
-In angular for the component there are multiple selectors which we can use in the html file.
-
-Selector => 
-```
-@Component({
-  selector: 'app-search-pipe',
-  templateUrl: './search-pipe.component.html',
-  styleUrls: ['./search-pipe.component.css']
-})
-```
-**Types :-**
-
-- `'app-form' :-` 
-  
-  We can use the component with tag `<app-form></app-form>`
-
-- `'[app-form]' :-`  
-  
-  We can use the component with attribute like `<div app-form></div>`
-
-- `'.app-form' :-`
-
-  We can use the component with the class like `<div class="app-form"></div>`
-
-As like this we can use the components with the different types in the html.
-
 ### Modules in Angular (Feature Module)
 
 Modules are the group of components or a complete functionality like **user-authentication** in which it can contain login,register,forgotpwd,etc.
@@ -1455,6 +1427,62 @@ Form Group is the grouping of the form controls as per the sections in the forms
   </div>
   </form>
   ```
+
+### Dynamically adding and removing form fields
+
+Normally we build the static form with `FormGoup` if we have predefined form fields, But Sometimes we need to add or remove the form fields dynamically in the form, That we can do that with the help of `FormArray`.
+
+In as control name is defined by its name in the form built with `FormGroup` but form controls created dynamically with `FormArray` can be identified by their index.
+
+We need to bind the parent div of formArray with `formArrayName="name"` & bind the `formControlName="index"`.
+
+We can add or remove the formcotrols dynamicaly as like mentioned below.
+
+```
+// Template
+<div class="skills" *ngFor="let control of skills?.controls;index as i" formArrayName="skills">
+            <div class="field">
+                <mat-form-field appearance="outline">
+                    <mat-label>Skill</mat-label>
+                    <input type="text" matInput [formControlName]="i">
+                </mat-form-field>
+                <button mat-icon-button color="warn" (click)="remove(index)">
+                    <mat-icon class="mat-18" >delete</mat-icon>
+                </button>
+            </div>
+        </div>
+
+// Class
+form: FormGroup = new FormGroup({
+    name: new FormControl(''),
+    email: new FormControl(''),
+    skills: new FormArray([])
+  });
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  public addSkill() {
+    const control = new FormControl('');
+    this.skills.push(control);
+  }
+
+  public save() {
+    console.log("Data : ",this.form.value)
+  }
+
+  public remove(index:number) {
+    this.skills.removeAt(index)
+  }
+
+  public get skills() {
+    return this.form.get('skills') as FormArray;
+  }
+```
+We can insert the controls with `formArray.push(control)` & remove with `formArrat.removeAt(index)`. We can get the formControl with `formArray.at(index)` etc.
+
 ### Reactive Form Observables
 
 - **Value Changes and Status changes :-**
@@ -1575,6 +1603,35 @@ Steps :-
 
   - Create an Submit button which calls an method which prints the values of the form.
 
+### Types of selectors in angular
+
+In angular for the component there are multiple selectors which we can use in the html file.
+
+Selector => 
+```
+@Component({
+  selector: 'app-search-pipe',
+  templateUrl: './search-pipe.component.html',
+  styleUrls: ['./search-pipe.component.css']
+})
+```
+**Types :-**
+
+- `'app-form' :-` 
+  
+  We can use the component with tag `<app-form></app-form>`
+
+- `'[app-form]' :-`  
+  
+  We can use the component with attribute like `<div app-form></div>`
+
+- `'.app-form' :-`
+
+  We can use the component with the class like `<div class="app-form"></div>`
+
+As like this we can use the components with the different types in the html.
+
+
 ### Directives in Angular
 
 Directive provides additional functionality to HTML elements, There are 2 types of directives in angular. First are the structural directives & another are attributal directives.
@@ -1685,6 +1742,41 @@ In angular we can create custom directives in which previously we used to change
   // With Alias (@Input(directiveName) defaultColor:string;)
   <div [appRedEl]="'red'" [highlightColor]="'purple'">This needs to be highlightedM</div>
   ```
+
+### Custom Structural Directive
+
+The Only thing make structural directive different form others is We take different Params in the constructor of structural directive. 
+
+We Take `variable:TemplateRef<any> && variable:ViewContrainerRef` in which templateRef denotes to the template inside the div element on which directive is applied & viewContainerRef is the container ng-template container created by angular when we use any `*directive` structural directive.
+
+As we got the template & the container in which to render we can perform required logic for it.
+
+```
+// Directive
+@Directive({
+  selector:[ngShow]
+})
+export Class NgShowDirective{
+
+  constructor(private templateRef:TemplateRef<any>,private viewContainerRef:ViewContainerRef){}
+
+  @Input() set ngShow:boolean{
+      if(ngShow){
+        this.viewContainerRef.createEmbededView(this.templateRef);
+      }
+      else{
+        this.viewContainerRef.clearView();
+      }
+    }
+}
+
+// Template
+<div *ngShow="true">Content</div>
+```
+
+In the above Code We have used Input `set` which makes input as function in which we can write our custom logic. When we will recieve true we will show the view else we clearing the template from containerRef so it will be hidden if we recieve false.
+
+
 
 ### Routing in Angular
 
@@ -2725,7 +2817,7 @@ let customInterval = Observable.create(observer=>{
   }
   ```
 
-### Difference between ng-template, ng-container, ng-templateOutlet & ng-content
+### ng-template, ng-container, ng-content, ng-templateOutlet & ng-templateOutletContext
 
 This above mentioned above directive's are the key core concepts of angular and how the angular templates work under the hood.
 
@@ -2783,8 +2875,117 @@ This above mentioned above directive's are the key core concepts of angular and 
   ```
   <img src="./ng-container-usecase.png">
 
-- **ng-content :-**
+- **ng-content (Content Projection) :-**
 
+
+  When we write the template for chid component and as we pass the data to child component through `@Input()` properties we sometimes need to send the send custom template as well to child component to render in it.
+
+  We can pass the template & render into child component through parent component with the help of `ng-content`.
+
+  **Types Of Content Projection :-**
+
+  - **Single-slot content projection :-**
+
+    In the single slot content projection you use ng-content in child component at single place and the template you provide directly get rendered at the place as like mentioned below.
+
+    ```
+    // Parent Component Template
+    <app-child>
+    <p>Template From Parent Component</p>
+    </app-child>
+
+    // Child Component Template
+    <div class="main">
+    <h1>Child Component</h1>
+    <ng-content></ng-content> // Here the projected content will be rendered
+    </div>
+    ```
+
+  - **Multi-Slot content Projection :-**
+
+    In the multi slot content projection you use `selector` which tells which template to render at which place if you have used `ng-content` mutiple times as like mentioned below.
+
+    ```
+      // Parent Component Template
+    <app-child>
+    <p footer>Template From Parent Component</p>
+    </app-child>
+
+    // Child Component Template
+    <div class="main">
+    <h1>Child Component</h1>
+    <div class="header">
+    <ng-content select="[header]"></ng-content> // Here the projected content will be rendered
+    </div>
+
+    <div class="footer">
+    <ng-content select="[footer]"></ng-content>
+    </div>
+    </div>
+    ```
+
+- **ngTemplateOutlet :-**
+
+  If we want to reuse the piece of template at any place without repeating it we can use `*ngTemplateOutlet` structural directive which renderes the mentioned template where we delcared its outlet.
+
+  When we want to use `ngTemplateOutlet` with `ng-template` then we need to use as `[ngTemplateOutlet]="template"` as like mentioned below.
+
+  ```
+  // Template
+  <ng-template #paragraph>
+  <p>This is Reusable Paragraph</p>
+  </ng-template>
+
+  // Using Template at multiple places in same component
+  <div class="header" *ngTemplateOutlet="paragraph"></div>
+
+  <div class="body" *ngTemplateOutlet="paragraph"></div>
+
+  <div class="footer" *ngTemplateOutlet="paragraph"></div>
+
+  // With ng-template
+  <ng-template [ngTemplateOutlet]="paragraph"></ng-template>
+  ```
+
+  In the above code without rewriting the code we can render the same template at multiple places but within the same component in which template is declared.
+
+- **ngTemplateOutletContext :-**
+
+  In the above code you can see we have reused the template but the content is harcoded and static. If we want to render the dynamic content in reusable template then we use ngTemplateOutletContext for passing dynamic data to reusable template.
+
+  when we want to use `ngTemplateOutletContext` on `ng-template` we use it as `[ngTemplateOutletContext]` as like mentioend below.
+
+  ```
+  <ng-template #paragraph let-paraContent="content">
+  <p>{{paraContent}}</p>
+  </ng-template>
+
+  // Using Template at multiple places in same component
+  <div class="header" *ngTemplateOutlet="paragraph;content:{content:'Paragraph From Header'}"></div>
+
+  <div class="body" *ngTemplateOutlet="paragraph;content:{content:'Paragraph From Body'}"></div>
+
+  <div class="footer" *ngTemplateOutlet="paragraph;content:{content:'Paragraph From Footer'}"></div>
+
+  // With ng-template
+  <ng-template [ngTemplateOutlet]="paragraph" [ngTemplateOutletContext]="{content:'Paragraph from ng-content'}"></ng-template>
+  ```
+
+In the above code in `let-paraContent="content"` `paraContent` is the variable name which is referring to content property of `ngTemplateOutletContext`.
+
+`$implicit:'Default Paragraph'` $implicit can be considered as default data which we are passing through content which can be retrieved without referring to any property of context object as like mentioned below.
+
+```
+  <ng-template #paragraph let-paraContent="content" let-name>
+  <p>{{paraContent}}</p>
+  <p>Section Name : {{name}}</p> // Value passed with $implicit will be rendered here.
+  </ng-template>
+
+  <div class="footer" *ngTemplateOutlet="paragraph;content:{$implicit:'Footer',content:'Paragraph From Footer'}"></div>
+
+  // With ng-template
+  <ng-template [ngTemplateOutlet]="paragraph" [ngTemplateOutletContext]="{$implicit:'Ng Template',content:'Paragraph from ng-content'}"></ng-template>
+```
 
 ### Dealing with auth_token
 

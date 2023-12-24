@@ -1,0 +1,50 @@
+<div class="main container mt-5">
+    <h1>Ng Template Outlet & Ng TemplateOutlet Context</h1>
+    <h2>ngLet Directive for Declaring variables in html</h2>
+    <p> Purpose : To Avoid Calling get control in same block multiple times</p>
+    <form class="form" [formGroup]="demoForm">
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput>
+          </mat-form-field>
+          <div class="d-flex d-flex justify-content-between" style="width:15%">
+            <button mat-flat-button color="primary">Save</button>
+            <button mat-flat-button color="accent">Cancel</button>
+          </div>
+    </form>
+
+    <!-- Use of TemplateOutletContext in formal manner -->
+    <!-- <ng-template #template let-touched>
+        <b>Count : {{counter}}</b><br> Email Valid <b>{{touched}}</b>
+        <br>
+        <b>Count : {{counter}}</b><br> Email Valid <b>{{touched}}</b>
+        <br>
+        <b>Count : {{counter}}</b><br> Email Valid <b>{{touched}}</b>
+    </ng-template>
+    <div class="outlet" *ngTemplateOutlet="template;context:{$implicit:email.touched}"></div> -->
+<br>
+<br>
+    <b>ngLet for Calling FormControl only once</b>
+    <div class="with-nglet" *ngLet="email.touched as touched">
+        <b>Count : {{counter}}</b><br> Email Valid <b>{{touched}}</b>
+        <br>
+         <b>Count : {{counter}}</b><br> Email Valid <b>{{touched}}</b>
+        <br>
+        <b>Count : {{counter}}</b><br> Email Valid <b>{{touched}}</b>
+    </div>
+<br>
+<br>
+
+    <b>ngLet for subcribing observable only once</b>
+    <p>As we have only used async once  rather than 3 we have subscried only once with the help of *ngLet</p>
+    <div class="for-interval" *ngLet="(obs | async) as value">
+        <p>Observable Value :{{value}}</p>
+        <p>Observable Value :{{value}}</p>
+        <p>Observable Value :{{value}}</p>
+    </div>
+</div>

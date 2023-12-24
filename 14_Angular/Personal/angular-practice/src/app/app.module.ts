@@ -40,6 +40,9 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { NgrxRouterSerializer } from './Store/ngrx-router.serializer';
 import { NumStrenthPipe } from './pipes/num-strenth.pipe';
+import { NgTemplateAdvanceComponent } from './components/ng-template-advance/ng-template-advance.component';
+import { NgLetDirective } from './directives/ng-let.directive';
+import { FormArrayComponent } from './components/form-array/form-array.component';
 
 
 
@@ -66,7 +69,10 @@ import { NumStrenthPipe } from './pipes/num-strenth.pipe';
     CounterActionsComponent,
     CounterNameComponent,
     LoaderComponent,
-    NumStrenthPipe
+    NumStrenthPipe,
+    NgTemplateAdvanceComponent,
+    NgLetDirective,
+    FormArrayComponent
   ],
   imports: [
     BrowserModule,

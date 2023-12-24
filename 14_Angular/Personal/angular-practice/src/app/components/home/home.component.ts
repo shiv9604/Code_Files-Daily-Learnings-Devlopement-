@@ -32,6 +32,14 @@ export class HomeComponent implements OnInit {
     {
       name:'ngRx-Counter',
       route:'/ngrx-counter'
+    },
+    {
+      name: 'ng-template ng-Container Advance',
+      route : '/ng-template-advance'
+    },
+    {
+      name: 'FormArray',
+      route : '/form-array'
     }
   ]
   constructor() { }

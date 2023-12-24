@@ -14,6 +14,8 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginAuthComponent } from './components/login-auth/login-auth.component';
 import { AuthGuardService } from './services/auth/auth-guard.service';
 import { CounterComponent } from './counter/counter/counter.component';
+import { NgTemplateAdvanceComponent } from './components/ng-template-advance/ng-template-advance.component';
+import { FormArrayComponent } from './components/form-array/form-array.component';
 
 const routes: Routes = [
   
@@ -87,6 +89,14 @@ const routes: Routes = [
   {
     path:'ngrx-counter',
     component:CounterComponent
+  },
+  {
+    path: 'ng-template-advance',
+    component: NgTemplateAdvanceComponent
+  },
+  {
+    path: 'form-array',
+    component: FormArrayComponent
   }
 ];
 
