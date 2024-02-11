@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js" integrity="sha512-KZmyTq3PLx9EZl0RHShHQuXtrvdJ+m35tuOiwlcZfs/rE7NZv29ygNA8SFCkMXTnYZQK2OX0Gm2qKGfvWEtRXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript">
+        const app = angular.module('sampleApp',[]).run(['$rootScope',function($rootScope){
+            $rootScope.manager = 'SK';
+        }]);
+        app.controller('main',["$scope",function($scope){
+            $scope.name = 'Shivprasad';
+        }])
+
+        app.controller('child',['$scope',function($scope){
+            $scope.salary = 45000;
+            $scope.age = 25;
+        }])
+
+    </script>
+</head>
+<body ng-app="sampleApp" ng-controller="main">
+    sum of 3 + 2 = {{ 3 + 2}}
+    <br>
+    <br>
+    <div class="greet" ng-controller="child">
+        Hello {{name}}!
+        <br>
+        Your Salay is {{salary}}
+        <br>
+        Your Age is {{age}}
+        <br>
+        Your manager is {{manager}}
+    </div>
+</body>
+</html>

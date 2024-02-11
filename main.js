@@ -577,22 +577,22 @@
 // caesarRedux('qbspbz',19);
 
 // Decimal Places Restrictor
-function decimalRestrictor(ctrlValue,beforeDecimal,afterDecimal) {
-      let value;
-    let isNum = typeof ctrlValue == 'number';
-    console.log("IsNum :", isNum);
-      isNum ? value = ctrlValue.toString() : value = ctrlValue.toString();
-      if (!value.includes('.')) { 
-        value = value.slice(0, beforeDecimal);
-          ctrlValue = value;
-          console.log("Non Decimal Restricted value:",value)
-        return;
-      } 
-      let [before, after ] = value.split('.');
-      before = before.length != beforeDecimal ? before.slice(0, beforeDecimal) : before;
-      after = after.length != afterDecimal ? after.slice(0, afterDecimal) : after;
-    value = [before, after].join('.');
-    console.log("Decimal Restricted value:", value);
-}
+// function decimalRestrictor(ctrlValue,beforeDecimal,afterDecimal) {
+//       let value;
+//     let isNum = typeof ctrlValue == 'number';
+//     console.log("IsNum :", isNum);
+//       isNum ? value = ctrlValue.toString() : value = ctrlValue.toString();
+//       if (!value.includes('.')) { 
+//         value = value.slice(0, beforeDecimal);
+//           ctrlValue = value;
+//           console.log("Non Decimal Restricted value:",value)
+//         return;
+//       } 
+//       let [before, after ] = value.split('.');
+//       before = before.length != beforeDecimal ? before.slice(0, beforeDecimal) : before;
+//       after = after.length != afterDecimal ? after.slice(0, afterDecimal) : after;
+//     value = [before, after].join('.');
+//     console.log("Decimal Restricted value:", value);
+// }
 
-decimalRestrictor("123456789", 8, 6);
+// decimalRestrictor("123456789", 8, 6);
