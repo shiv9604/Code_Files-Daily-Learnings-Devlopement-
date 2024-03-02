@@ -7,7 +7,7 @@ def createfile(destination):
             f.write("Welcome to email scripting")
 
 #If we are entering the path we should put doble \\ over their!
-destination = 'C:\\Users\\shivk\\OneDrive\\Desktop\\Code Files Softwares\\C & C++ & PYTHON Vscode\\.vscode'
+destination = 'C:\\Users\\shivk\\OneDrive\\Desktop\\Code Files Softwares\\C & C++ & PYTHON Vscode\\.vscode\\4_Python_Scripting'
 
 createfile(destination)
 print("File is created sucessfully")

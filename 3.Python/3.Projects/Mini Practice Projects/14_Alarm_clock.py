@@ -15,7 +15,7 @@ while (True):
     if(alarm_hour==current_hour):
         if(alarm_minute==current_Minute):
             print("Wake up!")
-            playsound('Tone.mp3')
+            playsound('./assets/Tone.mp3')
             break
 
 # alarm_tone = open('C:\Users\shivk\Music\Video Projects\Tone.mp3' + 'Tone.mp3')
