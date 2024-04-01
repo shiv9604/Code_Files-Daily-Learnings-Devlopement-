@@ -2609,4 +2609,4 @@ There are various things we can perform with route service like intercepting the
 
 We can access params,scope etc for current route with `$route.current.params` and so on as mentioned above.
 
-
+Lets consider if we are calling api on route change but sometimes we want to call the api as we call the route either with same & different data but angular by default does not
