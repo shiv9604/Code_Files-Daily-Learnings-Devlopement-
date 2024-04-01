@@ -5,36 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js" integrity="sha512-KZmyTq3PLx9EZl0RHShHQuXtrvdJ+m35tuOiwlcZfs/rE7NZv29ygNA8SFCkMXTnYZQK2OX0Gm2qKGfvWEtRXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.3/angular-route.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
 </head>
-<body ng-app="sampleApp" ng-controller="main">
-    <div class="greet" ng-controller="child">
-        Hello {{name}}!
-        <br>    
-        Your Initial Salay is {{::salary}}
-        <br>
-        You can modify your salary
-        <br>
-        <input type="text" ng-model="salary">
-        <hr>
-        <div class="class" ng-if="salary">
-            Your Updated Salary is <span ng-bind="salary"></span>!
-        </div>
-        <hr>
-        <button class="btn btn-primary" ng-click="doubleSalary()">Double Salary</button>
-        <button class="btn btn-secondary" ng-click="getUsers()">Get Users</button>
-
-        <div class="users" ng-if="users.length>0">
-            <div class="card my-3 p-3 card"ng-repeat="user in users">
-                Id : {{user.id}}
-                <br>
-                Name : {{user.name}}
-                <br>
-                Email : {{user.email}}
-            </div>
-        </div>
+<body ng-app="sampleApp" class="main container p-5 " ng-ontroller="main">
+    <div class="row border">
+        <h1>Header</h1>
     </div>
+    <div class="row">
+        <div class="col-sm-3 well border">
+            <ul>
+                <li><a href="#/">Default</a></li>
+                <li><a href="#/first">First</a></li>
+                <li><a href="#/second">Second</a></li>
+            </ul>
+        </div>
+        <div ng-view class="col-sm-9 well border"></div>
+    </div>
+    
+    <!-- Hello {{name}}! (Main Scope)
+    <br>
+    <div class="child" ng-controller="child">
+        Hello {{name}}! (Child Scope)
+        <br>    
+        Controller Employee 1 Salary = {{employee1.salary}}
+        <br>
+        Controller Employee 2 Salary = {{employee2.salary}}
+        <child-component>
+            <h1>Transclusion Employee 1 Salary = {{employee1.salary}}</h1>
+            <h1>Transclusion Employee 2 Salary = {{$parent.employee2.salary}}</h1>
+        </child-component>
+    </div> -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
     <script src="app.js"></script>
