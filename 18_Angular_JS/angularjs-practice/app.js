@@ -1,18 +1,37 @@
-const app = angular.module('sampleApp',['ngRoute']).run(['$rootScope',function($rootScope){
+const app = angular.module('sampleApp',['ui.router']).run(['$rootScope',function($rootScope){
     $rootScope.manager = 'SK';
+
+    $rootScope.on('$routeChangeStart', function (e,curr,prev) {
+        console.log("Event :", e);
+        console.log("Current :", curr);
+        console.log("Event :", prev);
+    })
+
+     $rootScope.on('$locationChangeStart', function (e,currUrl,prevUrl) {
+        console.log("Event :", e);
+        console.log("Current :", currUrl);
+        console.log("Event :", prevUrl);
+    })
 
 }]);
 
-app.config(['$routeProvider', function ($routeProvider) { 
-    $routeProvider
-    .when('#/first', {
+app.config(['$stateProvider', function ($stateProvider) { 
+    $stateProvider
+    .state('first', {
+        url : '/first',
         template : '<h1>Welcome to the application 1</h1>'  
     })
-    .when('#/second', {
+    .state('second', {
+        url : '/second',
         template : '<h1>Welcome to the application 2</h1>'  
     })
-    .when('/', {
-        template : '<h1>Welcome to the default</h1>',
+    .state('default', {
+        url : '/second',
+        template : '<h1>Default route</h1>'  
+    })
+    .state('root', {
+        url : '/*path',
+        template : '<h1>Wildcard route</h1>'  
     })
 }])
 

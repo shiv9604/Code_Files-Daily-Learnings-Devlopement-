@@ -2600,6 +2600,19 @@ When we declare parameters while declaring the route such as `/route/:var` if we
 
 If we want to keep the parameter as optional then we need to provide the `?` after the variable such as `/route/:var?` then even if we dont pas the variable it will not be available in `$routeParams` but route will not be invalidated and user will be able to navigate to that route even without params.
 
+### Listing events on application level
+
+Whenever we need to listen for the events on the application level we need to listen those on `$rootScope` in `app.run(['',function(){}])` as like mentioned below.
+
+```
+app.run(['$rootScope', function($rootScope){
+
+    // eventName will be string and we will get event related params as arguments
+    $rootScope.on(eventName,function(...eventParams){
+
+    })
+}])
+```
 
 ### $route service & ajax requests with it
 
@@ -2609,4 +2622,874 @@ There are various things we can perform with route service like intercepting the
 
 We can access params,scope etc for current route with `$route.current.params` and so on as mentioned above.
 
-Lets consider if we are calling api on route change but sometimes we want to call the api as we call the route either with same & different data but angular by default does not
+Lets consider if we are calling api on route change but sometimes we want to call the api as we call the route either with same & different data but angular by default does not loads the template again for that route due to its maintained cache. In such cases we need to reload the route with `$route.reload()` so it will load  again for same route & routeParams and will call the api.
+
+When we perform `$route.reload()` it only reloads the routes but not updates the params so in the above case if we have reloaded the application in above scenario for same value it will work perfectly fine but as it does not updates the values if the values will be different and udpated before reload it will relaod the route with previous values itself.
+
+When we want to update the params while reload we can use `$route.updateParams({key:value})` so it updates the parameters as well as it calls for `$route.reload()` as well automatically.
+
+
+**$route events :-**
+
+- **$routeChangeStart & $routeChangeSuccess :-**
+  
+    As we have saw earlier this event should be registered on application level which is on `$rootScope` and it provides built-in arguements such as `function(event, current, previous){}` form which current & previous provides us the same data and event is related to event details.
+
+    ```
+    app.run(['$rootScope', function($rootScope){
+        // eventName will be string and we will get event related params as arguments
+        $rootScope.on('$routeChangeStart',function(e,curr,prev){
+            console.log("Event :",e);
+            console.log("Current :",curr);
+            console.log("Previous :",prev);
+        })
+
+        // eventName will be string and we will get event related params as arguments
+        $rootScope.on('$routeChangeSuccess',function(e,curr,prev){
+            console.log("Event :",e);
+            console.log("Current :",curr);
+            console.log("Previous :",prev);
+        })
+    }])
+    ```
+
+- **$locationChangeStart & locationChangeSuccess :-**
+
+    This events are browser events as `$routeChangeStart & $routeChangeSuccess` events are angular events But `$locationChangeStart & $locationChangeSuccess` gets calls prior to angular events.
+
+    This events provides us the information such as `function(event,currUrl,prevUrl,currState, prevState)` and we can register this events on appilcation level with the help of `$rootScope` in `app.run('',[function(){}])`
+
+    ```
+        app.run(['$rootScope', function($rootScope){
+        // eventName will be string and we will get event related params as arguments
+        $rootScope.on('$locationChangeStart',function(e,currUrl,prevUrl,currState,prevState){
+            console.log("Event :",e);
+
+            console.log("Current URL :",currUrl);
+            console.log("Previous URL :",prev);
+
+            console.log("Current State :",currState);
+            console.log("Previous State :",prevState);
+        })
+
+        // eventName will be string and we will get event related params as arguments
+        $rootScope.on('$locationChangeSuccess',function(e,currUrl,prevUrl,currState,prevState){
+           console.log("Event :",e);
+
+            console.log("Current URL :",currUrl);
+            console.log("Previous URL :",prev);
+
+            console.log("Current State :",currState);
+            console.log("Previous State :",prevState);
+        })
+    }])
+    ```
+
+**Implementing Loader while navigations :-**
+
+We can implement our loader on the navigations based on `$routeChangeStart` & `$routeChangeSuccess` by maintaining the flag for `isLoading` and then we can use that flag for showing the loader on the screen.
+
+```
+ app.run(['$rootScope', function($rootScope){
+        // eventName will be string and we will get event related params as arguments
+        $rootScope.on('$routeChangeStart',function(e,currUrl,prevUrl,currState,prevState){
+            $rootScope.isLoading = true
+        })
+        $rootScope.on('$routeChangeSucess',function(e,currUrl,prevUrl,currState,prevState){
+            $rootScope.isLoading = false;
+        })
+}])
+
+// Tempalte
+<app-loader ng-if=""isLoading><app-loader>
+```
+
+### Routing & Resolve
+
+<img src="./assets/routing-resolve.png">
+
+Resolve is the way to make ajax requests or preparing necessary data before navgtion happens to any page so page will have the data while loading.
+
+In the above flow as you can see whenever we redirect to new url it loads & executes the controller directly after `change URL` stage but when we have used the resolve then we perform our operations mentioned in the resolve first and thne it `jumps/loads` the route.
+
+```
+$routeProvider.when('/add',{
+    template : 'addTemplate.html'
+    controller : 'addController',
+    resolve : {
+        // Angularjs automatically resolves the promise and stores the result into mentioned variable prior to callback
+        result : ['dataService','$route',function(dataService,$route,$rootScope){
+            return dataService.add($route.current.params.a,$route.current.params.b)    
+        }]
+    }
+})
+
+// We need to inject same variable in which we have stored the results of resolve
+app.controller('addController',['$scpoe','result',function($scope,result){
+    $scope.sum = result.data;
+}])
+
+// AddTemplate
+<div> Sum = {{sum}} </div>
+```
+
+As you can see in the above exple need to declare the `result:{var:callback}` for using resolve in route and we need to inject the same `var` into the controller to get results from it.
+
+`Note :- When you use resolve in the route config your route only loaded when the api gets response else it will not be loaded as well as $routeChangeSuccess will not be called, and if we are maintaining loader in template which is going to load after navigation it will not be visible because our template is loading only after response is recieved.`
+
+Earlier we used to set the isLoading in the controller but now as we are using resolve and no api call is being made from any specific controller we need to maintain isLoading flag on the global level through `$routeChangeStart` & ,`$routeChangeSuccess`.
+
+
+**Error Handelling while using resolve :-**
+
+We have seen above that when we get the response of the api call then only we will be navigated to route but what if that api throws an error or fails to send the response? In that case our loader will be loading endlessly and our route also would be navigated to next route because it returned something either error or response.
+
+So we need to handle this in `$routeChangeError` event on `$rootScope` which gets called when any error happens while navigating from one route to another or we get any error in `resolve` as like mentioned below.
+
+```
+$routeProvider.when('/add',{
+    template : 'addTemplate.html'
+    controller : 'addController',
+    resolve : {
+        // Angularjs automatically resolves the promise and stores the result into mentioned variable prior to callback
+        result : ['dataService','$route',function(dataService,$route,$rootScope){
+            return dataService.add($route.current.params.a,$route.current.params.b).then(function(res){
+                // Response
+            },function(err){
+
+                // With the help of $q we are throwing and passing our error
+                $q.reject(err);
+            })
+        }]
+    }
+})
+
+ app.run(['$rootScope','$window', function($rootScope,$window){
+        $rootScope.on('$routeChangeError',function(e,currUrl,prevUrl,currState,prevState){
+            $rootScope.isError = true;
+            $rootScope.isLoading = false;
+
+            // We need to revert back to the previous route as it has been already navigated to next route even after recieving error
+            $window.history.back();
+        })
+}])
+```
+
+As we have seen above in the code we have rejected with `$q.reject(error)` which will get caught in `$routeChangeError` and we have injected `$window` for navigating back to the previous route.
+
+### Ui router
+
+<img src="./assets/ui-router.png">
+
+<img src="./assets/ui-router-advantages.png">
+
+As we have seen earlier about the routing we have another option for configuring more advanced routing in angularjs app with the help of ui router.
+
+We have serval benifits and advantages for using ui router over ngRoute such as parallel routing or views, nested routing or views.
+
+Ui router is maintains states and that states can be identified by their unique names, for navigation from one view to another we can either navigate with the help of state as well as with route.
+
+As we used to have `$routeProvider` we have `$stateProvider` in terms of ui router and its integration as menitioned below.
+
+**Ui router integration :-**
+
+<img src="./assets/ui-router-integration.png">
+
+- Include ui-router module with help of `bower, npm` or `cdn link`.
+
+    `<script>https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.1.0/angular-ui-router.min.js</script>`
+
+- Inject `ui.router` as module dependency as like mentioned below.
+  
+    ```
+    const app = angular.module('app',['ui.router'])
+    ```
+
+- Inject `$stateProvider` in `app.config` and create simple route with `$stateProvider.state('stateName',{config})` as like mentioned below.
+
+    ```
+    app.config(['$stateProvider',function($stateProvider) {
+
+        $stateProvider.state('first',function(){
+            url : '/first',
+            templateUrl : 'first.html',
+            controller : 'firstController',
+        })
+    }])
+    ```
+
+- Declare `ui-view` directive whereever you want to inject the view as like mentioned below.
+
+    ```
+    <div ui-view>
+    // Here the routes template will be loaded
+    </div>
+    ```
+
+    We had limitation in terms of declaring `ng-view` only once in the application but in terms of `ui-view` ui can have multiple in application or even nested into each other.
+
+- For navigating to route we can navigate with anchor tag's `href="#/url" or ui-sref="name()"` as mentioned below.
+
+    ```
+       app.config(['$stateProvider',function($stateProvider) {
+
+        $stateProvider.state('first',function(){
+            url : '/first',
+            templateUrl : 'first.html',
+            controller : 'firstController',
+        })
+    }])
+
+    // Template
+    <a href="#/first">First</a>
+
+    // with ui-sref
+    <a ui-sref="first()">First with sref</a>
+
+    ```
+
+
+**Default route configuration :-**
+
+We can configure default route with the help of empty route as same as `$routeProvider` as like mentoned below.
+
+```
+    $stateProvider.state('root',function(){
+            url : '/',
+            template : 'this is default page',
+            controller : 'someControllerIfAvailable',
+        })
+```
+
+**WildCard route configuration :-**
+
+We can configure the wildcard route which means if no route is available then which page should be visible that we can configure by proving `url:'*path'` in state configuration.
+
+We can configure the wildcard route with `$urlRouterProvider.otherwise('')` which means if no route found with mentioned url then navigate to specified url as like mentioned route below.
+
+```
+app.config(['$stateProvider,'$uiRouterProvider',function(){
+    $stateProvider.state('root',function(){
+                url : '/*path',
+                template : 'this is default page',
+                controller : 'someControllerIfAvailable',
+    })
+
+    // If it does not found any route then it will redirect to mentioned route in otherwise.
+    $uiRouterProvider.otherwise('/rediretionUrl');
+}])
+```
+
+### Working with UI router Parameters
+
+<img src="./assets/uirouter-params.png">
+
+We can pass the params with the help of ui router with 3 different ways, such as passing through `ui-sref`, usinng `ui-sref privately without showing in url` and as normal we can use query params for the same.
+
+**Feature provided by ui router params :-**
+
+<img src="./assets/uirouter-params-features.png">
+
+- We can configure the optional parameters.
+- We can configure Default values.
+- We can configure the params to be follwed by some string pattern with help of Reg Exp support.
+- We have ui-sref support for params with which we can access params through `$stateParams`.
+- We can configure array for multiple parameters.
+- how to squash the values or replace the values when they are same as current values.
+
+
+**$stateParams :-**
+
+<img src="./assets/uirouter-stateparams.png">
+
+`$stateParams` is the easiest way to access state params in controllers, scopes, servcies etc by injecting `$stateParams` service which comes with ui router module itself.
+
+**Sending params with different ways :-**
+
+For sending parameters we need to configure the route or we need to tell the route that we are expecting the parameters which needs to be assigned to provided name as mentioned below.
+
+With the help of `:var or {var}` we can tell angular that we are expecting params which needs to be assigned to passed variables  as like `url : '/first/:a/:b' or url:'/first/{a}/{b}'`
+
+- **Through href :-**
+
+    With our traditional way we can pass the parameters through `href="route/param1/param2..."` as like mentioned below.
+
+    ```
+    // with href
+    <a href="#/first/10/20">First with href</a>
+    ```
+
+- **Thropugh ui-sref :-**
+  
+    With ui-sref we can pass the values in terms of json as an arguement to state name method call such as `stateName({var:value,var:value...})`.
+
+    ```
+    // with ui-sref
+   <a ui-sref="first({a:10,b:20})">First with href</a>
+    ```
+
+**Using Regular expression for expected params :-**
+
+With the help of this we can set the format of param values which are being expected by declaring its format against the param with `url:route/{a:regex}/{b}` and if the param values does not match the expected format it will mark that route as unrecognized and it will redirect to wildcard route.
+
+
+```
+$stateProvider.state('first',{
+    url : '/first/{a:[0-9]+}/{b}',
+    template : <h1>First a = {{a} & b {{b}}}'
+})
+
+// Template
+
+// Valid Params
+<a href="#/first/10/20">First with href</a>
+<a ui-sref="first({a:10,b:20})">First with href</a>
+
+// InValid Params (This will redirect to wildcard route)
+<a href="#/first/demo/20">First with href</a>
+<a ui-sref="first({a:demo,b:20})">First with href</a>
+```
+
+
+**Optional params :-**
+
+In ui-sref by default params are the optional, if we dont provide any params it doesnt throws any expection or something, it will navigate to the page but with no values.
+
+If we want to navigate without any params we pass no params in href such as `<a href="#/first/"></a>` and with the help of ui-ssref we can achieve that `by passing null` such as `<a ui-sref="first(null)></a>`.
+
+
+Lets consider if we have 2 params such as `url : '/first/:a/:b` if we want to provide b param without a we cant do that with `href` becuase it will consider the parameter as a by default.
+
+But with the help of `ui-sref` we can define that which parameter as optional & which one with `<a ui-sref="first({a:null,b:null})"`.
+
+**Default params :-**
+
+We can pass the params to the route with one more way which is `params:{}` inside the state configuration in which we can declare our data which will be accesible through `$uiRouterParams`.
+
+If we dont want those params should not be visible thorugh url then we can achieve that by not declaring expected params in the url as mentioned below.
+
+```
+$stateProvider.state('first',{
+    url : 'first',
+    template : <h1> First Page </h1>,
+    params : {
+        a : 1,
+        b : 2
+    }
+})
+
+// Passing the params through ui-sref
+<a ui-sref="first({a:10, b:20})">
+
+// Will not work
+<a href="#/first/10/20">
+```
+
+As you can see in the above code 1 & 2 values are default values for 1 & 2 if null is passed against a & b through ui-sref such as `first({a:null,b:null})` default values will be taken into consideration.
+
+If we want to show the default params in the url then we can declare the variables for params in the url such as `url : 'first/:a/:b` this works same wih ui-sref as mentioned above.
+
+But if we use that route with default values with `href=""` we need to provide no of empty slashes ahead of url path as much parameters we have such as `href="#/first//"` then only this will be accesible through href else it will redirect to wildcard route but to avoid such thing we need to declare `squash:true` for params as like mentioned below.
+
+```
+// Without Suqash with href
+$stateProvider.state('first',{
+    url : 'first',
+    template : <h1> First Page </h1>,
+    params : {
+        a : { value : 1},
+        b : {value : 2}
+    }
+})
+<a href="#/first//">First Page></a>
+
+
+// Without Suqash with href
+$stateProvider.state('first',{
+    url : 'first',
+    template : <h1> First Page </h1>,
+    params : {
+        a : { value : 1, squash : true},
+        b : {value : 2, squash : true}
+    }
+})
+<a href="#/first">First Page></a>
+```
+
+**Squash in details :-**
+
+If we want to configure some different charecter to use the default values such as `- for a` or `~ for b` then whenever we will be passing - at the place of a in routing url like `href="#/first/-/20"` it means replace the value of a with - & b accordingly with `~` But to configure that we need to provide that special charecter against the squash property in params as like mentioned below.
+
+```
+// Without Suqash with href
+$stateProvider.state('first',{
+    url : 'first',
+    template : <h1> First Page </h1>,
+    params : {
+        a : { value : 1, squash : '-'},
+        b : {value : 2, squash : '~'}
+    }
+})
+
+<a href="#/first/-/20">Replace a with special charecter</a>
+<a href="#/first/10/~`">Replace b with special charecter</a>
+```
+
+**Query parameters with uirouter :-**
+
+If we want to pass the params with query params we need to configure url with `url:/first?a&b` and we can pass the query parameters for that route with href & ui-sref as like mentioned below.
+
+```
+// Without Suqash with href
+$stateProvider.state('first',{
+    url : '/first?a&b',
+    template : <h1> First Page </h1>,
+    params : {
+        a : { value : 1},
+        b : {value : 2}
+    }
+})
+
+// With href
+<a href="#/first?a=10&b=20">href</a>
+
+// With ui-sref
+<a ui-sref="first({a:10,b:20})">Replace b with special charecter</a>
+```
+
+Query params are optional by default and default values also works in terms of query params in the same way as we saw above. if any value not provided then it will consider default value.
+
+
+**Passing Array :-**
+When we want to pass array against some param or if we want to combine passed multiple values to be combined in array through queryparams then we need to use `array:true` in params configuration as like mentioned below.
+
+```
+// Without Suqash with href
+$stateProvider.state('first',{
+    url : '/first?a&b',
+    template : <h1> First Page </h1>,
+    params : {
+        a : { value : 1},
+        b : {value : 2,array:true}
+    }
+})
+
+// With href
+<a href="#/first?a=10&b=20&b=30&b=40">href</a>
+
+// With ui-sref
+<a ui-sref="first({a:10,b:[20,30,40]})">Replace b with special charecter</a>
+```
+
+The multiple values we passed through query params with the help of href will be combined into a single array which will be assinged to b in params.
+
+
+### Working with $state service
+
+<img src="./assets/state-service.png">
+
+`$state` service is similar to `$route` service which we saw in `ngRouter` module and `$state` service used for accesing, modifying, navigations of states.
+
+**$state properties and method :-**
+
+<img src="./assets/state-properties-methods.png">
+
+**Properties :-**
+We have serval properties accesible thorugh $state service such as `params,data,etc` through which we can checkout current state params, data and other details and also with params we checkout the params.
+
+**Methods :-**
+
+We have access to methods such as `reload, is, get, go(with params and reload options)` with the help of which we can reload, check and verify the current state and also we can navigate to another routes with params or reload options without `href or ui-sref` through controllers, services.
+
+**Events :-**
+
+We can register events on $state service such as ` $stateChangeStart, $stateChangeSuccess, $stateChangeError, $stateNotFound` with the help of which we can perform our business logic before navigation happens, on navigation sucess or if error occured and also if no state is found for current url etc.
+
+
+**navigation through controllers & service :-**
+
+If we want to navigate from one state to another state in angularjs application we need to inject `$state` service in our controller and with the help of `$state.go(url,params)` we can navigate to another state as like mentioned below.
+
+```
+app.controller('myController',['$state',function(){
+    $scope.goCalc = function(){
+        $state.go('calc',{
+            a : $scope.a,
+            b : $scope.b
+        })
+    }
+}])
+```
+
+**accesing params through $state service :-**
+
+We can access the params throug $state service as well directly in the controller wihtout using ` $stateParams` with ` $state.params.propertyname`.
+
+```
+app.controller('myController',['$state',function(){
+    $scope.a = 10;
+    $scope.b = 10;
+    
+    $scope.goCalc = function(){
+        $state.go('calc',{
+            a : $scope.a,
+            b : $scope.b
+        })
+    }
+
+    $scope.fetchParams = function(){
+        console.log("Params =>",$state.params)
+    }
+}])
+```
+
+**Accesing information about perticular state :-**
+
+We can get the information about the perticular state with the help of `$state.get(stateName)` which returns an object with its configuration such as url, controller, template, templateUrl and name etc.
+
+**Passing static data to url & accesing it :-**
+
+We can pass our static data to the state such as params against the data property in state configuration like `data:{}` as like mentioned below.
+
+```
+// Passing data through url config
+$stateProvider.state('first',{
+    url : '/first',
+    template : '<h1>First</h1>',
+    data : {
+        userType : 'ADMIN'
+    }
+})
+
+app.controller('myController',['$state',function(){
+    $scope.userType = '';
+    $scope.fetchData = fuction(){
+        $scope.userType = $state.params.data.userType;
+        console.log("Params =>",$state.params.data.userType)
+    }
+}])
+```
+
+**state events :-**
+
+As we have saw earlier in `ngRouter` we need to register navigation events on `$rootScope` in `app.run(['$rootScope,function(){}])` block as mentioned perticulary below.
+
+- **$routeChangeStart :-**
+
+    `$routeChangeStart` event triggers when one page is being navigated from one stae to another state and we can execute our business logic if we want to perform any in between navigations.
+
+    We get the following details in `$stateChangeStart` callbacks are `function(e,toState,toParams,fromState,fromParams,optoins){}` which will be usefull for our business logic or performing navigation related operations.
+
+    
+    `$routeChangeSuccess` event triggers when navigation id performed already & view and controller has been loaded for the state and we can execute our business logic if we want ot perform after landing on navigation.
+
+    We get the following details in `$stateChangeSuccess` callbacks are `function(e,toState,toParams,fromState,fromParams){}` which will be useFull for our business logic while performing navigation related operations.
+
+    Only difference in `$routeChangeStart` & `$routeChangeSuccess` callbacks are we dont have options in `$routeChangeStart` as 5th parameter.
+
+
+    ```
+    app.run(['$rootScope',function($rootScope){
+
+        $rootScope.on('$stateChangeStart',function(e,toState,toParams,fromState,fromParams,options){
+            console.log(e);
+            console.log(toState);
+            console.log(toparams);
+            console.log(fromState);
+            console.log(fromParams);
+            console.log(options);
+        })
+    }])
+
+       app.run(['$rootScope',function($rootScope){
+
+        $rootScope.on('$stateChangeSuccess',function(e,toState,toParams,fromState,fromParams){
+            console.log(e);
+            console.log(toState);
+            console.log(toparams);
+            console.log(fromState);
+            console.log(fromParams);
+        })
+    }])
+    ```
+
+
+- **$stateChangeError & $stateNotFound :-**
+
+  ----REMAINING----
+
+### UI Router Resolve
+
+<img src="./assets/uirouter-resolve.png">
+
+UI router resolve is to load the data from ajax request before switching to the new state rather than switching to the new state, user is able to see the view and then requesting data from the ajax request and refreshing the view after data has been loaded as per traditional method.
+
+
+**Navigation Flow :-**
+
+<img src="./assets/uirouter-resolve-flow.png">
+
+We have 2 different flows for navigation cycle form which one is with `href or ui-sref` and another is with `$state.go(url)`.
+
+As you can see in first flow we are navigating with `href or ui-sref` and in that `$locationChangeStart starts with $stateChangeStart and but $locationChangeSuccess calls before  prevState.onExit & currState.onEnter and $stateChangeSuccess calls after jump/load route` but in `$state.go(url) navigation cycle doesnt start with $locationChangeStart it starts with $stateChangeStart and then it calls prevState.onExit and onEnter respectively prior to jump/load route after which $stateChangeSucess get called and then $locationChangeStart starts after which url get changed and then $locationChangeSucess get called` which means with ui-sref and href it starts changing the location & changing state simultaneously but with state.go it changes the state first and then starts location change.
+
+This 2 flows happens the same with ajax calls without resolve but with resolve this flows get changed and in that with ui-sref & href `$locationChangeStart & $stateChangeStart get called which changes url after which $locationChangeSuccess get called and ajax request is made and after its response prevState.exit, currState.enter gets called which jumps/loads the route after which $stateChangeSuccess gets called and response data is accesile in currState.onEnter & in scope after initialized initialized for current route ` and interms of state.go `when $stateChangeStart is called it tries to resolve the api call before prevState.onExit and currState.onEnter and when get response from api then only it jumps/loads route after which $stateChangeSuccess is called which initiates $locationChangeStart, Changes the URL & $locationChnageSuccess get called and data is accesible in currState.onEnter & when scope is initialized for current route`  which means with state.go before jumping/loading and initiating change url it finishes the api call but in terms of ui-sref and href it initiates change url first after which it finishes api call and then it jumps and loads the route.
+
+```
+$stateProvider.when('/add',{
+    template : 'addTemplate.html'
+    controller : 'addController',
+    resolve : {
+        // Angularjs automatically resolves the promise and stores the result into mentioned variable prior to callback
+        result : ['dataService','$stateParams',function(dataService,$stateParams{
+            return dataService.add($stateParams.a,stateParams.b)    
+        }]
+    }
+})
+
+// We need to inject same variable in which we have stored the results of resolve
+app.controller('addController',['$scpoe','result',function($scope,result){
+    $scope.sum = result.data;
+}])
+
+// AddTemplate
+<div> Sum = {{sum}} </div>
+```
+
+`Note :- When you use resolve in the route config your route only loaded when the api gets response else it will not be loaded as well as $routeChangeSuccess will not be called, and if we are maintaining loader in template which is going to load after navigation it will not be visible because our template is loading only after response is recieved.`
+
+Earlier we used to set the isLoading in the controller but now as we are using resolve and no api call is being made from any specific controller we need to maintain isLoading flag on the global level through `$routeChangeStart` & ,`$routeChangeSuccess`.
+
+
+### Multiple & Simultaneous Views with ui-router
+
+<img src="./assets/multiple-ui-view.png">
+
+Ui View is nothing but the router outlet in which our template appears, and in ngRouter we had restriction only 1 ui-view in project which overcame by ui-router and we can have multiple ui views in project.
+
+We can name our ui-views for their identification purposes.
+
+**Configuring Child views :-**
+
+We can define our `simultaneous views` routes against the `views` property in state configuration object in which we define the `view name` and its template & controller for it as mentioned below.
+
+<img src="./assets/multiple-ui-views.png">
+
+```
+$stateProvider.state('myState',{
+    url : 'my-state',
+    views : {
+        '' : {
+            templateUrl : 'child1.html',
+            controller : 'child1'
+        },
+        'second-view' : {
+            templateUrl : 'child2.html',
+            controller : 'child2'
+        }
+    }
+})
+
+// Template
+<div ui-view>
+    // Here unnamed view's template will be rendered
+</div>
+<div ui-view="second-view">
+// Here template will be rendered which is mentioend against second-view
+</div>
+```
+
+By default if we dont mention any name for view or unnamed view it internally it finds out for the unnamed ui-view & it render the content inside it.
+
+
+**Rendering the template in perticular views(no matter how much views exists in template) :-**
+
+```
+$stateProvider
+.state('myState',{
+    url : 'my-state',
+    views : {
+        '' : {
+            templateUrl : 'child1.html',
+            controller : 'child1'
+        },
+        'second-view' : {
+            templateUrl : 'child2.html',
+            controller : 'child2'
+        }
+    }
+})
+.state('employees',{
+    url : 'employees',
+    views : {
+        'emp-header' : {
+            templateUrl : 'emp-header.html'
+        },
+        'emp-list':{
+            templateUrl : 'emp-list.html'
+        }
+    }
+})
+
+// Template
+<div ui-view>
+    // Here unnamed view's template will be rendered
+</div>
+<div ui-view="second-view">
+// Here template will be rendered which is mentioend against second-view
+</div>
+
+<div ui-view="emp-header">
+// Emp header will be rendered here
+</div>
+
+<div ui-view="emp-list">
+// Emp List will be rendered here
+</div>
+```
+In this section what we are trying to convey is no matter how much ui-views are present in template, first our state will get loaded on the redirection of its url & then it checks for the view's names in the template for rendering its content and there only it renders its content.
+
+If we would have used empty viewName in the views then it will search for unnamed view in the template and it will render the content or even if we are providing the view name which is previously declared like second-view it will render the content over there.
+
+**Replacing existing content of view & reusing some view :-**
+
+If we want to reuse some view we can use that viewName in view's for different states or even each state if that view is common one such as header or something, even if we are going to use that view name in each state content will be replaced from that view and current state's content will be rendered in it.
+
+
+### Nested States (Parent & Child views within same entity)
+
+<img src="./assets/nested-states.png">
+
+We are able to work with nested views in angularjs with the help of `$state` in which while declaring the child view of any route we need to declare url prefixed with parentroute & `.` notation such as `url : parentUrl.childUrl` as we will look forward ahead. We can define some url's parent route with the help of `parent:'routeName'` as well in state Config as mentioned below.
+
+```
+// With . notation
+$stateProvider
+.state("employee",{
+    url : 'employees',
+    templateUrl : 'emp.html'
+})
+.state("employee.list",{
+    url : 'employees/list',
+    templateUrl : 'emp-list.html'
+})
+
+// With parent property
+$stateProvider
+.state("employee",{
+    url : 'employees',
+    templateUrl : 'emp.html'
+})
+.state("employee.list",{
+    url : 'employees/list',
+    parent : 'employee'
+})
+```
+
+We need to make sure that parent route should be already rendered before calling out for its child route, and nested routes can inherit the data from the parent route with the help of inheritance.
+
+In terms of resolve first the parent route's resolve get resolved and then that data can be passed to child but indvidual child's resovler also gets resovled after the parent resolver.
+
+**Nested Views :-**
+
+<img src="./assets/nested-views.png">
+<img src="./assets/nested-views-ex.png">
+
+As we can understand every state can define on or more views & every view is associated with one `ui-view` as well as every state can have nested states and the state.
+
+Nested state can render its view in any of the ui view in the hierarchy as we can see above in above state configuration our child ui views can render their tempalates in their parent or great grand parent as well without any problem.
+
+- **Absolute Naming of view's in states :-**
+
+    <img src="./assets/absolute-views-naming.png">
+    <img src="./assets/absolute-views-naming-nested.png">
+
+    If we dont provide the view name with absolute view naming it will search for the view in the view's tree & then it will render but if we have duplicate views in some components then it will not work as expected.
+
+    To avoid such situtaion we can specify where we want to render our view & in which state exactly with `viewName@stateName` in which angularjs get to know that where we need to find for that perticular view and in which state. When we need to declare unnamed view name or something we can provide `@` so angualrjs will refer to current state's template unnamed view or `@stateName` angularjs will search for unnamed view in the mentioned state name.
+
+    <img src="./assets/absolute-views-naming-child.png">
+
+    We can declare the child hierarchy as well where we provbide statename such as `viewName@parentName.childName.grandChildName` as mentioned above in the image.
+
+    ```
+    $stateProvider
+    .state("employees",{
+        url : "employees",
+        views : {
+            "":{
+                templateUrl : 'employees.html'
+            }
+            'emp-header' : {
+                templateUrl : 'emp-header.html'
+            },
+        }
+    })
+    .state("employe.list",{
+        url : "employees",
+        views : {
+            "emp-list@employees" : {
+                templateUrl : "emp-list.html",
+                controller : "empListController"
+            }
+        }
+    })
+    .state("details",{
+        // equivalent to employee.details
+        parent : 'employees',
+        url : 'employees/:employeeId',
+        views : {
+            'emp-details' : {
+                templateUrl : 'emp-details.html',
+                controller : "empDetailsController"
+            }
+        }
+    })
+    ```
+
+    As you can see above we have declared the URL along with `employees/details` etc which we can replace with `/details` because it will just extend the current available url with `/details` which will become `employees/details` automatically if you were already on employees page.
+
+    We have `abstract:true` option in stateconfig obj which will tells angualr that url only will be valid whne its used with its child or nested routes, if its accessed without any child routes then it will be invalid, as you can see below thats how our configuration will look like after this modifications.
+
+    ```
+    $stateProvider
+    .state("employees",{
+        url : "emloyees",
+        abstract : true, // This url canot be accesible standalone now.
+        views : {
+            "":{
+                templateUrl : 'employees.html'
+            }
+            'emp-header' : {
+                templateUrl : 'emp-header.html'
+            },
+        }
+    })
+    .state("employe.list",{
+        url : "/list",
+        views : {
+            "emp-list@employees" : {
+                templateUrl : "emp-list.html",
+                controller : "empListController"
+            }
+        }
+    })
+    .state("details",{
+        // equivalent to employee.details
+        parent : 'employee',
+        url : '/:employeeId',
+        views : {
+            'emp-details' : {
+                templateUrl : 'emp-details.html',
+                controller : "empDetailsController"
+            }
+        }
+    })
+    ```
+
+
+
+
+
+
+

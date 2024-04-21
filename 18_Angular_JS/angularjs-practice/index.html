@@ -6,6 +6,7 @@
     <title>Document</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js" integrity="sha512-KZmyTq3PLx9EZl0RHShHQuXtrvdJ+m35tuOiwlcZfs/rE7NZv29ygNA8SFCkMXTnYZQK2OX0Gm2qKGfvWEtRXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.3/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.1.0/angular-ui-router.min.js    "></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
 </head>
@@ -16,12 +17,12 @@
     <div class="row">
         <div class="col-sm-3 well border">
             <ul>
-                <li><a href="#/">Default</a></li>
-                <li><a href="#/first">First</a></li>
-                <li><a href="#/second">Second</a></li>
+                <li><a ui-sref="default()">Default</a></li>
+                <li><a ui-sref="first()">First</a></li>
+                <li><a ui-sref="second()">Second</a></li>
             </ul>
         </div>
-        <div ng-view class="col-sm-9 well border"></div>
+        <div ui-view class="col-sm-9 well border"></div>
     </div>
     
     <!-- Hello {{name}}! (Main Scope)

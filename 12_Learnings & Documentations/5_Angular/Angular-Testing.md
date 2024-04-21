@@ -373,7 +373,7 @@ describe('LoggerService' , () ⇒ {
 
 ### Isolated Component Testing
 
-In isolated component testing we will be only test the methods of the component by preparint the dummy data and creating spyService Object and component instance by which we will call the methods.
+In isolated component testing we will be only test the methods of the component by preparing the dummy data and creating spyService Object and component instance by which we will call the methods.
 
 **Steps for component testing :-**
 
@@ -674,7 +674,7 @@ As we knew the fixture returns bannerComponent which runs in test-runtime dom al
 
 ### Refresh state of html template after assigning data to it
 
-We cab refresh the state of `bannerDebugEl.nativeElement` with the help of `fixture.detectChanges()` which will work as like reload to the html template and assigns all the data and properties to the html element.
+We can refresh the state of `bannerDebugEl.nativeElement` with the help of `fixture.detectChanges()` which will work as like reload to the html template and assigns all the data and properties to the html element.
 
 ### schemas:[NO_ERROR_SCHEMA]
 
@@ -747,7 +747,7 @@ To test the HTML Element from the component's template there are steps as follow
 **debugElement.methods() :-**
 
 - **`.query() :-`**
-  This will return single html elemnt.
+  This will return single html element.
 
   **get html element with .query() :-**
 
@@ -902,7 +902,7 @@ it('should check whether exact post is sending to PostComponent' , () ⇒ {
 
 - **Register, Initialization and getting instance :-**
 
-  We can initialie and configure the service with testBed with `TestBed.configureTestingModule({declrations:[service]})`.
+  We can initialize and configure the service with testBed with `TestBed.configureTestingModule({declrations:[service]})`.
 
   We can get the service instance with `TestBed.get(service)` but its depreceted now soo now we can get the service instance with `TestBed.inject(service)`.
 
@@ -1046,7 +1046,7 @@ Previously we used to use the `httpTestingController.expectOne(url)` for checkin
 ```
 it('should call the api 3 times with this url',()=>{
   let url = 'data/'
-  let testData = [{id:1,title:'Shiv',{id:1,title:'Shiv'}]
+  let testData = [{id:1,title:'Shiv'},{id:1,title:'Shiv'}]
 
   httpClient.get(url).subscribe((data)=>{
     expect(data).toEqual(testData[0])
@@ -1163,7 +1163,7 @@ it('should call delete method when post component button is clicked ' , () ⇒ {
 
   fixture.detectChanges();
 
-  let postComponentDes fixture.debugElement.queryAll(By(PostComponent));
+  let postComponentDes = fixture.debugElement.queryAll(By(PostComponent));
 
   for (let i = 0; i < postComponent DEs.length; i ++) {
 
@@ -1238,6 +1238,51 @@ TestBed.configureTestingModule({
 });
 ```
 
+### Router Navigation testing
+
+If your component have some funtions which are calling `router.navigate` or `router.navigateByUrl` then we need to inject Router in the testCase with the help of inject and we get the instance of router in the callback as like mentioned below.
+
+**stub :-** 
+
+When you call and.stub, or if you never call and.callThrough, the spy won't call the real function. It's really usefull when you don't want to test an object's behavior, but be sure that it was called. Helping you to keep your test truly unitary.
+
+```
+it('navigateToUsers() should navigate to /users,inject([Router],(router:Router)=>{
+  spyOn(router,'navigate')
+  comopnent.navigateToUsers()
+  expect(router.navigate).toHaveBeenCalled();
+  expect(router.navigate).toHaveBeenCalledWith(url);
+  expect(router.navigate).toHaveBeenCalledWith(url,{config});
+}))
+```
+### Unit Testing For Lazy Loaded Module For Routing Files
+
+For Unit Testing For Routing We need most importantly `RouterTestingModule` in which we need to provide the routes like `RouterTestingModule.forRoot(routes)` and We will most importantly need `SpyNgModuleFactoryLoader` in providers for lazy loaded modules.
+
+Whole TestBed Configuration for routing and lazy loaded modules will be followed.
+
+```
+let location:Location;
+let router:Router;
+
+// Import From your routing module file.
+let routes = appRoutes;
+
+beforeEach(async () =>{
+  TestBed.configureTestingModule({
+    imports: [RouterTestingModule,YourRoutingModule],
+    providers: [RouterTestingModule.withRoutes(routes)]
+  }).compileComponents();
+})
+
+beforeEach(() =>{
+  router = TestBed.inject(Router);
+  location = TestBed.inject(Location);
+  router.initialNavigation();
+});
+```
+
+
 ### Writing TestCase For Is post loaded in the Post Component
 
 Here below we are going to write a test case for is post loading in the html is equal to the post or not as like mentioned below.
@@ -1283,46 +1328,3 @@ Testbed.configureTestingModule({
 ```
 **Most Important :- `When we add providers to somthing first it will be the things which are injected in the constructor of component's class and we dont need to create variable and assign to `TestBed.get()`.`**
 
-### Router Navigation testing
-
-If your component have some funtions which are calling `router.navigate` or `router.navigateByUrl` then we need to inject Router in the testCase with the help of inject and we get the instance of router in the callback as like mentioned below.
-
-**stub :-** 
-
-When you call and.stub, or if you never call and.callThrough, the spy won't call the real function. It's really usefull when you don't want to test an object's behavior, but be sure that it was called. Helping you to keep your test truly unitary.
-
-```
-it('navigateToUsers() should navigate to /users,inject([Router],(router:Router)=>{
-  spyOn(router,'navigate')
-  comopnent.navigateToUsers()
-  expect(router.navigate).toHaveBeenCalled();
-  expect(router.navigate).toHaveBeenCalledWith(url);
-  expect(router.navigate).toHaveBeenCalledWith(url,{config});
-}))
-```
-### Unit Testing For Lazy Loaded Module For Routing Files
-
-For Unit Testing For Routing We need most importantly `RouterTestingModule` in which we need to provide the routes like `RouterTestingModule.forRoot(routes)` and We will most importantly need `SpyNgModuleFactoryLoader` in providers for lazy loaded modules.
-
-Whole TestBed Configuration for routing and lazy loaded modules will be followed.
-
-```
-let location:Location;
-let router:Router;
-
-// Import From your routing module file.
-let routes = appRoutes;
-
-beforeEach(async () =>{
-  TestBed.configureTestingModule({
-    imports: [RouterTestingModule,YourRoutingModule],
-    providers: [RouterTestingModule.withRoutes(routes)]
-  }).compileComponents();
-})
-
-beforeEach(() =>{
-  router = TestBed.inject(Router);
-  location = TestBed.inject(Location);
-  router.initialNavigation();
-});
-```
