@@ -136,31 +136,6 @@
 //     return answer;
 //   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Programmes Asked For the Interviews
 
 // Programme For Given a string s1 and a string s2, write a snippet to say whether s2 is a rotation of s1?
@@ -191,8 +166,6 @@
 
 // O(n*m)
 
-
-
 // Programme for Create a for loop that iterates up to 100 while outputting "shiv" at multiples of 3, "kounsalye" at multiples of 5 and "shivkounsalye" at multiples of 3 and 5 without using if else.
 
 // for(let i=0; i<100 ; i++){
@@ -216,10 +189,7 @@
 //   }
 // }
 
-
-
 // Programmer for Given a string, reverse each word in the sentence. For example Welcome to this Javascript Guide! should be become emocleW ot siht tpircsavaJ !ediuG.
-
 
 // function reverifyString(string) {
 //   let strArr = string.split(" ");
@@ -239,15 +209,11 @@
 
 // reverifyString("Welcome to this Javascript Guide!");
 
-
-
 // Programe for Scope
 // var a=10;
 
 // let a=20;
 // console.log(a)
-
-
 
 // Programme for Start Patterns
 
@@ -273,10 +239,8 @@
 //         console.log(patternLine)
 //     }
 //     lastIndex-=1;
-    
+
 // }
-
-
 
 // Programme For Given an array A of positive integers. Your task is to find the leaders in the array. An element of an array is leader if it is greater than or equal to all the elements to its right side. The rightmost element is always a leader.
 
@@ -299,9 +263,6 @@
 // })
 // console.log("Max =>",max)
 
-
-
-
 // Programme for resolve string expression and get results of its calculations
 
 // let input = "( ( 5 * 2 ) / ( 2 + 3 ) * ( 234 + 1 ) )"
@@ -311,8 +272,6 @@
 // }
 // parseInput(input)
 
-
-
 // Programme Extraction Of Sec string and notation string from secNotation string 45AM
 
 // let str = '45PM'
@@ -320,8 +279,6 @@
 // let notation = str.match(/[^0-9]/g).join('')
 // console.log("Sec =>",sec)
 // console.log("Notation =>",notation)
-
-
 
 // Programme For Conversion of 12Hrs Time into 24Hrs like (07:05:45PM) to (19:05:45)
 
@@ -336,7 +293,7 @@
 //     console.log("Min : ",min)
 //     console.log("Sec : ",sec)
 //     console.log("Notation : ",notation)
-    
+
 //     // Logic
 //     let timeIn24hrs = ''
 //     if(notation=='PM'){
@@ -354,7 +311,6 @@
 // }
 // timeConversion('12:05:45AM')
 
-
 // Programme for checking only does contains duplicates and return true or false.
 // /**
 //  * @param {number[]} nums
@@ -368,7 +324,6 @@
 // };
 
 // containsDuplicate([1,1,2,2,3,4,5,7,8])
-
 
 // Programme for maximum subarray means to find the maximum sum from all possible sub array and return it.
 // 1. BruteForce Approach O(n^3)
@@ -471,11 +426,9 @@
 // 	console.log("b called");
 // 	counter++;
 // 	if(counter<=3) xyz();
-	
 
 // }
 // b()
-
 
 // First Class functions (Passing functions as arguements)
 //   function logger(childfunction){
@@ -492,11 +445,9 @@
 // 	console.log("b called");
 // 	counter++;
 // 	if(counter<=3) xyz();
-	
 
 // }
 // b()
-
 
 // First Class functions (Passing functions as arguements)
 //   function logger(childfunction){
@@ -541,7 +492,6 @@
 // 	console.log('Y called')
 // })
 
-
 // CypherText Encryption
 // function replaceCharacterByIndex(string, index, replacement) {
 //     return (
@@ -571,7 +521,6 @@
 //     console.log(result);
 //     return result
 // }
-
 
 // caesarRedux('we accept the ieeextreme challenge',19);
 // caesarRedux('qbspbz',19);
@@ -624,3 +573,79 @@
 // }
 
 // cypherEncryptor(25, 'a');
+
+function checkMaxAndTrim(value, maxValue) {
+  for (let i = value.length - 1; i >= 0; i--) {
+    if (parseFloat(value) > parseFloat(maxValue)) {
+      value = value.slice(0, i);
+    }
+  }
+  return value;
+}
+
+// Optimise solution
+function checkMaxAndTrim2(value, maxValue) {
+    if (parseFloat(value) > parseFloat(maxValue)) {
+        if (!value.includes('.')) return maxValue;
+        let valueAfterDecimalIndex = value[value.indexOf('.') + 1];
+        if (valueAfterDecimalIndex == undefined) {
+            return value.slice(0, value.indexOf('.') + 1);
+        }
+        else {
+            return maxValue;
+        }
+    // if (value.includes(".")) {
+    //   const decimalIndex = value.indexOf(".");
+    //   value = value.slice(0, decimalIndex);
+    // } else {
+    //   value = maxValue;
+    // }
+    // return value;
+  }
+}
+// 10
+// 1.02
+// 1.02
+// 10
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// let controller = '10.'
+
+// function checkMaxAndTrim3(value, maxValue) {
+//     if (parseFloat(controller + value) > parseFloat(maxValue))
+//         return controller;
+//     return parseFloat(controller + value).toString();
+// }
+// console.log(checkMaxAndTrim3('1', '10'));
+// console.log(checkMaxAndTrim3('4', '1.02'));
+// console.log(checkMaxAndTrim3('1', '1.02'));
+// console.log(checkMaxAndTrim3('5', '10'));
+
+
+function checkMaxAndTrim3(maxValue,value) {
+    let charArray = value.split('');
+    let currentChar = charArray.pop();
+    let pervValue = charArray.join('');
+    if (parseFloat(pervValue + currentChar) > parseFloat(maxValue))return pervValue;
+    return prevValue + currentChar;
+}
+console.log(checkMaxAndTrim3('10','11'));// Should return 1
+console.log(checkMaxAndTrim3('1.02','1.03')); // Should return 1.0
+console.log(checkMaxAndTrim3('1.02', '1.021')); // Should return 1.02
+console.log(checkMaxAndTrim3('10','10.5')); // Should return 10
