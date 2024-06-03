@@ -1784,7 +1784,52 @@ In this section we will be removing angularjs totally from the application & som
 Thats how finally we have migrated from angularjs application to angular.
 
 
-### Troubleshooting Issues
+### Troubleshooting Issues (Common issue faced & how to tackle them)
+
+**What to do about $watch :-**
+
+As we don't have scope watchers for detecting changes in angular but we do have observble in the angular. 
+
+We have some built-in observables in the angular such as `reactiveForm.valueChanges, reactiveForm.statusChanges` & also we can create our own observable for detecting chnages for some properties & values in the component.
+
+And if we want to detect chnages related to input properties then we can do that with the help of `ngOnChanges` and other life cycle hooks according to their purpose.
+
+**What to do about emits & broadcasts :-**
+
+If we want to notify the parent component from the child component we use eventEmitters from the angular itself & if there is cross component communication then we can use observables according to the purpose.
+
+`Note :- If we want to emit the event from angualrjs to angular or vice versa then we need to upgrade rootScope with injection token & its service provider & we can use that in migrated as well as old version for catching & emitting events.`
+
+### Challenges while migrations
+
+**Same packages with different version in hybrid application :-**
+
+<img src="./assets/same-libraries-hybrid.png">
+
+As you can see above if we are running our application in hyrid mode & let's consider we are having 2 version of bootstrap so if we are using bootstrap 4 in the migrated components & boostrap 2 in angularjs then there is probability that it can get crashed due to overidding same directives & classes with other.
+
+**How to deal with it ?**
+
+- Use same version of libraries in migrated components.
+- Upgrade the existing libraries in angularjs & use that same version in latest angular.
+
+
+**Issues due to bad angularjs architecture :-**
+
+As we have seen earlier if we are relying on watchers & emits and broadcast rahter then other controller level approaches that will be complicated while migration.
+
+**How to deal with it?**
+
+<img src="./assets/angualrjs-architecture-issues.png">
+
+- Resolve the architecture level issues in angularjs application before migration.
+
+- Resolve the architecture to best possbile approach which will be easy or migration.
+
+- Planning for migrated application architecture before starting migration.
+
+
+
 
 
 
