@@ -1581,4 +1581,237 @@ Once you have migrated your pipe create `index.ts` into pipes directory & import
 
 `Note :- Dont forget to import that pipe into appModules declarations array as like mentioned below.`
 
+### Step 9 Migrating Routing
+
+Till now we have migrated components, services, filters & directives from our angularjs applicatoin.
+
+But we have some dependencies we are using from angularjs by upgrading those such as `toaster, $state, $stateParams etc`, before shifting to routing we need to remove dependencies of those upgraded services from angularjs & we need to find alternative ways of implementing these with angular version.
+
+`Note :- This step comprises lot of things so we wont be able to boot & build our application until this step is completed so we need to complete all the things included in this step in one go.`
+
+**Migrate angularjs services which we are using by upgrading :-**
+
+There was some packages and services which we was using from angularjs by upgrading those with injection token & creating providers for it.
+
+We need to checkout if preexisting packages have angular version of them & find the angualr version of those libraries or equivalent.
+
+We Need to implement those packages with new ones & we need to remove the injection token of it along with their upgraded providers from AppModule.
+
+**Migrating toaster :-**
+
+- As we have toaster we have `angular2-toaster` package available which is the toaster implementation of angularjs toaster so we need to install it with `npm install angular2-toaster`.
+
+- Register `ToasterModule & ToasterService` in AppModule by importing `ToasterModule.forRoot()` in AppModule Imports.
+
+- For using toaster in components we need to inject the `ToasterService` like `private toaster:ToasterService` in constructor.
+
+- Now we can use `toaster.sucess('')` etc from toaster as like its angularjs versions.
+
+`Note :- Make sure your syntax is correct for new & old implementations if you are not rewriting toaster messgaes & only resolving toaster dependencies with migrated one`
+
+
+**Injection token for toaster :-**
+
+Previously we was using toaster service form angular js in our components like `@Inject(toaster) private toaster` but we have now `ToasterService`.
+
+If we have 100's of components in application using toaster & if we dont want to resolve the dependencies in each & every component then we can declare injection token for toaster according to previous syntax & we can declare the `ToasterService` against that injection token in AppModule.
+
+```
+// Injection token for toaster service with previous syntax
+export const toaster = new InjectionToken<string>('toaster');
+
+// AppModule
+providers : [
+    {provide : toaster, useValue : ToasterService}
+]
+```
+
+Now we dont need to even resolve the dependencies in each & every component due to syntax differenciation.
+
+**Implementing AppComponent as entrypoint of our applilcation :-**
+
+- First create the component called as AppComponent wiht selector `app-root` with `ng g c app` & change its selector to `app-root` & Dont forget to add it in AppModule declarations.
+
+- Remove entryCmponents, Dual booting from application & simply boot `AppModule` as default angular implementation.
+
+    ```
+    // Dual Booting
+     ngDoBootstrap(){
+                    this.upgradeModule.bootstrap(doucment.documentElement,['appName'],{
+                        // Configuration option used for strict type checking in templates
+                        strictDi : true
+                    });
+    }
+
+    // Removing Dual Booting
+    ngDoBootstrap(){
+        // Remove the code for booting application with upgradeModule.
+    }
+    ```
+
+- Declare `AppComponent` as bootstrapping root component of application by declaring in `bootstrap:[AppComponent]` of AppModule.
+
+- Integrate the `<app-root></app-root>` in index.html & shift the template code of `index.html` for home page layout into `app.component.html` so our homepage code now resting in `app.component.html` rather than `index.html` & app component is entrypoint of our application.
+
+- Run `npm run build` to check out if we are facing any errors & resolve it if we are facing any.
+
+- Don't expect application to be running at this time because we are in middle of process so wait patiently until we complete this step & completely migrate our application to angular.
+
+
+**Migrating Angularjs routings to angular :-**
+
+- Very first & import step we need to do is add `<base href="/">` in first line of head tag of `index.html` of our application.
+
+- Replace `ui-view` with `<router-outlet></router-outlet>` for main router outlet & for named one such as `ui-view="header"` replace with `<router-outlet name="header"></router-outlet>`.
+
+- Replace `ui-sref-active="active"` or equivalent of ngRouter wiht `[routerLinkActive]="active"` & `ui-sref="stateName"` to `routerLink="route"` & if we are using variable instead of route we can use `[routerLink]="varIncludingRoute"` & make sure to specify router outlet with name router outlet routing.
+
+- Now lets create `AppRoutingModule` which holds the routing configuration of our application as like mentioned below & in routes array we declare our routes & dont forget to export `RoutingModule` from `AppRoutingModule`.
+
+    ```
+    import {RouterModule} from '@angular/router';
+
+    const routes:Routs = [
+        {
+            path : '/',
+            redirectTo : '/home',
+            pathMatch : 'full'
+        },
+        {
+            path : '/home',
+            component : HomeComponent,
+        }
+    ]
+
+    @NgModule({
+        imports : [
+            // While migrating from angualrjs use hasbased routing
+            RouterModule.forRoot(routes,{useHash:true})
+        ],
+        exports : [RouterModule]
+    })
+    export class AppRoutingModule{}
+    ```
+
+- Register `AppRoutingModule` in `AppModule` so angular will get to know which module we need to use for routing.
+
+- Now remove the upgraded dependencies form angularjs for `$state & $stateParams` & remove it from providers array as well from AppModule which are mentioned below.
+
+```
+// Remove downgraded dependencies from factories
+
+    // Prepare the injection token to use in provider
+    export const UIRouterState = new InjectionToken('UIRouterState');
+
+    // Factory to use against the provider
+    export function UiRouterFactory(i){
+        return i.get('$state');
+    }
+
+    // Ui Router Provider
+    export const uiRouterProvider = {
+        provide : UIRouterState,
+        useFactory: UIRouterFactory,
+        deps : ['$injector']
+    }
+    
+    // Prepare the injection token to use in provider
+    export const UIRouterStateParams = new InjectionToken('UIRouterStateParams');
+
+    // Factory to use against the provider
+    export function UiRouterParamsFactory(i){
+        return i.get('$stateParams');
+    }
+
+    // Ui Router Provider
+    export const uiRouterParamsProvider = {
+        provide : UIRouterStateParams,
+        useFactory: UiRouterParamsFactory,
+        deps : ['$injector']
+    }
+
+    // Remove providers from AppModule
+    providers : [
+        uiRouterProvider,
+        uiRouterStateParamsProvider
+    ]
+```
+- Remove downgrade logic for the components which we most probably do in AppModule for using angular component into angularjs functionalities as like mentioned below.
+
+    ```
+    // Remove Downgrade Logics from the application
+
+    angular.module('name').directive('cardComponent',downGradeComponent({component : CardComponent}))
+    ```
+
+**Migrate $state, $stateParams like routing services :-**
+
+- As we have already migrated our routing to angular now we need to migrate the router Services for `$state, $stateParams` to `Router,ActivatedRoute` instead.
+
+- Which ever component we have used those services as dependencies remove its dependency injections & replace it with `private route:Route, private activatedRoute:ActivatedRoute`.
+
+- Now use equivalent methods of properties from the `router & activatedRouter` for achiving same functionalities as required.
+
+
+### Step 10 Remove Angularjs
+
+In this section we will be removing angularjs totally from the application & some cleanup about the same.
+
+**Remove Angularjs Dependencies :-**
+
+- Remove downgradeComponent, downgradeInjectable all the downgrading code from the application.
+  
+- Remove `import * as angular from 'angular';` for using `angular.module()` etc from all the files from your application.
+
+- Make sure we have migrated all the filters to the pips & remove the old angularjs filters folder & also remove it from `main.ts`
+
+- Remove `app.js` or `app.ts` file which is main angualrjs application file.
+
+- Remove upgraded providers file as well in which we had upgraded angularjs libraries & services.
+
+- Remove angularjs imports from `main.ts` file.
+
+- Remove dependencies from angularjs from `package.json` file.
+
+- Make sure you are not loading any dependencies from `src/libs/` as its an bower package directory & Remove all the bower files.
+
+- Remove libs folder for removing dependencies installed with the help of bower.
+
+- Remove scripts & css links for angularjs packages & integrate for the new packages along with their documentations.
+
+- Build the application & check if everything is working fine & resolve if any errors occurs
+
+Thats how finally we have migrated from angularjs application to angular.
+
+
+### Troubleshooting Issues
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
