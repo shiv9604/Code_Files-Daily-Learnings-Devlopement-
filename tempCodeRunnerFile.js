@@ -1,26 +1,50 @@
-function replaceCharacter(string, index, replacement) {
-    return (
-      string.slice(0, index) +
-      replacement +
-      string.slice(index + replacement.length)
-    );
+
+function isSoftwareCameraFeasible(softwareConfig, hardwareCameras) {
+  // Check for valid Input
+  if (
+    !softwareConfig ||
+    !softwareConfig.distance ||
+    !softwareConfig.light ||
+    !Array.isArray(hardwareCameras) ||
+    hardwareCameras.length === 0
+  ) {
+    return false;
   }
 
-function cypherEncryptor(shift, str) {
-    if (!shift || !str || (shift<0 || shift > 25)) return console.log("Invalid Input") ;
-    for (let i = 0; i < str.length; i++){
-        const char = str[i];
-        // const shiftedChar = alphabets[alphabets.indexOf(char) + shift];
-        // const indexForCharShift = alphabets.indexOf(char) + shift;
-        // const shiftedChar = alphabets[indexForCharShift];
-        // str = replaceCharacter(str, i, shiftedChar);
-        const indexForCharShift = (alphabets.indexOf(char) - alphabets.length) + shift;
-        const shiftedChar = alphabets.at(indexForCharShift);
-        str = replaceCharacter(str, i, shiftedChar);
+  // Extract distance & light of softwareConfig
+  const { distance, light } = softwareConfig;
 
-    }
-    console.log(str);
-    return str;
+  // Check if any hardware camera matches config
+  let selected = hardwareCameras.some((item) => {
+      const minDistance = parseFloat(item.distanceRange.min);
+      const maxDistance = parseFloat(item.distanceRange.max);
+      const minLight = parseFloat(item.lightRange.min);
+      const maxLight = parseFloat(item.lightRange.max);
+
+      const isDistanceMatch =
+        distance >= minDistance && distance <= maxDistance;
+      const isLightMatch = light >= minLight && light <= maxLight;
+
+      return isDistanceMatch && isLightMatch;
+  });
+
+  return selected ? true : false;
 }
 
-cypherEncryptor(25, 'a');
+const config = { distance: '05', light: 95 };
+
+const list = [
+  {
+    distanceRange: {
+      min: '1',
+      max: '10',
+    },
+    lightRange: {
+      min: '10',
+      max: '100',
+    },
+  },
+];
+
+const result = isSoftwareCameraFeasible(config, list);
+console.log(result);

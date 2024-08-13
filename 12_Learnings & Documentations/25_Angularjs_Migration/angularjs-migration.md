@@ -1669,7 +1669,7 @@ Now we dont need to even resolve the dependencies in each & every component due 
 - Now lets create `AppRoutingModule` which holds the routing configuration of our application as like mentioned below & in routes array we declare our routes & dont forget to export `RoutingModule` from `AppRoutingModule`.
 
     ```
-    import {RouterModule} from '@angular/router';
+    import {RouterModule} from '@angular/router';   
 
     const routes:Routs = [
         {

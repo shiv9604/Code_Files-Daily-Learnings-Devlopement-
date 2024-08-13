@@ -8,7 +8,9 @@ We declare the variables in the javascript with the keyword "var".
 
 **Ways to declare the variables in the javascript** -
 
-1. var =
+1. var
+2. let
+3. const 
 
 ### Data Types 
 
@@ -66,12 +68,6 @@ We can concat the strings in the javascript with the many ways but we most usabl
 
 - value++ :- It will print the value first and then it will print it.
 
-2. **Pre and Post increment oprators**
-
-- ++value :- It will increment the value first and then print
-
-- value++ :- It will print the value first and then it will print it.
-
 ### Arithmatic Oprators
 
 - **+** :- Additional oprators used for addition and concatination.
@@ -117,7 +113,7 @@ Ex : `a>6 ? console.log(true) : console.log(false)` = It will returns true.
 
     Ex: 5!=5; // false
  
-- `===`	**Strict equal to** : -  true if the operands are equal and of the same - type	
+- `===`	**Strict equal to** : -  true if the operands are equal and of the same - datatype	
 
     Ex : 5==='5'; //false
  
@@ -199,7 +195,7 @@ isLess(10, 15);
 
 ### Switch Statements
 
-Swithc case is also conditional functionality in the javascript which checks the multiple conditions and gives us the result.
+Switch case is also conditional functionality in the javascript which checks the multiple conditions and gives us the result.
 
 Difference between if else and switch statement is `if else ` statement becomes lengthy if there would be multiple conditions soo there `switch` statement is used.
 
@@ -210,6 +206,7 @@ Difference between if else and switch statement is `if else ` statement becomes 
 - `case <condition>:` - we define our condition to check in front of case and checks with strict `===` oprator.
 
 - `default:` - It will work as else statement in the switch case.
+- `break :-` stops the conditional checking if matched with any case.
 
 We can see the whole structure in the mentioned below.
 
@@ -356,6 +353,12 @@ Only use switch case statement when you need to check the multiple conditions wi
         ```
     7. `arr.sort((a,b)=>a-b)` - It will sort the numerical values and we can use the plain sort function for the alphabetical sorting.
         ```
+        // Alphabetical sorting
+        let words= ['aasdf','sdf','zxcv'];
+        let sortedWords = words.sort();
+
+        console.log(sortedWords); // 'aasdf', 'sdf', 'zxcv'
+
         let arr = [10,11,22,45,65,87,231,12]
 
         let sorted = arr.sort((a,b)=>a-b)
@@ -364,19 +367,18 @@ Only use switch case statement when you need to check the multiple conditions wi
 
         ```
     
-    8. `arr.reverse` - It will reverses the values of the arry.
+    8. `arr.reverse()` - It will reverses the values of the array.
         
-    9.  `arr.slice(start,end)` - It will return a new array with the sliced elements without affecting the orignal array.
+    9.  `arr.slice(start,end)` - It will return a new array with the sliced elements without affecting the orignal array where end is not inluded.
 
 
 ### Objects
-Object is the premetive data type in the javascript which holds the key value pairs in it `const person = {name:"shiv",age:10}` and soo on.
+Object is the non premetive data type in the javascript which holds the key value pairs in it `const person = {name:"shiv",age:10}` and soo on.
 We can use any dataype.
 
 **How to create objects :-**
 
 - `let user = new Object(); // "object constructor" syntax` 
-- 
 - `let user = {};  // "object literal" syntax` 
 
 **How to acess the values inside the obj :-**
@@ -385,7 +387,7 @@ We can use any dataype.
 
 - `person["name"] // We can acess the values with the Obj['property']`
 
-    When we use `.notation` the property should be available there and it will works like adress of something else but when we use `obj["property"]` it will not check the property exists there are not.
+    When we use `.notation` the property should be available there and it will works like adress of something else it throws error but when we use `obj["property"]` it will not check the property exists there are not.
 
 **Objects properties and methdos :-**
 
@@ -395,9 +397,9 @@ We can use any dataype.
 
 - `Object.freeze(obj)` - It will freeze that object soo other code cannot delete and change the properties.
 
-- `Objecty.keys(obj)` - This will return the arry off obj keys.
+- `Objecty.keys(obj)` - This will return the array off obj keys.
 
-- `Objecty.values(obj)` - This will return the arry off obj values.
+- `Objecty.values(obj)` - This will return the array off obj values.
 
 ### Classes 
 Classes are the real world things or objects which holds their properties and their functionalities calles as methods are called as objects.
@@ -470,22 +472,22 @@ class Employee{
     } // It will print the values till the 9 as 10 will be the exclusive.
     ```
 
-### Latest for loops
+### ES6 for loops
 
 - **For in Loop :-**
   
   We can use the for-in loop on objects and strings to acess their properties and values as like mentioned below.
 
   ```
-  for (var in obj){
-      console.log(var)
+  for (key in obj){
+      console.log(key)
   }
   // It will return the keys of objects
   ```
   We can acess the values by using the for-in loop as like mentioned below:
   ```
-  for(a in obj){
-      console.log(obj[a])
+  for(key in obj){
+      console.log(obj[key])
   }// It will return the values as we are acessing the value like Obj[key]
   ```
   
@@ -518,7 +520,7 @@ for(a  of arr){
   ```
   let str = "This is a demo string"
   for(i of str){
-      console.log(i)
+      console.log(i) T,h,i,s ...
   }
   ```
 ### Premetive DataTypes and Refrence Data types
@@ -545,8 +547,8 @@ let firstName = obj
 
 obj.name = "Sai"
 
-console.log(obj.name)
-console.log(firstName.name)
+console.log(obj.name) // "Sai"
+console.log(firstName.name) // "Sai"
 ```
 ### JSON
 
@@ -573,7 +575,7 @@ console.log(parsedJson) // It will return us the obj.
 
 **Stringify the data** -
 
-We can convert the object into the string for the transportation in the javascript with the help ob `Object.stringify(obj)` and it will convert the obj into string And we can use all the stering methods on it.
+We can convert the object into the string for the transportation in the javascript with the help ob `JSON.stringify(obj)` and it will convert the obj into string And we can use all the stering methods on it.
 
 ```
 let jsonData = {
@@ -581,7 +583,7 @@ let jsonData = {
     age:15
 }
 
-parsedJson = Object.stringify(jsonData)
+parsedJson = JSON.stringify(jsonData)
 console.log(parsedJson) // It will return string of object.
 ```
 
@@ -604,9 +606,9 @@ Str is the datatype in which we store the collection of charecters in `"abc"` or
 
 - `string.split(seprater)` - It will seprate the string with the seprator and returs an array.
 
-- `string.slice(startIndex,stopIndex)` - It will slice the string and return us string in between the indexes which we given.
+- `string.slice(startIndex,stopIndex)` - It will slice the string and return us string in between the indexes which we given where stopIndex is exluded.
 
-- `string.indexOf("char",startIndex)` - It will returns us the index of the first char by defualt but when we give the startIndex it will return the first occurance from that index only.
+- `string.indexOf("char",startIndex)` - It will returns us the index of the first char by defualt but when we give the startIndex it will search ahead of that index and returns the first occurance from that index only.
 
 ### Math Object 
 
@@ -614,7 +616,9 @@ Math is the class in the javascript which have all static methods.
 
 **Math usefull methods :-**
 
-- `Math.sqrt(number)` - It will gives us the square root of the nubmer.
+- `Math.sqrt(number)` - It will gives us the square root of the number.
+
+- `Math.sign()` - It takes arguements as any number & returns  `1 for positive`, `-1 for negative` & `0` for the zeros.
 
 - `Math.floor(number)` - It will returns us the natural number of the decimal number in points like 456546546.131223123.
 
@@ -629,21 +633,64 @@ console.log(a) // It will return the random number under the 100 in decimal.
 
 ### Dates and Time 
 
-Dates are one of the most important conceot in the javascript.We can get the date by creating `new Date()` and we can acess that its methods and properteis mentioned below.
+Dates are one of the most important concept in the javascript. We can get the date by creating `new Date()` and we can acesss that its methods and properteis mentioned below.
 
 **Dates methods and properties : -**
 
 - `let today = new Date()` - It will returns us the full date.
 
-- `let day = new Date().day()` - It will returns us the day in between 1-6.
+- `let day = new Date().day()` - It will returns us the day in between 0-6 & its zero based value.
 
 - `let date = new Date().date()` - It will returns us the date of the month between 1-31.
 
-- `let month = new Date().month()+1`  - It will return the month in between 1-12.
+- `let month = new Date().month()+1`  - It will return the month in between 0-11 & as its 0 based value we need to add +1 for accesing current month.
 
 **How to manipulate Date time format :-**
 
---- REMAINING FROM YOUTUBE ---
+- `Default Format (Mon Dec 26 2022)` - This is the date string without formatting & we can do this with `date.toDateString()`.
+
+- `Custom Format with Locale (Saturday, September 17, 2016)` - For getting dates according to locale formats with use `date.toLocaleDateString(locale,options)` as mentioned below.
+    ```
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    var today  = new Date();
+
+    console.log(today.toLocaleDateString("en-US")); // 9/17/2016
+    console.log(today.toLocaleDateString("en-US", options)); // Saturday, September 17, 2016
+    console.log(today.toLocaleDateString("hi-IN", options)); // शनिवार, 17 सितंबर 2016
+    ```
+    - **Locales :-** We have locales such as `en-US` etc.
+    - **Options :-** We need to declare options object with predeclared values as mentioned below.
+    ```
+        Option          Values          Sample output
+        ----------------------------------------------------
+        weekday         'narrow'        'M'
+                        'short'         'Mon'
+                        'long'          'Monday'
+
+        year            '2-digit'       '01'
+                        'numeric'       '2001'
+
+        month           '2-digit'       '01'
+                        'numeric'       '1'
+                        'narrow'        'J'
+                        'short'         'Jan'
+                        'long'          'January'
+
+        day             '2-digit'       '01'
+                        'numeric'       '1'
+
+        hour            '2-digit'       '12 AM'
+                        'numeric'       '12 AM'
+
+        minute          '2-digit'       '0'
+                        'numeric'       '0'
+
+        second          '2-digit'       '0'
+                        'numeric'       '0'
+
+        timeZoneName    'short'         '1/1/2001 GMT+00:00'
+                        'long'          '1/1/2001 GMT+00:00'
+    ```
 
 ### Es6 JavaScript
 
@@ -664,7 +711,7 @@ console.log(a)
 let a = {value:"string"}
 console.log(a)
 
-// We can manipulate the value of const variable at any cost.
+// We cant manipulate the value of const variable at any cost.
 const a = "string";
 console.log(a)
 
@@ -722,7 +769,7 @@ let a = `My name is ${userName}`
 In the dom manipulation we target the HTML elements by `let btn = document.getElementById('btn')` and we can manipulate the HTML element like we can change the following things with it.
 
 - Dynamic Data
-- Btn Clcks
+- Btn Clicks
 - Behaviours
 - etc 
 
@@ -757,7 +804,7 @@ With the help of Regular expresssion we can check a specifc pattern in the parag
 
 ### This keyword
 
-In the global scopr this refers to the browser window and in the function scope the this will be undefined but in the classes this will be pointout the class in which its property of.
+In the global scope this refers to the browser window and in the function scope the this will be undefined but in the classes this will be pointout the class in which its property of.
 
 `console.log(this)` will return the whole window object in the global scope.
 
@@ -819,7 +866,7 @@ sum(1,2,4,5,78) // ...args is the array of inputs and its rest oprator
 - **Reading cookies :-** We can read cookies by spliting into array as its an strign soo we will get an array out of it with the help of `split(';')` method.
 ```
 let cookies = document.cookie;
-let cookies_arr = cookies.spli(;)
+let cookies_arr = cookies.split(";")
 // Returns us array with cookies data.
 ```
 
@@ -827,7 +874,7 @@ let cookies_arr = cookies.spli(;)
 
 Immeditly invoked functions are the functions without names or identity noone can call it but we call the such kind of functions as soon as it invoked soo it works as like **ngOnInit(){}** in angular.
 
-We need to take care of on thing while creating the anonomus fucntion is we need to put the all function in the bracket as like mentioned below :-
+We need to take care of on thing while creating the anonomus function is we need to put the all function in the bracket as like mentioned below :-
 ```
 // IIFE Without name
 (function(){
@@ -841,7 +888,7 @@ We need to take care of on thing while creating the anonomus fucntion is we need
 ```
 ### Asynchronus javascript
 
-Asynchronus javascript is when we want to perform multiple tasks but if some task requires some amount of time but we dont want to stop our rest of the tasks to complete then the asynchronus javascript comes.
+When we want to perform multiple tasks but if some task requires some amount of time but we dont want to stop our rest of the tasks to complete then the asynchronus javascript comes into picture.
 
 With the help of asynchronus javascript we can achieve this level of performing taks by 2 methods as like mentioned below.
 
@@ -888,7 +935,7 @@ With the help of asynchronus javascript we can achieve this level of performing 
         ```
     **How to let code wait for any kind of opration :-**
 
-    We need to execute the further statements in the then block as like after resolvingthe the promise as like mentioned below.
+    We need to execute the further statements in the then block as like after resolving the the promise as like mentioned below.
     ```
     console.log("1. This is line 1")
 
@@ -987,12 +1034,12 @@ With the help of asynchronus javascript we can achieve this level of performing 
         console.log(result)
     })();
     ```
-### Fetch Data
+### Fetch API
 
 In the javascript we have `fetch()` method which returns the promise and we can get the data by resolving the promise in the javascript as like mentioned below.
 ```
 
-let fetData = fetch(https://192.168.0/api/docs/va.101010) // returns the promise
+let fetData = fetch('https://192.168.0/api/docs/va.101010') // returns the promise
 fetData.then(res=>res.JSON()) // It will returns one more promise
 .then(data=>console.log(data)) // It will returns the pure data
 ```
@@ -1028,7 +1075,7 @@ function three(){
 
 ### TimeOut and Interval
 
-- **`setTimeOut` :-** With the help of the sert timeout we can perform task after some delay or after some specific wait.
+- **`setTimeOut` :-** With the help of the set timeout we can perform task after some delay or after some specific wait asynchronusly.
 
 ```
 setTimeOut(()=>{
@@ -1044,7 +1091,8 @@ setInterval(()=>{
 },2000)
 ```
 
-**How to pass readymade function to timeout and interval with arguements :-**
+**How to pass ready 
+made function to timeout and interval with arguements :-**
 
 Normally we can pass the function like `setTimeOut(func(),timeout)`.
 
@@ -1055,7 +1103,7 @@ But with arguments we can pass the function like `setTimeOut(func(),timeout,arg1
 
 As like every other programming javascript also have error handelling with try catch and finally block as like mentioned below.
 
-- **`try{}` :-** Try block runs the code and if any error occurs it will thorow it and the interpretator enters directly in catch block by ignoring the below code.
+- **`try{}` :-** Try block runs the code and if any error occurs it will throw it and the interpretator enters directly in catch block by ignoring the below code.
 
 - **`catch(e){}` :-** Catch block catches the error and can print it without breaking the code and can perform the further usecases.
 
@@ -1150,7 +1198,7 @@ Set is the datatype available in the javascirpt same as like array which stores 
 ### How javascript works?
 Everything in JavaScript execution happens inside the box like container named as execution context.
 
-There are 2 components in execution context in which first is  `Memory(variable enviornment)` in which variables and funcition declarations are done where in second componen named as `Code(thread of execution)` javaScript code executes line by line synchronously.
+There are 2 components in execution context in which first is  `Memory(variable enviornment)` in which variables and funcition declarations are done where in second component named as `Code(thread of execution)` javaScript code executes line by line synchronously.
 
 <img src="./exe-context.png" alt="exe-context.png">
 
@@ -1158,11 +1206,11 @@ There are 2 components in execution context in which first is  `Memory(variable 
 ### How JavaScript execution works?
 In javascript execution which happens inside the box like container named as execution context which we saw above.
 
-It contains 2 phases in which first phase called as `memory allocation` in which memory will be allocated for variables with value `undefined` and funcition declarations with their whole code, And the code execution in which code get executed and values will be assigned on the places of undefined in the memory allocation.
+It contains 2 phases in which first phase called as `memory allocation` in which memory will be allocated for variables with special value `undefined` and funcition declarations with their whole code, And the code execution phase in which code get executed and values will be assigned on the places of undefined in the memory allocation.
 
 As soon as code starts execution it creates execution context in which above 2 phases will be executed.
 
-Functions works differently in javascript execution where whole new execution context will be created for function block code and in which same 2 steps will be repeted for memory allocation with undefined and execution and values will be assigned on the places of undefined, After completion of the execution of every line when the return keyword is executed it takes the value form the memory for mentioned variable and handover the returned value where function was invoked and execution context will be destroyed.
+Functions works differently in javascript execution where whole new execution context will be created for function block code and in which same 2 steps will be repeted for memory allocation with undefined and execution and values will be assigned on the places of undefined, After completion of the execution of every line when the return keyword is executed it takes the value form the memory for mentioned variable and handover the returned value where function was invoked and execution context will be destroyed for function.
 
 After execution of every line global execution context also will be destroyed and execution ends.
 
@@ -1239,13 +1287,13 @@ var log = function (){
 undefined
 undefined
 ```
-In the above case x will be undefined as we saw earlier but we had received undefined for hte function as well.
+In the above case x will be undefined as we saw earlier but we had received undefined for the function as well.
 
 **Why ? :-**
 
 When the function is declared with arrow function syntax javascript considers the function as variable itself and in the memory allocation phase it assigns the special value `undefined` value to log as well.
 
-And while execution we are trying to acess the function where the code of funcitions is considered as value and it not even assigned which will be done in the execution phase, Due to the same we are not able to invoke the function before its declaration when its declared as arrow function.
+And while execution we are trying to access the function where the code of funcitions is considered as value and it not even assigned which will be done in the execution phase, Due to the same we are not able to invoke the function before its declaration when its declared as arrow function.
 
 ### Scope 
 
@@ -1280,6 +1328,11 @@ function b(){
     var x = 1000;
     console.log(x);
 }
+
+// Execution Order
+100
+1000
+1
 ```
 when we acess the variable in code not within in any function it will search that variable in global execution context memory space. when we create variables in functions, in their own execution context memory it get declared and when we try to acess it within funcition it will first it searches in its local memory and if its not able to found then it will search in the global memory and use or logs the values. If in function scope variable declared in its block scope itself it will use it and will not look for global variables.
 
@@ -1290,7 +1343,7 @@ when we acess the variable in code not within in any function it will search tha
 ```
 The shortest program in javascript is no code and executing its file, Even if we have no code in file still javascript v8 engine will create its execution context along with its memory and code block which will be get destroyed immediately.
 
-Along with execution context it creates an global object as well which differes platform to platform where the javascript is executing exactly.
+Along with execution context it creates an global object as well which differs platform to platform where the javascript is executing exactly.
 
 On the browser it creates `window` object which is global object and whatever variables and functions we create will be automatically appended to window object. And its reference denoted as `this` keyword in javascript.
 
@@ -1331,7 +1384,7 @@ In above code x is declared in block scope and we are trying to acess the variab
 
     As we know when we declare variables in the memory allocation phase it allocates the memory to variable with special placeholder `undefined`.
 
-- **not defined :-**And When we try to access the variables which are not even declared and not have any memory associated then it throws an exception `Uncaught RefrenceError variable : variable is not defined` which means you are trying to acess the variable which is not yet created.
+- **not defined :-** And When we try to access the variables which are not even declared and not have any memory associated then it throws an exception `Uncaught RefrenceError variable : variable is not defined` which means you are trying to acess the variable which is not yet created.
 
 Difference between `undefined` and `not defined` is undefined tells variable is present in the memory but didnt assigned any value to it whereas not defined tells variable not created nor any memory associated to that variable.
 
@@ -1359,7 +1412,7 @@ Examples of `loosely typed languages include JavaScript, Python, and Ruby`, whil
 
 - **Lexical Enviornment :-**
 
-    Lexical environment is the terms which means current execution context's memoary along with its lexical parent's execution context's memory.'
+    Lexical environment is the term which means current execution context's memory along with its lexical parent's execution context's memory ie for functions.'
 
     In simple words we get refrence of parents memory as well in child execution contexts memory and that's called as lexical environment.
 
@@ -1390,7 +1443,7 @@ In the above example it finds the x in its parent's lexical env so it consoles t
 
 ### Temporal Dead Zone
 
-In javascript `let and const` also get hoisted in the memory allocation phase of executino context but they don't get saved in global memory they get memory allocated in different space named as `script` from which we cant acess them until and unless thay got assigned value to them.
+In javascript `let and const` also get hoisted in the memory allocation phase of execution context but they don't get saved in global memory they get memory allocated in different space named as `script` from which we cant acess them until and unless thay got assigned value to them.
 <img src="./refrence-error.png" alt="refrence-error.png">
 
 The time duration of memory allocation to let and const until some value gets assigned to them is called as `Temporal Dead Zone`.
@@ -1413,7 +1466,6 @@ The time duration of memory allocation to let and const until some value gets as
 
     - We cant declare the variable with const without initialising value it gives syntax error.
     - We cant assign new value to constant which gives typerror for assigning value to constant type.
-    -  
     
 ### Block & Scope
 
@@ -1471,7 +1523,6 @@ let a = 5;
 const b = 2;
 {
     let a = 100;
-    const b = 200;
     console.log(a)
 }
 console.log(a)
@@ -1510,7 +1561,7 @@ As we know the limitations of const and let that will be applied if we try to re
 ### Closures
 Functution bundles with its lexical environment forms an closure.
 
-Which means that even function already returned outside of some function where its parent function's execution context already destroyed with its memroy still the returned function will remember the variables from its parent functions lexical environment which consists of its memory along with its parents memory.
+Which means that even function already returned outside of some function where its parent function's execution context already destroyed with its memroy still the returned function will remember the variables from its lexical environment which consists of its memory along with its parents memory.
 
 ```
 function x(){
@@ -1547,7 +1598,7 @@ function x(){
 }
 x();
 ```
-In the above code we have returned the function outside its execution context and its lexical env but it still will be able to remember its parent's variable due to closures which is function bundled wiht it's lexical environment.
+In the above code we have returned the function outside its execution context and its lexical env but it still will be able to remember its parent's variable due to closures which is function bundled with it's lexical environment.
 
 **Advantages of closures :-**
 - Data Privacy and Encapsulation: Closures allow you to create private variables and functions that are not accessible from outside the scope of the closure. 
@@ -1612,12 +1663,15 @@ We can achieve this thing with the help of `let` or we can achive this thing wit
     ```
     function exe(){
         console.log("Function Execution started...");
-        for(let i=0; i<=3;i++){
+
+        for(var i=0; i<=3;i++){
+
             function inner(val){
                 setTimeout(()=>{
-                console.log(val)
-            },val*1000)
+                    console.log(val)
+                },val*1000)
             }
+
             inner(i)
         }
     }
@@ -1628,7 +1682,7 @@ We can achieve this thing with the help of `let` or we can achive this thing wit
 
 ### Data privacy with closures
     
-We can achieve data privacy and privacy with the help of closures as well as functions have ability to access and remember the variable of their their parent's lexical enviornment.
+We can achieve data privacy with the help of closures as well as functions have ability to access and remember the variable of their their parent's lexical enviornment.
 
 ```
 function counter() {
@@ -1681,7 +1735,7 @@ function one(){
     let x = 1;
     console.log(x);
 }
-a();
+one();
 ```
 In the above example when the execution ends for `one()` then the garbage collector cleans it up from the memory as its no longer have any refrence in script.
 
@@ -1726,7 +1780,7 @@ In the above code in child function we have used refrence of x but not the refre
 
 Functions are very important in javascript which creates its own execution context after getting inside script.
 
-- **Func Statement & Function Declaration :-**
+- **Func Declaration :-**
 
     Function Statment and function declaration is the way to declaring an function in normal way with `function` keyword and with its name as like mentioned below.
 
@@ -1981,7 +2035,7 @@ Browser is fullfilled with lot of features which is not own javascripts but thao
 We can acess them like `window.setTimeOut(cb,1000)` but due to the global object we can acess them directly without window object like `setTimeOut(cb,1000)`.
 
 - location
-- lcoalStorage
+- localStorage
 - console
 - setTimeOut
 - fetch
@@ -1990,7 +2044,7 @@ As we know javascript is single threaded synchronus language by behaviour which 
 
 But
 
-If we need to wait for something in our javascript code for getting something from web api then the Event Loop comes in to pictures.
+If we need to wait for something `Asynchronus Code` in our javascript code for getting something from web api then the Event Loop comes in to pictures.
 
 **Concepts :-**
 
@@ -2024,27 +2078,161 @@ If we need to wait for something in our javascript code for getting something fr
 
 5. After completion of microtask queues execution event event loop moves callbacks from callback queue to call stack to get it executed.
 
-
-
 **Advanced Concepts in event loop :-**
 
 - **Mutatino Observer :-**
+
+    A MutationObserver is a built-in JavaScript object that provides a way to watch for changes in the DOM (Document Object Model). It can monitor changes to a specified DOM element and react when certain conditions are met, such as when child elements are added or removed, attributes are modified, or text content is altered.
+
+    ```
+    // Select the node that will be observed for mutations
+    const targetNode = document.getElementById('myElement');
+
+    // Options for the observer (which mutations to observe)
+    const config = { attributes: true, childList: true, subtree: true };
+
+    // Callback function to execute when mutations are observed
+    const callback = function(mutationsList, observer) {
+        for(let mutation of mutationsList) {
+            if (mutation.type === 'childList') {
+                console.log('A child node has been added or removed.');
+            }
+            else if (mutation.type === 'attributes') {
+                console.log('The ' + mutation.attributeName + ' attribute was modified.');
+            }
+        }
+    };
+
+    // Create an observer instance linked to the callback function
+    const observer = new MutationObserver(callback);
+
+    // Start observing the target node for configured mutations
+    observer.observe(targetNode, config);
+
+    // Later, you can stop observing
+    // observer.disconnect();
+    ```
+
+    The callback function which we are passing to mutation observer gets added in microtask queue which have higher priority than callback queue.
+
 - **Starvation () :-**
 
+    Starvation in the context of the event loop in JavaScript (or any asynchronous environment) refers to a situation where tasks are indefinitely delayed from being executed because other tasks keep the event loop busy. This can happen when the event loop is constantly processing higher-priority tasks, preventing lower-priority tasks from ever being executed.
 
-- **Event Loop :-**
+    ```
+    function continuousMicrotask() {
+    Promise.resolve().then(continuousMicrotask);
+    }
 
-- **MicroTask Queue**
+    continuousMicrotask();
 
-<img src="./event-loop.png">
+    setTimeout(() => {
+        console.log("This won't run if microtasks keep executing!");
+    }, 1000);
+    ```
 
-Event loops is the infinite loop which continouesly keep watch on callback queue to get it empty and whenever anything comes in callback queue it pushes that callback functions into call stack to get it executed.
-
-****
-
-### Currying in javascript
-### First class functions ang higher order function
-### Call, Apply , Bind
 ### Event Bubbling
+
+Event bubbling is a concept in the DOM (Document Object Model) event model where an event triggered on a specific element first runs the handlers on that element and then moves up the DOM tree, triggering handlers on parent elements in succession until it reaches the document object.
+
+**How Event Bubbling Works: :-**
+
+Triggering Event: When an event occurs on an element, such as a click on a button, the event is first handled by the event listeners attached to that specific element.
+
+Propagation Up the DOM Tree: After the event is handled on the element, it then "bubbles up" to the parent element, triggering any event listeners attached to that parent. This process continues until the event reaches the top of the DOM tree, typically the document object.
+
+Default Behavior: Bubbling is the default behavior for most events like `click, focus, blur` etc., unless explicitly stopped.
+
+```
+<div id="parent">
+    <button id="child">Click me!</button>
+</div>
+
+<script>
+document.getElementById("parent").addEventListener("click", () => {
+    console.log("Parent clicked!");
+});
+
+document.getElementById("child").addEventListener("click", () => {
+    console.log("Child clicked!");
+});
+</script>
+```
+
+**Stopping Event bubbling :-**
+
+If you want to prevent an event from bubbling up to parent elements, you can use the stopPropagation() method on the event object.
+
+```
+document.getElementById("child").addEventListener("click", (event) => {
+    event.stopPropagation();
+    console.log("Child clicked!");
+});
+```
+In this case, only the "Child clicked!" message will be logged, and the parent's click handler will not be triggered.
+
 ### Event Deligation
+
+Event delegation is a technique in JavaScript that involves using a single event listener to manage events for multiple child elements within a parent element. Instead of attaching separate event listeners to each child element, you attach one listener to the parent, which can handle events for all the child elements through event bubbling.
+
+```
+<ul id="list">
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+</ul>
+
+<script>
+document.getElementById("list").addEventListener("click", (event) => {
+    if (event.target.tagName === "LI") {
+        console.log("You clicked on " + event.target.textContent);  // You clicked on Item 1
+    }
+});
+</script>
+```
+**How Event Delegation Works :-**
+
+Event Listener on Parent: You attach an event listener to a parent element that contains multiple child elements.
+
+Event Bubbling: When an event occurs on a child element, it bubbles up to the parent element, where the event listener is attached.
+
+Handling Specific Events: Inside the event listener, you can determine which child element triggered the event by using properties like event.target or event.currentTarget, and then execute specific logic based on the element that triggered the event.
+
+**Advantages of Event Delegation :-**
+
+Efficiency: Reduces the number of event listeners needed, improving performance, especially when dealing with a large number of elements.
+Dynamic Content Handling: It handles events for elements that are dynamically added to the DOM after the event listener has been attached.
+
 ### Event Capturing
+
+Event capturing (also known as event trickling) is one of the phases of event propagation in the DOM. It describes how events move through the DOM from the topmost element (typically the window or document) down to the target element that triggered the event.
+
+```
+<div id="parent">
+  <button id="child">Click me</button>
+</div>
+
+<script>
+document.getElementById('parent').addEventListener('click', () => {
+    console.log('Parent element clicked');
+}, true); // Capture phase
+
+document.getElementById('child').addEventListener('click', () => {
+    console.log('Child element clicked');
+});
+</script>
+
+// Parent element clicked
+// Child element clicked
+```
+**How Event Capturing Works: :-**
+
+Top-Down Propagation: When an event occurs, it first travels from the root of the DOM (e.g., document or window) down through each ancestor of the target element until it reaches the target element itself. This is the capturing phase.
+
+Event Listener on Capture Phase: If an event listener is added with the { capture: true } option, it will respond to the event during the capturing phase before it reaches the target element.
+
+**Event Propagation Phases: :-**
+
+Capturing Phase (Event Capturing): The event moves down the DOM tree from the root to the target element.
+Target Phase: The event reaches the target element, where it can be handled directly.
+Bubbling Phase (Event Bubbling): After reaching the target, the event bubbles up through the ancestors from the target element back to the root.
