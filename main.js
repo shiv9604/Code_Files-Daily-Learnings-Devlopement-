@@ -629,19 +629,22 @@
 // console.log(result);
 
 
-// Name = 'my name is manish' & returns obj {m : 2,...}
-// function calcWeight(inputStr) {
-//     const results = new Map();
+const sentence = 'my name is manish';
+function calcWeight(inputStr) {
+    let results = new Map();
+    const trimmed = inputStr.trim();
+    console.log(trimmed);
+    trimmed.split('').forEach((value, index) => {
+        if (results.has(value)) {
+            let existingWeight = results.get(value);
+            results.set(value,++existingWeight);
+        }
+        else{
+            results.set(value, 1);
+        }
+    })
+    return results;
+}
 
-//     inputStr.forEach((value, index) => {
-//         if (results.has(value)) {
-//             const existingWeight = results.get(value);
-//             results.set(value,existingWeight++);
-//         }
-//         else{
-//             results.set(value, 1);
-//         }
-//     })
-//     return results;
-// }
+console.log(calcWeight(sentence))
 
