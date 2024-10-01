@@ -1,37 +1,50 @@
 
-const uno = () => {
-    return "1";
-};
+function isSoftwareCameraFeasible(softwareConfig, hardwareCameras) {
+  // Check for valid Input
+  if (
+    !softwareConfig ||
+    !softwareConfig.distance ||
+    !softwareConfig.light ||
+    !Array.isArray(hardwareCameras) ||
+    hardwareCameras.length === 0
+  ) {
+    return false;
+  }
 
-const dos = () => {
-    return new Promise((resolve, reject) => {
-        if(false){
-        setTimeout(() => {
-            resolve("2");
-        }, 3000);
-        }
-        else{
-            reject("Promise rejected")
-        }
-    });
-};
+  // Extract distance & light of softwareConfig
+  const { distance, light } = softwareConfig;
 
-const tres = () => {
-    return "3";
-};
+  // Check if any hardware camera matches config
+  let selected = hardwareCameras.some((item) => {
+      const minDistance = parseFloat(item.distanceRange.min);
+      const maxDistance = parseFloat(item.distanceRange.max);
+      const minLight = parseFloat(item.lightRange.min);
+      const maxLight = parseFloat(item.lightRange.max);
 
-const callAll = async () => {
+      const isDistanceMatch =
+        distance >= minDistance && distance <= maxDistance;
+      const isLightMatch = light >= minLight && light <= maxLight;
 
-        let one = uno();
-        console.log(one);
+      return isDistanceMatch && isLightMatch;
+  });
 
-        let two = await dos();
-        console.log(two);
+  return selected ? true : false;
+}
 
-        let three = tres();
-        console.log(three);
+const config = { distance: '05', light: 95 };
 
-};
-callAll();
+const list = [
+  {
+    distanceRange: {
+      min: '1',
+      max: '10',
+    },
+    lightRange: {
+      min: '10',
+      max: '100',
+    },
+  },
+];
 
-console.log("Process completed")
+const result = isSoftwareCameraFeasible(config, list);
+console.log(result);

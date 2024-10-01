@@ -29,7 +29,7 @@
 
 - `ng generate component newComponent` - It will create new component in our angular project. It can be used as `ng g c componentName` as shorthand.
 
-- `ng generate module newComponent` - It will create new Module in our angular project. It can be used as `ng g c componentName` as shorthand.
+- `ng generate module newModule` - It will create new Module in our angular project. It can be used as `ng g c componentName` as shorthand.
 
 - `ng genrate class newclass` - It creates class for us with 2 files 1.classname.ts & 2.classname.spec.ts
 
@@ -49,7 +49,7 @@ Global Files :
 
 - **style.css** - for global styling of the files
 
-- **main.ts** - which will contain all the global typeScript code. 
+- **main.ts** - which will contain all the  global typeScript code & imports. 
 
 In `src/app` folder App-Files : 
 
@@ -63,15 +63,18 @@ In `src/app` folder App-Files :
 
 - **app-routing.module.ts** - Which will contain TypeScript code for the routing of the main app.
 
+- **app.module.ts** - Which will contain All the imports, exports & declarations in for the angular app.
+
 ### Using js/ts code inside the HTML (Interpolation)
 
 We can execute ts code inside the HTML inside **{{title}}**
 We can use the interpolation for the class and all the attributes as well.
 
 Which things we can't use inside the interpolation : 
+
 - `title="newBlog"` we cant assign any value to the varibale.
 
-- We can't use typeof, Increment(`num++`), Decrement(`num--`), **New** Keyword.
+- We can't use typeof, Increment(`num++`), Decrement(`num--`) & **New** Keyword.
 
 
 ### Angular Components
@@ -81,8 +84,6 @@ Which things we can't use inside the interpolation :
 It will create component all 4 files in components folder.
 
 In the default files component.html will contain only code will be `<p>Component works!</p>`
-
-We dont need to import the each and every component inside our **app.component.ts** file like react or other frameworks.
 
 1.  **Types of Component**
 
@@ -97,7 +98,7 @@ We dont need to import the each and every component inside our **app.component.t
     3. **inline-style and inline-template component** - 
 
         we can genrate inline-style and inline-template component by command `ng genrate component myComponent --inline-style --inline-template` in which we can skip both HTML and CSS file and and we can write HTML&CSS in `component.ts` file.
-
+    
 2.  **Loading-Component In APP**
 
     To load the component in the `app.component.html` we need to use it like HTML tag `<app-component></app-component>` and component will be automatically loaded inside our app. 
@@ -125,7 +126,9 @@ We dont need to import the each and every component inside our **app.component.t
       <app-button color="purple" text="Add" fontcolor="white"></app-button>
       ```
 
-### Modules in Angular (Feature Module)
+    - If we want to pass the variables to child component we need to use attribute inside square brackets like `[]`.
+
+### Modules in Angular
 
 Modules are the group of components or a complete functionality like **user-authentication** in which it can contain login,register,forgotpwd,etc.
 
@@ -135,7 +138,18 @@ Modules are not reusable but components containing inside a module can be reusab
 
     We can generate module by using command  `ng generate module user-auth` in which we get only 1 file in folder `user-auth.module.ts`.
 
-    In `user-auth.module.ts` file it will have some imports,declarations in which in `imports:[CommonModule]` contains the module names and `declarations:[LoginComponent]` it will contain components declarations,`exports:[Components needs to be used out of the module]`,`providers:[Contains Services or Classes which are not injectable]` & `entryComponents:[Contains Popup components]`.
+    In `user-auth.module.ts` file it will have some properties as mentioned below.
+    
+    - `imports : []` - Contains the Angular core modules, Feature Modules & Third party modules
+    - `declarations:[]` - It will contain components,directives & Pipes.
+    - `providers:[]` - We declare services, factories & Constants.
+    - `exports:[]` - We declare what we want to export from this module which will be availale in the imported module if feature or in whole app in case of app module.
+    - `entryComponents:[]` - We declare popup components into this.
+    - `bootstrap : []` - It contains root component which should be bootstrapped.
+    - `schemas : []` - Declare schemas for using non-angular elements & attributes in template.
+    - `id : ''` - Uniqueue Id of module.
+    - `jit : true | false` - To configure module's jit compilation.
+    - `noBootstrap : true | false` - Disables automatic bootstrapping of module.
 
 2. **How to generate component in module**
 
@@ -166,24 +180,15 @@ Modules are not reusable but components containing inside a module can be reusab
 
           We cant use the components of some module just by exporting that component from that module, we need to import module associated with it as well then only component can be used.
 
-      2. **How Can we use component declared in app moudle anywhere in application?:-**
+### Types of Modules in Angular
 
----
-Remaining
+This modules are same as angular module and we dont need to anything different for this but for creating segrigation of modules in app & to keep different purpose we create multiple modules for different purposes.
 
----
-
-### Shared Module
----
-Remaining
-
----
-### Core Module
-
----
-Remaining
-
----
+- `Root Module (AppModule)` - By default module generate by angular.
+- `Feature Modules` - We dedicate this module to a perticular feature.
+- `Shared Modules` - We dedicate this module to a Only shared things (components,pipes,directives, services).
+- `Core Module` - We decicate this module for singleton services.
+- `Lazy-Loaded Modules` - Feature modules but getting lazyly loaded in application.
 
 ### Functions in Angular
 
@@ -215,7 +220,9 @@ getName(name:string,name2:string)
 
 - **global styling**
   
-  The classes and styling declared `style.css` is applicable to all elements we styled with that clss in throughout application.
+  The classes and styling declared `style.css` is applicable to all elements we styled with that class in throughout application.
+
+  It is good practice to create different global stylesheets for different purpose & import those in `style.css` instead of writing it all in one file.
 
 - **external styling** - 
   
@@ -231,25 +238,11 @@ getName(name:string,name2:string)
 
 ### Dynamic Styling in Angular
 
-We can apply the dynamic styling in angular with 2 inbuit directives. First one is `[ngStyle]` & `[ngClass]`.
+We can apply the dynamic styling in angular with 3 inbuit directives. First one is `style.property` `[ngStyle]` & `[ngClass]` as mentioned below.
 
-- **ngStyle :-**
-
-  1. We can use `[ngStyle]` with object containing CSS properties and their Value like `[ngStyle]="{'property':'value"}"`.
-
-      Ex : 
-      ```
-      <div>
-          <h1 [ngStyle]="{'color':'12px'}">Heading Tag 1</h1>
-        </div>
-      ```
-      We can use expressions as well in the place of values like `[ngStyle]="{'color':userPreferedSize=='Big' ? '12px' : '10px'}`.
-
-      We can specify the units as well with `.notation` in property like `[ngStyle]="{'color.px':userPreferedSize=='Big' ? 12 : 12}` then we dont need to specify the value with unit.
-
-      At the place of values in string we can use variables containing classes as well.
-
-  2. We can use style binding for dyamic styling like if we want to give the styling like colors and all from our component.ts file then we use style binding like `[style.<property>]="'value' | variable"`.
+- **Property Binding:-**
+  
+  We can use style binding for dyamic styling like if we want to give the styling like colors and all from our component.ts file then we use style binding like `[style.<propertyInCamelCase>]="'value' | variable"`.
 
       We need to use the style binding `<h1 [style.color]="'white'" >Heading Tag 1</h1>` which is equals to `<h1 style="color:white" >Heading Tag 1</h1>`.
 
@@ -271,6 +264,21 @@ We can apply the dynamic styling in angular with 2 inbuit directives. First one 
       ```
       At the place of variables we can use directly css Values as well in the form of string.
 
+- **ngStyle :-**
+
+  1. We can use `[ngStyle]` with object containing CSS properties and their Value like `[ngStyle]="{'property':'value"}"`.
+
+      Ex : 
+      ```
+      <div>
+          <h1 [ngStyle]="{'color':'12px'}">Heading Tag 1</h1>
+        </div>
+      ```
+      We can use expressions as well in the place of values like `[ngStyle]="{'color':userPreferedSize=='Big' ? '12px' : '10px'}`.
+
+      We can specify the units as well with `.notation` in property like `[ngStyle]="{'color.px':userPreferedSize=='Big' ? 12 : 12}` then we dont need to specify the value with unit.
+
+      At the place of values in string we can use variables containing classes as well.
 
 - **ngClass :-**
 
@@ -363,7 +371,7 @@ it will show the element only if condition will true.
     ``` 
 in this statement we will give **;** to the showStatus and we will put keyword **then ifblock else elseblock**.
 
-- **else-if in Angular** - In Angular we dont have elseif soo we need to use **[ngIf]="color=='red'"** multiple times.
+- **else-if in Angular** - In Angular we dont have elseif soo we need to use ***ngIf="color=='red'"** multiple times.
 
 
 - **if else block with both ng-template with checking strings or values** -
@@ -375,7 +383,7 @@ in this statement we will give **;** to the showStatus and we will put keyword *
     in this statement we are checking the value of **showCondition=='shiv'** **then ifblock else elseblock** it  will check the value fo showCondition if it will true it will execute if block else it will execute else block.
 
 
-### Conditionals in templates with [ngIF] attribute - 
+### Conditionals on ng-template
 
 - **For case if with else, we can use **ngIf** and **ngIfElse**.** : 
     ```
@@ -420,9 +428,9 @@ ex : - Days of week(7),Months of year(12)
 
 - **[ngSwitch]** - It will create a switchcase its a initialization of switchcase.
 
-- **[ngSwitchCase]** - We can use this on the case.
+- ***ngSwitchCase** - We can use this on the case.
 
-- **[ngSwitchDefault]** - We can use this on the default case.
+- ***ngSwitchDefault** - We can use this on the default case.
 
 Uses of all the attributes are mentioned below : 
 ```
@@ -509,12 +517,12 @@ and accessing the values of that objects and the array of the object value as we
 
 Here we are just using `let item of user.socialprofiles` for nested array thats it not the rocket science in that.
 
-**Getters In *ngFor Directive :-**
+**Getters In `*ngFor` Directive :-**
 
-As we have seen the count was an example of getter itself. we can use the getters like `index as variableName` so the value of that getter would be assigned to the associated variable.
+As we have seen the index was an example of getter itself. we can use the getters like `index as variableName` so the value of that getter would be assigned to the associated variable.
 
 - **index :-**
-  We can get to know about the index of current elemnt with `index` getter. We can consume index getter like `;count as i` where i is variable name as like mentioned below.
+  We can get to know about the index of current element with `index` getter. We can consume index getter like `;index as i` where i is variable name as like mentioned below.
 
  ```
   users=[
@@ -649,7 +657,7 @@ As we have seen the count was an example of getter itself. we can use the getter
 
 **How to use `*ngFor` with ng-template :-**
 
-`*` in `*ngFor` itself informs angular that weare using structural directives which are shorthands for using `ng-template` element
+`*` in `*ngFor` itself informs angular that we are using structural directives which are shorthands for using `ng-template` element
 
 If we want to use for loop on ng-template then we need to use the directives associated with `*ngFor` shortHand like `ngFor` `let-item` & `[ngForOf]=array | async` as like mentioned below.
 
@@ -768,21 +776,216 @@ We have multiple events in angular like button click, hover, input etc. We can b
   }
   ```
   
-- **blur :-**
-- **focus :-**
-- **scroll :-**
-- **cut :-**
-- **copy :-**
-- **paste :-**
-- **keyup :-**
-- **keypress :-**
-- **keydown :-**
-- **mouseup :-**
-- **mousedown :-**
-- **mouseenter :-**
-- **drag :-**
-- **drop :-**
-- **dragover :-**
+- **blur :-** Can be used on form elements(input,textarea,select,button,a) & Fires When an element loses focus.
+  
+  ```
+  // template
+  <input (blur)="onBlur()" placeholder="Click outside to trigger blur">
+
+  // Class
+  onBlur() {
+    console.log('Input lost focus');
+  }
+  ```
+
+- **focus :-** Can be used on form & interactive elements(input,textarea,select,button,a) & Fires When an element gains focus.
+
+  ```
+  // template
+  <input (focus)="onFocus()" placeholder="Click to focus">
+
+  // Class
+   onFocus() {
+    console.log('Input gained focus');
+  }
+  ```
+
+- **scroll :-** Can be used on container elements that have scrollable such as (div,section,article,textarea,iframe,body,window) When a user scrolls an element.
+
+  ```
+  // template
+  <div (scroll)="onScroll()" style="height: 100px; overflow-y: scroll;">
+  <p>Scroll me!</p>
+  <p>More content...</p>
+  <p>Even more content...</p>
+  </div>
+
+  // Class
+   onScroll() {
+    console.log('Container scrolled');
+  }
+  ```
+
+- **cut :-** Can be used on user inputs or interactive elements(input,textarea,div with contentEditable=true) & When text is cut from an element.
+
+  ```
+  // template
+  <input (cut)="onCut()" placeholder="Cut text to trigger event">
+
+  // Class
+  onCut() {
+    console.log('Text cut');
+  }
+  ```
+
+- **copy :-** Can be used on user inputs or interactive elements(input,textarea,div with contentEditable=true) & When text is copied from an element.
+
+  ```
+  // template
+  <input (copy)="onCopy()" placeholder="Copy text to trigger event">
+
+  // Class
+  onCopy() {
+    console.log('Text copied');
+  }
+  ```
+- **paste :-** Can be used on user inputs or interactive elements(input,textarea,div with contentEditable=true) & When text is pasted into an element.
+
+  ```
+  // template
+  <input (paste)="onPaste()" placeholder="Paste text to trigger event">
+
+
+  // Class
+   onPaste() {
+    console.log('Text pasted');
+  }
+  ```
+
+- **keyup :-** Can be used on form & interactive elements(input,textarea,select,button,a) & When a key is released.
+
+  ```
+  // template
+  <input (keyup)="onKeyup($event)" placeholder="Release a key">
+
+
+
+  // Class
+  onKeyup(event: KeyboardEvent) {
+    console.log('Key released:', event.key);
+  }
+  ```
+
+- **keypress :-** Can be used on form & interactive elements(input,textarea,select,button,a) & When a key is pressed and held.
+
+  ```
+    // template
+    <input (keypress)="onKeypress($event)" placeholder="Press a key">
+
+
+
+    // Class
+    onKeypress(event: KeyboardEvent) {
+      console.log('Key pressed:', event.key);
+    }
+    ```
+
+- **keydown :-** Can be used on form & interactive elements(input,textarea,select,button,a) & When a key is pressed down.
+
+  ```
+    // template
+    <input (keydown)="onKeydown($event)" placeholder="Press a key">
+
+
+
+
+    // Class
+    onKeydown(event: KeyboardEvent) {
+      console.log('Key down:', event.key);
+    }
+    ```
+- **mouseup :-** Can be used on mouse interactive elements (button, input, div, a, img, span, form, table, tr, td) &  When a mouse button is released.
+
+  ```
+  // template
+  <div (mouseup)="onMouseup()" style="width: 100px; height: 100px; background-color: lightgray;">
+  Click and release here
+  </div>
+
+  // Class
+  onMouseup() {
+    console.log('Mouse button released');
+  }
+  ```
+
+- **mousedown :-** Can be used on mouse interactive elements (button, input, div, a, img, span, form, table, tr, td) &  When a mouse button is pressed down.
+
+  ```
+  // template
+  <div (mousedown)="onMousedown()" style="width: 100px; height: 100px; background-color: lightgray;">
+  Click and hold here
+  </div>
+
+  // Class
+  onMousedown() {
+    console.log('Mouse button pressed down');
+  }
+  ```
+- **mouseenter :-** Can be used on mouse interactive elements (div, button, input, a, img, spand) & When the mouse pointer enters an element.
+
+  ```
+  // template
+  <div (mouseenter)="onMouseenter()" style="width: 100px; height: 100px; background-color: lightgray;">
+    Hover over me
+  </div>
+
+  // Class
+   onMouseenter() {
+    console.log('Mouse entered element');
+  }
+  ```
+- **drag :-** Can be used on draggable elements (div, img, button) & When an element is being dragged.
+
+  ```
+  // template
+  <div draggable="true" (drag)="onDrag($event)" style="width: 100px; height: 100px; background-color: lightgray;">
+    Drag me
+  </div>
+
+  // Class
+   onDrag(event: DragEvent) {
+    console.log('Element is being dragged');
+  }
+  ```
+- **drop :-** Can be used on dropable elements (div, img, button) & When an element is dropped.
+
+
+  ```
+  // template
+  <div (drop)="onDrop($event)" (dragover)="onDragover($event)" style="width: 200px; height: 200px; background-color: lightgray;">
+    Drop here
+  </div>
+
+  // Class
+   onDrop(event: DragEvent) {
+    event.preventDefault();
+    console.log('Element dropped');
+  }
+
+  onDragover(event: DragEvent) {
+    event.preventDefault();
+  }
+  ```
+
+- **dragover :-** Can be used on dragable elements (div, img, button) & When an element is being dragged over a target.
+
+
+  ```
+  // template
+  <div (dragover)="onDragover($event)" (drop)="onDrop($event)" style="width: 200px; height: 200px; background-color: lightgray;">
+    Drop here
+  </div>
+
+  // Class
+  onDragover(event: DragEvent) {
+    event.preventDefault(); // Required to allow drop
+  }
+
+  onDrop(event: DragEvent) {
+    event.preventDefault();
+    console.log('Element dropped');
+  }
+  ```
 
 
 ### Toggle Button in Angular
@@ -808,10 +1011,11 @@ Bootstrap is the ui library made for quick web devlopement with predefined CSS, 
 
 **Installation :-**
 - **npm install bootstrap** - it will install bootstrap in your node modules.
-- Then you need to add the bootstrap styling and js path to to the **build** array in angular.json.
-- 
-- **For CSS** - `"./node_modules/bootstrap/dist/css/bootstrap.min.css"`
-- **For JS** - `"./node_modules/bootstrap/dist/js/bootstrap.js"`
+
+Then you need to add the bootstrap styling and js path to to the **build** array in angular.json.
+
+  - **For CSS** - `"./node_modules/bootstrap/dist/css/bootstrap.min.css"`
+  - **For JS** - `"./node_modules/bootstrap/dist/js/bootstrap.js"`
 
 ### NGX Bootstrap
 
@@ -837,18 +1041,18 @@ In NGX bootstrap we can use the bootstrap components in the angular way and thos
       })
     ```
 
-After completion of above setps for installing perticular module for ui component and sytling we can use the component as like mentioned below.
+After completion of above setps for installing particular module for ui component and sytling we can use the component as like mentioned below.
 
 ```
 <button type="button" class="btn btn-primary"
         tooltip="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
-  Simple demo
+  Click Me
 </button>
 ```
 
 ### Send the Data to child component
 
-We can send the data to child component by using **@Input()** in the **component.ts** file and we can send the data in the properties in HTML like **<h1 [data]="'Name'"></h1>**.
+We can send the data to child component by using **@Input()** decorator in the **component.ts** file and we can send the data in terms of attributes in HTML like **<h1 [data]="'Name'"></h1>**.
 
 - First Create the component by using the command **`ng g c child-component`**
 
@@ -908,10 +1112,7 @@ We can send the data to child component by using **@Input()** in the **component
     console.log(item)
   }
   ```
-- Pass the function with the `$event` to the child component as like mentioned below.
-  ```
-  <app-child (getData)="getData($event)"></app-child>
-  ```
+
 - import the `Output` and `EventEmitter` from angular core in the `child.component.ts` file and initialize the output and Eventemitter as like mentioned below.
 
   **Note :- declared event emitter name should be same in template where you binded parent component method like `app-child (eventEmitterNameInChild)="parentMethod($event)`**
@@ -921,8 +1122,13 @@ We can send the data to child component by using **@Input()** in the **component
 
   import {Output,EventEmitter} from '@angular/core'
 
+  // Declared names will be used to bind events in parent component
   @Output() getData = new EventEmitter<string>();
   @Output() getUser = new EventEmitter<any>();
+  ```
+- Pass the function with the `$event` to the child component as like mentioned below.
+  ```
+  <app-child (getData)="getData($event)"></app-child>
   ```
 - And now we can emit the data from child component with the help of event to the parent component.
   ```
@@ -934,8 +1140,11 @@ We can send the data to child component by using **@Input()** in the **component
 
 
   // Component.ts
+  
+  import {Output,EventEmitter} from '@angular/core'
 
-  // Or how to emit event in .ts file.
+  @Output() getData = new EventEmitter<string>();
+  @Output() getUser = new EventEmitter<any>();
 
   emit(value){
     this.getData.emit(value)
@@ -1015,7 +1224,7 @@ And After that we can acess that html element through its template refrence as l
 ```
 
 ### Basic Pipes in Angular
-Pipes are pure functions to transform the html element, We can create pipe for common data transformation and we can use that pipe at such places.
+Pipes are pure functions to transform the data before rendering in html, We can create pipe for common data transformation and we can use that pipe at such places.
 
 We can use the basic pipes for strings as mentioned below - 
 Ex :
@@ -1130,29 +1339,37 @@ After creating pipe you will get 2 files only which will be **pipe.ts** and **pi
     return value*x;
     ```
 
-### Pure and Impure pipes
+**Pure and Impure pipes :-**
 
-There are 2 types of pipes in angular, Pure which will execute the pipe only when the html initiated and it will not respond if Data will be manipulated and changed but impure pipe will be executed after each and every change detection in the data.
+  There are 2 types of pipes in angular, Pure which will execute the pipe only when the html initiated by default and it will not respond if Data will be manipulated and changed but impure pipe will be executed after each and every change detection in the data.
 
-Ex : 
+  Ex : 
 
-If we have made the search pipe and we are passing array of objects to it, and if we searched with the keyword BUT **After Search results returned by the pipe and at the same time if new entry added, updated or deleted it show the data in the previous condition and not the updated one.** 
+  If we have made the search pipe and we are passing array of objects to it, and if we searched with the keyword BUT **After Search results returned by the pipe and at the same time if new entry added, updated or deleted it show the data in the previous condition and not the updated one.** 
 
-Here We have pipes purity in which impure pipes reacts to all the changes and we can make the pipe impure by `pure:false` as like mentioned below.
+  Here We have pipes purity in which impure pipes reacts to all the changes and we can make the pipe impure by `pure:false` as like mentioned below.
 
+  ```
+  @Pipe{
+    name:'filter',
+    pure:false
+  }
 ```
-@Pipe{
-  name:'filter',
-  pure:false
-}
-```
+
+**Types of pipes :-**
+
+- **Built-In Pipes :-** In built pipes provided by angular.
+- **Custom Pipes :-** Created by user according to requirements.
+- **Pure & Impure pipes :-** Differentiate their execution on initialization or in change detection based on the purity provided as we saw above.
+- **Stateless & StateFull Pipes :-** Stateless pipes are simple transformation pipes where Statefull pipes maintains state for previous operation or updates the state when news things comes in & can be used statefull pipes for performance by maintaining previously processed data & it will be destroyed on the component's destruction.
+
 
 ### Angular Forms
 
 Angular forms are different than others as like mentioned below.
 
 
-**Note :- In the angular forms we cannot connect angular with the databases like SQL,MongoDB etc like others.Rather than that we need to connect with the database with the help of api in angular.We call the API's throught the forms and API automatically send data to database.**
+**Note :- In the angular forms we cannot connect angular with the databases like SQL,MongoDB etc like others.Rather than that we need to connect with the database with the help of api in angular. We call the API's throught the forms and API automatically send data to database.**
 
 **Types of forms**
 - **Template Driven Form :-** In template driven forms most of the work will complete in the HTML file only like form,data,validation etc.
@@ -1172,7 +1389,7 @@ Angular forms are different than others as like mentioned below.
     
     - Then we need to create normal HTML form and we need to bind its id like **`#loginForm="ngForm"`**.
 
-    - After that we need to bind the input feilds with the **ngModel** and we have to provide **name="username"** as well because we are using **ngModel**.
+    - After that we need to bind the input feilds with the **ngModel** and we have to provide **name="username"** as well because we are using **ngModel** & while getting data to form we get the data against the assigned name to input field.
 
     - We need to add on submit event with the help of **`(ngSubmit)="userLogin(loginForm.value)`** and we need to pass the form values to it.
 
@@ -1202,8 +1419,8 @@ Angular forms are different than others as like mentioned below.
     
     In the Reactive form we import as mentioned below : 
 
-    - `import { ReactiveFormsModule } from '@angular/forms';`
-    - `import {FormControl,FormGroup} from '@angular/forms'`
+    - `import { ReactiveFormsModule } from '@angular/forms'; // App Module` 
+    - `import {FormControl,FormGroup} from '@angular/forms' // Component`
 
     **Most Imp Thing** 
     - In the reactive form **we need to use the same formgroupname** in the **component.ts** file as well as in HTML file as well.
@@ -1216,15 +1433,11 @@ Angular forms are different than others as like mentioned below.
     
     **How to Create Reactive Form** : 
     - First we need to import
-     **`import { ReactiveFormsModule } from '@angular/   forms'`** in module.ts file and intialize it in imports.
+     **`import { ReactiveFormsModule } from '@angular/forms'`** in module.ts file and intialize it in imports.
     
     - Then we need to import **`import {FormControl,FormGroup} from '@angular/forms'`** in **component.ts** file.
 
-    - We need to create simple HTML form in **component.html** file and we need to give the name to the formGroup like **`[formGroup]="loginForm"`**.
-
-    - Then we need to bind the input fields with formControlName like **`formControlName="username"`**.
-
-    - After completing the HTML part we need to define the **formGroup** in **component.ts** file as mentioned below : 
+    - We need to define the **formGroup** in **component.ts** file & add formcontrols to it as mentioned below : 
       ```
       // Defining the FormGroup
 
@@ -1232,7 +1445,13 @@ Angular forms are different than others as like mentioned below.
       username: new FormControl(''),
       password: new FormControl('')
       })
-      ```.
+      ```
+
+    - We need to create simple HTML form in **component.html** file and we need to give the name to the formGroup like **`[formGroup]="loginForm"`**.
+
+    - Then we need to bind the input fields with formControlName like **`formControlName="username"`**.
+
+    
     - On Submit of form call the function with the help of **ngSubmit** like **`(ngSubmit)="userLogin()`**.
 
     - Define that function in the **component.ts** file like 
@@ -1342,7 +1561,7 @@ isNameTaken(contol:AbstractControl){
 ```
 It will Push `isNameTaken:true` in `formcontrol.errors` object and same can be used for error message for that field.
 
-If Validator showing error soo use `.bind(this)` in the validations if we have used `this.property` on arguements then we need to bind this with it to tell that its an existing proeprty.
+If Validator in declared in component itself then we need to use `this.validator.bind(this)` in the validations if we have used `this.property` on arguements then we need to bind this with it to tell that its an existing proeprty.
 
 ### Asynchronus Validation
 
@@ -1372,7 +1591,7 @@ Form Group is the grouping of the form controls as per the sections in the forms
 
 - **FormControl Grouping in template driven forms :-**
 
-  We can group the ngmodels with `ngModelGroup` directive which we bind to template refrence variable with this directive & we name it with `ngModelGroup="name"`
+  We can group the `ngModels` with `ngModelGroup` directive which we bind to template refrence variable with this directive & we name it with `ngModelGroup="name"`
     
   ```
     <form class="form" #f="ngForm" novalidate>
@@ -1430,7 +1649,7 @@ Form Group is the grouping of the form controls as per the sections in the forms
 
 ### Dynamically adding and removing form fields
 
-Normally we build the static form with `FormGoup` if we have predefined form fields, But Sometimes we need to add or remove the form fields dynamically in the form, That we can do that with the help of `FormArray`.
+Normally we build the static form with `FormGroup` if we have predefined form fields, But Sometimes we need to add or remove the form fields dynamically in the form, That we can do that with the help of `FormArray`.
 
 In as control name is defined by its name in the form built with `FormGroup` but form controls created dynamically with `FormArray` can be identified by their index.
 
@@ -1485,7 +1704,7 @@ We can insert the controls with `formArray.push(control)` & remove with `formArr
 
 ### Reactive Form Observables
 
-- **Value Changes and Status changes :-**
+- **ValueChanges and StatusChanges :-**
 
   To catch the status and the value changes in the reactive form we can use the `form.statusChanges` & `form.valueChanges` Observables like `form.statusChanges.subscribe(callback)` && `form.valueChanges.subscribe(callback)`.
 
@@ -1500,35 +1719,283 @@ We can insert the controls with `formArray.push(control)` & remove with `formArr
 
   ngOnInit(){
     this.loginForm.valueChanges.subscribe((res)=>{
-      console.log(res) // Form Object
+      console.log(res) // Form Value Object
     })
 
     this.loginForm.statusChanges.subscribe((res)=>{
-      console.log(res) // VALID | INVALID
+      console.log(res) // VALID | INVALID | PENDING | DISABLED
     })
   }
   ```
 
 ### Reactive Form Usefull Properties & Methods
 
-FormGrups provide set of method for doing dynamic tasks with the formgroup with the provided methods & properties with formGroup.
+FormGroups provide set of method for doing dynamic tasks as mentioned below.
 
-- **SetValue :-**
+**Generic Properties :-**
 
-  Setvalue is used to set the values for the form from .ts file as like mentioned below.
+- **value :-** Gets the current value of the control or formGroup.
 
   ```
-    loginForm= new FormGroup({
-          username: new FormControl(''),
-          password: new FormControl('')
-        })
+  const control = new FormControl('initial value');
+  console.log(control.value); // Outputs: 'initial value'
+  ```
+- **status :-** Gets the status of the control (VALID, INVALID, PENDING, or DISABLED).
 
-  ngOnInit(){
-    this.loginForm.setValue({
-      userName:'shiv',
-      password:'Saikiran@9604'
-    })
-  }
+  ```
+  const control = new FormControl('');
+  console.log(control.status); // Outputs: 'INVALID' if there are validation errors
+  ```
+
+- **errors :-** Gets the errors for the control.
+
+  ```
+  const control = new FormControl('', Validators.required);
+  console.log(control.errors); // Outputs: { 'required': true } if the value is empty
+  ```
+
+- **touched :-** Boolean indicating if the control has been visited.
+
+  ```
+  const control = new FormControl('');
+  control.markAsTouched();
+  console.log(control.touched); // Outputs: true
+  ```
+- **dirty :-** Boolean indicating if the control's value has changed.
+
+  ```
+  const control = new FormControl('initial');
+  control.setValue('changed');
+  console.log(control.dirty); // Outputs: true
+  ```  
+- **Pristine :-** Boolean indicating if the control is unmodified.
+
+  ```
+  const control = new FormControl('initial');
+  console.log(control.pristine); // Outputs: true
+  ```
+
+- **valid :-** Boolean indicating if the control is valid.
+
+  ```
+  const control = new FormControl('', Validators.required);
+  console.log(control.valid); // Outputs: false if the value is empty
+  ```
+
+- **invalid :-** Boolean indicating if the control is invalid.
+
+  ```
+  const control = new FormControl('', Validators.required);
+  console.log(control.invalid); // Outputs: true if the value is empty
+  ```
+
+- **pending :-** Boolean indicating if the control is in the process of validation.
+
+  ```
+  const control = new FormControl('', asyncValidators);
+  console.log(control.pending); // Outputs: true if validation is ongoing
+  ```
+
+**Generic Methods :-**
+
+- **SetValue :-** Sets the value of the control (Rquires value for all control).
+
+  ```
+  const control = new FormControl('');
+  control.setValue('new value');
+  console.log(control.value); // Outputs: 'new value'
+  ```
+
+- **patchValue :-** Patches the value of the control (partial update).
+
+  ```
+  const control = new FormControl('');
+  control.patchValue('new partial value');
+  console.log(control.value); // Outputs: 'new partial value'
+  ```
+
+- **reset :-** Resets the control to its initial state with an optional value.
+
+  ```
+  const control = new FormControl('initial');
+  control.reset('reset value');
+  console.log(control.value); // Outputs: 'reset value'
+  ```
+
+- **markAsTouched :-** Marks the control as touched.
+
+  ```
+  const control = new FormControl('');
+  control.markAsTouched();
+  console.log(control.touched); // Outputs: true
+  ```
+  
+- **markAsDirty :-** Marks the control as dirty.
+
+  ```
+  const control = new FormControl('initial');
+  control.markAsDirty();
+  console.log(control.dirty); // Outputs: true
+  ```
+
+- **markAsPristine :-** Marks the control as pristine.
+
+  ```
+  const control = new FormControl('initial');
+  control.markAsPristine();
+  console.log(control.pristine); // Outputs: true
+  ```
+
+- **markAsPending :-** Marks the control as pending.
+
+  ```
+  const control = new FormControl('', asyncValidators);
+  control.markAsPending();
+  console.log(control.pending); // Outputs: true
+  ```
+  
+- **setErrors :-** Sets errors on the control.
+
+  ```
+  const control = new FormControl('');
+  control.setErrors({ 'required': true });
+  console.log(control.errors); // Outputs: { 'required': true }
+  ```
+
+**FormGroup Properties :-**
+
+- **controls :-** Returns a map of child controls of the FormGroup.
+
+  ```
+  const formGroup = new FormGroup({
+  name: new FormControl(''),
+  age: new FormControl('')
+  });
+  console.log(formGroup.controls); // Outputs: { name: FormControl, age: FormControl }
+  ```
+
+**FormGroup Methods :-**
+
+- **addControls :-** Adds a new control to the group.
+
+  ```
+  const formGroup = new FormGroup({});
+  formGroup.addControl('name', new FormControl(''));
+  console.log(formGroup.controls); // Outputs: { name: FormControl }
+  ```
+
+- **removeControls :-** Removes a control from the group.
+
+  ```
+  const formGroup = new FormGroup({
+  name: new FormControl('')
+  });
+  formGroup.removeControl('name');
+  console.log(formGroup.controls); // Outputs: {}
+  ```
+
+- **get :-** Retrieves a control from the group.
+
+  ```
+  const formGroup = new FormGroup({
+  name: new FormControl('')
+  });
+  console.log(formGroup.get('name')); // Outputs: FormControl
+  ```
+
+
+- **getRawValue :-** Gets the raw value of the group, including disabled controls.
+
+  ```
+  const formGroup = new FormGroup({
+  name: new FormControl('John', { disabled: true }),
+  age: new FormControl(30)
+  });
+  console.log(formGroup.getRawValue()); // Outputs: { name: 'John', age: 30 }
+  ```
+
+- **setControl :-** Replaces a control in the group.
+
+  ```
+  const formGroup = new FormGroup({
+  name: new FormControl('John')
+  });
+  formGroup.setControl('name', new FormControl('Jane'));
+  console.log(formGroup.get('name').value); // Outputs: 'Jane'
+  ```
+
+**FormArray Properties :-**
+
+- **controls :-** Returns an array of controls in the FormArray.
+
+  ```
+  const formArray = new FormArray([
+  new FormControl(''),
+  new FormControl('')
+  ]);
+  console.log(formArray.controls); // Outputs: [FormControl, FormControl]
+  ```
+
+- **length :-** Gets the number of controls in the array.
+  
+  ```
+  const formArray = new FormArray([
+  new FormControl('First'),
+  new FormControl('Second')
+  ]);
+  console.log(formArray.length); // Outputs: 2
+  ```
+
+**FormArray Methods :-**
+
+- **at :-** Gets the control at the specified index.
+
+  ```
+  const formArray = new FormArray([
+  new FormControl('First'),
+  new FormControl('Second')
+  ]);
+  console.log(formArray.at(1).value); // Outputs: 'Second'
+  ```
+
+- **push :-** Adds a control to the end of the array.
+
+  ```
+  const formArray = new FormArray([]);
+  formArray.push(new FormControl('New Control'));
+  console.log(formArray.controls); // Outputs: [FormControl]
+  ```
+
+- **insert :-** Inserts a control at the specified index.
+
+  ```
+  const formArray = new FormArray([
+  new FormControl('First')
+  ]);
+  formArray.insert(1, new FormControl('Inserted Control'));
+  console.log(formArray.controls); // Outputs: [FormControl, FormControl]
+  ```
+
+- **removeAt :-** Removes the control at the specified index.
+
+  ```
+  const formArray = new FormArray([
+  new FormControl('First'),
+  new FormControl('Second')
+  ]);
+  formArray.removeAt(1);
+  console.log(formArray.controls); // Outputs: [FormControl]
+  ```
+
+- **clear :-** Clears all controls from the array.
+
+  ```
+  const formArray = new FormArray([
+  new FormControl('First'),
+  new FormControl('Second')
+  ]);
+  formArray.clear();
+  console.log(formArray.controls); // Outputs: []
   ```
 
 ### Dynamic Forms in Angular
@@ -1603,11 +2070,12 @@ Steps :-
 
   - Create an Submit button which calls an method which prints the values of the form.
 
-### Types of selectors in angular
+### Types of Component selectors in angular
 
 In angular for the component there are multiple selectors which we can use in the html file.
 
 Selector => 
+
 ```
 @Component({
   selector: 'app-search-pipe',
@@ -1670,6 +2138,9 @@ EX : `ngClass, ngStyle, ngModel`
   @Directive({
     selector: '[appRedEl]'
   })
+
+  // Consumption of directive
+  <p redEl> Invalid Input </p>
   ```
 
 ### Advance Custom Directives (Renderer2 & @HostBinding())
@@ -1680,7 +2151,7 @@ In angular we can create custom directives in which previously we used to change
 
   Soo for that we can use the `renderer2` for the custom directive which will not manipulate the html elemnt instead it will render the elements in the modified way.
 
-  We need to use the renderer functions like setStyle, addClass and all for the manipulating it while rendering it and we need pass the arguements as its required.
+  We need to use the renderer functions like `setStyle`, `addClass` and all for the manipulating it while rendering it and we need pass the arguements as its required.
 
   ex : 
   ```
@@ -1688,6 +2159,7 @@ In angular we can create custom directives in which previously we used to change
       this.renderer.setStyle(element.nativeElement,'color','red')
     }
   ```
+
 - **@HostBinding :-**
 
   With the help of `@HostBinding('property') var:type` we can create the variable of the target style,class and etc for the element.
@@ -1717,7 +2189,7 @@ In angular we can create custom directives in which previously we used to change
 
 - **Sending Data to Directives :-**
 
-  We can send the data as well to the directives as well with the help of `@input()` decorator and with the alias as well.
+  We can send the data as well to the directives as well with the help of `@Input()` decorator and with the alias as well.
 
   Ex : 
   If we want to pass the colors for the events as input from the parent component it will like mentioned below.
@@ -1780,7 +2252,7 @@ In the above Code We have used Input `set` which makes input as function in whic
 
 ### Routing in Angular
 
-Routing is used in angular for navigating from one location to another on another page in application without reload routing is used.
+Routing is used in angular for navigating from one page to another on another page in application without reload.
 
 **Basic routing** -
  - First we need to create routes in the **routing.ts** **in routes array.**.
@@ -1800,7 +2272,9 @@ Routing is used in angular for navigating from one location to another on anothe
 
   `<a routerLink="form" class="text-light">Form</a>`
 
-- But the component will not appear soo we need to create the router outlet where we want to load the perticular component according to route, we can do that with by writing `<router-outlet></router-outlet>` in **app.component.html** as like mentioned below so the components will be loaded in `app.component.html` which is entrance file for angular applications.
+- But the component will not appear soo we need to create the router outlet where we want to load the perticular component according to route, we can do that with by writing `<router-outlet></router-outlet>` in **app.component.html** as like mentioned below so the components will be loaded in `app.component.html` which is entry point
+  
+-  for angular applications.
 
 - Finally we can provide anywhere the page as routerlink in anchor tag in our whole app.
 
@@ -1842,7 +2316,8 @@ Basically routes can be declared for constant paths but for the variable paths w
   const routes = [
     {
       path:'',
-      rediretTo:'login'
+      rediretTo:'login',
+      pathMatch : 'full'
     },
     {
       path:'home',
@@ -1855,6 +2330,38 @@ Basically routes can be declared for constant paths but for the variable paths w
   ]
   ```
   The above mentioned empty route will be redirected to the login page at the start and that will be its default route.
+
+  In Angular routing, pathMatch is a property that helps define how Angular matches the URL path to the route's configuration. The pathMatch property can have two possible values: `full` and `prefix`.
+
+  - `pathMatch : 'full'`
+  
+    Description: When pathMatch is set to full, Angular will only match the route if the entire URL path exactly matches the route's path.
+    Use Case: This is useful when you want a route to match only when the URL path is an exact match with no additional segments.
+
+    ```
+    const routes: Routes = [
+      { path: 'home', component: HomeComponent, pathMatch: 'full' },
+      { path: 'home/extra', component: ExtraComponent }
+    ];
+    ```
+    Scenario: If the URL is /home, the HomeComponent will be rendered. However, if the URL is /home/extra, it will not match the home route because the pathMatch is set to full and the URL path is not an exact match.
+
+  - `pathMatch : 'prefix'`
+  
+    Description: When pathMatch is set to prefix, Angular will match the route if the URL path starts with the route's path. The route will be matched as long as the path is a prefix of the URL path.
+    Use Case: This is useful when you want to match routes that share a common prefix.
+
+    ```
+    const routes: Routes = [
+      { path: 'home', component: HomeComponent, pathMatch: 'prefix' },
+      { path: 'home/extra', component: ExtraComponent }
+    ];
+    ```
+
+    Scenario: If the URL is /home, the HomeComponent will be rendered. If the URL is /home/extra, the ExtraComponent will be rendered. In this case, the pathMatch: 'prefix' allows the route to match /home as well as any URL starting with /home.
+
+
+  `Note :- Angular default behaviour of patchMatch is prefix but if we want to make it full then only we need to make the necessary changes.`
 
 **404 Page in Routing** - 
   
@@ -1960,7 +2467,9 @@ goUsers() {
   this.router.navigate(['/users'],
     {
       queryParams: { filter: 'new' },
-      queryParamsHandling: 'merge' }
+      queryParamsHandling: 'merge' 
+      
+    }
     );
 }
 ```
@@ -2090,7 +2599,7 @@ Hence And we can use the routes defined in **module.routing.ts** file in app com
 
   - **Routing Enter Guard For Parent Component :-** 
   
-    For Auth Guard we need to create the service `auth-guard.service.ts` in which we can implement `onActive(){}` method for activation for that route or not.
+    For Auth Guard we need to create the service `auth-guard.service.ts` in which we can implement `canActivate(){}` method for activation for that route or not.
 
     Ex : If we want to route for some route if only user logged in.
 
@@ -2209,14 +2718,94 @@ Hence And we can use the routes defined in **module.routing.ts** file in app com
 
 Resolver is the thing in the angular routing in which if we want to get the data from api and then only need to render the component then we can use the `resolver()` in `resolver.service.ts`.
 
-Ex : If we want to load the edit page only after getting the data from the api and binding with the form then only.
+For creating resolver `ng generate resolver name options` or `ng g r name options` & by default resolver provided to app module but if we provide `--module featureModule` then it will be provided into feature module.
 
----
+Above command create `name.resolver.ts` and spec file for it & we need to return the data in it by getting from the api as mentioned below.
 
-### Remaining
+```
+import { Injectable } from '@angular/core';
+import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs';
+import { UserService } from './user.service';
+import { User } from './user.model';
 
----
+@Injectable({
+  providedIn: 'root'
+})
+export class UserResolver implements Resolve<User> {
+  constructor(private userService: UserService) {}
 
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<User> | Promise<User> | User {
+    const id = route.paramMap.get('id');
+    return this.userService.getUser(id);
+  }
+}
+```
+To use this resolver for perticular route we need to mention it against `resolve:UserResolver` for the consumption route.
+
+For accesing the resolver data we can fetch it with the help of `route:ActivatedRoute` with `data` observable as like mentioned below.
+
+```
+  user: User;
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    // Access the resolved data
+    this.route.data.subscribe(data => {
+      this.user = data.user; // The resolved user data
+    });
+  }
+```
+**Error handelling :-**
+
+If any error occurs while fetching data in resolver route will not be navigated & we need to do appropriate error handelling for it according to our requirements.
+
+```
+// Resolve the route
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<User> | Promise<User> | User {
+    const id = route.paramMap.get('id');
+    return this.userService.getUser(id).pipe(
+      catchError(error => {
+        console.error('Data fetching error:', error);
+        // Optionally, redirect to an error page or provide a default value
+        return of(null); // or you might navigate to an error route
+      })
+    );
+  }
+
+// Error handelling in component
+  ngOnInit(): void {
+    this.route.data.subscribe(data => {
+      if (data.user) {
+        this.user = data.user;
+      } else {
+        // Handle the case where user data is not available
+        console.error('User data is not available');
+      }
+    });
+  }
+
+// Navigating to navigations error page
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<User> | Promise<User> | User {
+    const id = route.paramMap.get('id');
+    return this.userService.getUser(id).pipe(
+      catchError(error => {
+        console.error('Data fetching error:', error);
+        this.router.navigate(['/error']); // Navigate to an error page
+        return of(null);
+      })
+    );
+  }
+```
 
 ### Lazy Loading in Angular (Module)
   
@@ -2245,7 +2834,7 @@ Ex : If we want to load the edit page only after getting the data from the api a
   ```
   Soo it will load the **adminmodule** only when route will be **/admin/**.
 
-  **<u>In the lazy loading we dont need to use the group routing like we dont need to pass the components as the childern as like group routing...We can directly pass them weather if it will be same name but we already going to rule that things in app.module.ts while lazy loading modules with the help of loadchildern function.</u>**
+`Note :- There's no need to specify child routes within app-routing.module.ts or create complex nesting. The FeatureModule handles its own routing internally.`
 
 ### Lazy Loading of services
 
@@ -2254,40 +2843,52 @@ We cannot directly lazy load the services but initially we are importing core mo
 But we can lazy load the services,directives, pipes and all the things by importing `core module` in the different different feature modules soo the core module only be loaded when the module gets lazy loaded.
 
 
-### Lazy Loading of Component
+### Dynamic Component Loading
 
 When we have multiple components in our angular application we there is no need of loading all the components at the first load soo it can consume your time and more render time sooo for code optimization and faster response and render time we use Lazy loading in components.
 
-- First we need to import 2 most important things **ViewContainerRef** and **ComponentFactoryResolver** in our app.component.ts file as like mentioned below.
+- First we need to import **ComponentFactoryResolver** in our app.component.ts file as like mentioned below.
 
-- We need to intialize this both in constructor as like mentioned below.
-```
-  constructor(private vcr:ViewContainerRef,private cfr:ComponentFactoryResolver)
-```
-- Then we need to clear the container.
-**`this.vcr.clear()`**
+- Then create `ng-template` with template reference where we are going to render our component. 
 
-- Then import the component as like mentioned below.
-```
-const {TodoListComponent} = await import('./components/todo-list/todo-list.component')
-```
+  ```
+  // Template
+    <ng-template #dynamicContainer></ng-template>
+  ```
+- Take the reference of it in class file with viewchild as like mentioned below.
+  
+  ```
+  // Class
+      @ViewChild('dynamicContainer', { read: ViewContainerRef, static: true }) container: ViewContainerRef;
+  ```
+  
+- Then prepare the method for loading the component according to your requirement but dont forget to clear the containerRef before loading the component.
 
-- Then create the component and resoleve its factory by initializing the component in the **resolveFactory(component)**.
-```
-this.vcr.createComponent(
-      this.cfr.resolveComponentFactory(TodoListComponent)
-    )
-```
-- Thats how we created the component on the button click.
+  ```  
+    constructor(private cfr:ComponentFactoryResolver){}
 
+    loadComponent() {
 
+      // First Create factory for the component we need to load.
+      const factory = this.componentFactoryResolver.resolveComponentFactory(DynamicComponent);
 
+      // Clear previous components if any
+      this.container.clear(); 
+
+      // Create Component into View
+      this.container.createComponent(factory);
+    }
+  ```
+
+- Thats how we dynamically load the component in view.
+
+`Note :- Using dynamic component loading contributes heavily to the loadtime of the application, if we use *ngIf for not rendering component in dom until its required still it initializes the component (running lifecycle hooks, input output bindings & etc) while bundelling but only thing it does not do is rendering, So it doesnt prevent component from intializing either ways so its more phisible to load the component dynamically based on the requirements for performance optimization.`
 
 ### Service in Angular
 
-Service are the classes in which data,functions and class can be there and we can use or share the same data or functions in multiple components its called as service.
+Service are the classes in which data, functions and class can be there and we can use or share the same data or functions in multiple components its called as service.
 
-If we want to use the function,or the same data in multiple components rather than declaring in each and every file we can create service and we can import it in mutiple files and components.
+If we want to use the function, same data in multiple components rather than declaring in each and every file we can create service and we can import it in mutiple files and components.
 
 **Best practice of data and functions transfer in angular is service.**
 
@@ -2324,26 +2925,30 @@ If we want to use the function,or the same data in multiple components rather th
   ```
   we have assigned that data to an array and we can display that array on the screen by running for loop on it.
 
-  - Finally If we want to use that service in multiple components we need to follow this same process in those components.
+- Finally If we want to use that service in multiple components we need to follow this same process in those components.
 
 ### HTTP Client and api integraion
 
-With the help of http client we can integrate the api's in out application.
+With the help of http client we can integrate the api's in our application.
 
 **Basic Steps :-**
 
 - First create service in services folder.
 
-- First we need to import **HttpClient** and **HttpClientsModule** in **service.ts** and **module.ts**.
+- Import **HttpClientsModule** in `app.module.ts`.
+  
+  **`import { HttpClientModule } from '@angular/common/http';`**
+
+- Import **HttpClient** in **service.ts**.
 
   **`import {HttpClient} from '@angular/common/http'`**
 
-  **`import { HttpClientModule } from '@angular/common/http';`**
+  
 
 - Initialize **HttpClient** it in the constructor of **service.ts**.
   **`constructor(private http:HttpClient) {}`**
 
-
+`Note :- Every http client method returns response in the form of Observable.`
 
 - **Get data from API and display**
 
@@ -2353,7 +2958,7 @@ With the help of http client we can integrate the api's in out application.
   // api service
 
   get(url:sting){
-    return http.post(url)
+    return http.get(url)
   }
   ```
 
@@ -2425,7 +3030,7 @@ We can add the http headers which will holds the api configration in which we ca
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
-          'authorization': "vvv"
+          'authorization': "asdbzxcv"
         }),
       };
       console.log(url);
@@ -2473,7 +3078,7 @@ const httpOptions = {
 
 return this.http.post(url, data, httpOptions);
 ```
-### HTTP_INTERCEPTERS 
+### HTTP_INTERCEPTORS 
 
 For the sake of providing the headers to the http requests we need to delcare the header in the each and every function in the service soo it will be lenthy for us.
 
@@ -2485,7 +3090,7 @@ So rather than doing every time we can create `http intercepter service` which w
 
 **Declration of interceptor service in module.ts :-**
 
-- We need to create an object in the providers in `module.ts` as like mentioend below.
+- We need to create an object in the providers in `app.module.ts` as like mentioend below.
 ```
 providers:[
 {
@@ -2495,22 +3100,23 @@ providers:[
 }
 ]
 ```
+In Angular, the `multi: true` option in the providers array allows you to register multiple providers for the same token. This is particularly useful when you want to extend or provide multiple implementations for a given dependency injection token.
 
-### Manipulating Request Object with HTTP_INTERCEPTOR
+**Manipulating Request Object with HTTP_INTERCEPTOR :-**
 
-While manipulating the request object in interceptors we can't directly manipulate the request object directly like `req.url = 'something'` for that we need to make another instance with `req.clone({manipulations})` and inside that we can do our manipulations.
+  While manipulating the request object in interceptors we can't directly manipulate the request object directly like `req.url = 'something'` for that we need to make another instance with `req.clone({manipulations})` and inside that we can do our manipulations.
 
-```
+  ```
 
-intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    console.log("HTTP INTERCEPTOR CALLED...")
-    let modified = request.clone({
-      headers:request.headers.append('custom-header','shiv'),
-    })
-    return next.handle(modified);
-}
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+      console.log("HTTP INTERCEPTOR CALLED...")
+      let modified = request.clone({
+        headers:request.headers.append('custom-header','shiv'),
+      })
+      return next.handle(modified);
+  }
 
-```
+  ```
 
 ### Model (Interface) in Angular
 
@@ -2529,7 +3135,7 @@ export interface userType{
 
 After initializing the interface we can use it anywhere in the application by just simply importing **import { userType } from './userType';** interface like this.
 
-### MatInput type number maxlength functonality
+### MatInput type number maxlength functionality
 
 We can set `maxLength` property with the `mat-input` `type=text` but it dont work with the `type="number"` soo we need to do it with manually.
 
@@ -2557,10 +3163,16 @@ export class Urls{
 
   public static base_url = 'http://192.198.0.5/api/'
 }
+
+// Consumption
+export class todoService{
+  baseUrl : string = Urls.base_url;
+  constructor(){}
+
+}
 ```
 
-
-So it will check the value length and slice the value if value will be greater than maxLength.
+`Note :- If we dont want initialize the class then mark the properties & methods as static so we dont need to initiailze it with urlClass = new Urls(); and then using urlClass.base_url.`
 
 ### File Reader in Angular
 
@@ -2596,24 +3208,26 @@ readFile(file:any){
 
 ### Angular LifeCycle Hooks
 
-There is a lifecycle of every service, component, directive and all in the angular app while compilation and with the lifecycle hooks we can manage the inputs and outputs and we can inhance the performance of the app.
+There is a lifecycle of every component in the angular app while compilation and with the lifecycle hooks we can manage the inputs and outputs and we can inhance the performance of the app.
 
 **Total LifeCycle Hooks in angular :-**
 
+- `constructor () {} -` 
+  
+    When component loaded very first thing gets called is contructor where we can do required operations.
+
 - `ngOnChanges() :-`
 
-  This lifecycle hooks called when any `@input() property:any ` changes.
+  This lifecycle hooks called after constructor once & it gets called when any `@input() property:any ` changes.
 
-  ex : 
-
-  If we want to reset the form only on the sucess of insertion in db then by default we can pass false and after insertion in the db we can turn that value into true and whenever that input property will be changed the `ngOnChanges(){this.loginForm.reset()}` and we can reset the form.
- 
+  ex : if we get id from parent through inut, so we need to call api for getting data for latest id, we can checkout changes for id & call the api in ngOnChanges. 
 
 - `ngOnInit() :-`
 
-  This lifecycle hook get called when its property and methods get initialized.
+  This lifecycle hook get called after the `ngOnChanges` for the initialization of component.
 
   ex : 
+
   If we want to call an api while loading the components then we can call it in `ngOnInit()` soo when the component gets initialize the api gets called.
 
 - `ngDoCheck() :-`
@@ -2656,7 +3270,7 @@ There is a lifecycle of every service, component, directive and all in the angul
   This lifecycle hook get called before component is getting removed from the view.
 
   ex : 
-  If we want to reset all the values of the component before destroying the component.
+  If we want to reset all the values of unsubscribe observables to prevent memory leak of the component before destroying the component.
 
 
 ### Send HTML data to child component
@@ -2671,7 +3285,9 @@ In angular we can send html data as well to the child component with the help of
 
 
 // Child Component
-<ng-content></<ng-content>
+<ng-content>
+// This is the HTML written in Parent Component get rendered.
+</<ng-content>
 ```
 
 ### Acessing HTML Element in .ts file
@@ -2698,11 +3314,11 @@ We cant use the `@viewChild()` for the `ng-content` bcoz the html does not exist
 
 Observable is an interface to handle variety of asynchronus oprations.
 
-Observable is a function that converts the ordinary stream of data into an observable stream of data. 
+Observable is a feature that converts the ordinary stream of data into an observable stream of data. 
 
 Observables are too much sensitive which can cause the memory leakage problem bcoz its not component dependant it keeps running even if the component is destroyed, soo to handle this things if we are using observables by our own we should unsuscribe then on destroy.
 
-**Angular Inbuilt observables like params, http and all gets automatically unsuscribed on the component destrouyed.**
+**Angular Inbuilt observables like params, http and all gets automatically unsuscribed on the component destroyed.**
 
 **Custom Observables :-**
 
@@ -2720,9 +3336,9 @@ let customInterval = Observable.create(observer=>{
 })
 ```
 
-**Suscribe :-**
+**Subscribe :-**
 
-  We can register to the observable by register method and when you register to the observable you will get every new value whenever the next method is called.
+  We can subscribe to the observable to get new values whenever the next method is called.
 
   ```
   ngOnit(){
@@ -2806,14 +3422,14 @@ let customInterval = Observable.create(observer=>{
 
   ```
   // property
-  custom_Observable:any;
+  subscription:Subscription;
 
   //  assinging subscription to variable
-  this.custom_Observable = this.interval.subscribe(res=>console.log(res),err=>console.log(err),()=>console.log("Counter Completed"))
+  this.subscription = this.interval.subscribe(res=>console.log(res),err=>console.log(err),()=>console.log("Counter Completed"))
 
   // unsuscribing
   ngOnDestroy() {
-      this.custom_Observable.unsubscribe()
+      this.subscription.unsubscribe()
   }
   ```
 
@@ -2827,7 +3443,7 @@ This above mentioned above directive's are the key core concepts of angular and 
 
   ng-template is the directive in angular which doesn't render the template in the dom until and unless we direct it to render it.
 
-  We can control rendering of the template with the ng-template and we can keep the content for the multiple purpose only on perticular scenarios but not to render elsetimes.
+  We can control rendering of the template with the ng-template and we can keep the content for the multiple purpose only on perticular scenarios but not to render else times.
 
   ```
   <ng-container *ngIf="data else loading">
@@ -2873,6 +3489,7 @@ This above mentioned above directive's are the key core concepts of angular and 
                 <p *ngIf="value.id">{{value.id}}</p>
     </ng-container>
   ```
+  
   <img src="./ng-container-usecase.png">
 
 - **ng-content (Content Projection) :-**
@@ -3083,7 +3700,7 @@ We have profiling in which we create various enviornment and its files with its 
 
 **Manual Testing** :- Basically manual testing is the thing where a person tests your angular application step by step like he checks the login,signup,webflow,clicks,and all.
 
-**Automation Testing** :- If your application is too big manual tesrting can take upto 3-4 days rather than that we have automation testing in which we write some code which tests our full application in just few minutes.
+**Automation Testing** :- If your application is too big manual testing can take upto 3-4 days rather than that we have automation testing in which we write some code which tests our full application in just few minutes.
 
 **Types of automation testing** :-
 
@@ -3097,7 +3714,7 @@ We have profiling in which we create various enviornment and its files with its 
 
 1. Protactor - Run Test case on browser.
 
-2. Jasmine - Testing Enviornment, Run spec file for the latest test case.
+2. Jasmine - Framework for writing the testcases.
 
 3. Karma - Run test case in Multiple browser. (Karma.config.json)
 

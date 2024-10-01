@@ -136,64 +136,132 @@
 //     return answer;
 //   }
 
+// Constructor Functions
+// function counter() {
+//   let count = 0;
+//   console.log("Please call increse or decrease to manipulate counter ", count);
+//   function increment() {
+//     count++;
+//     console.log("Count Increased to =>", count);
+//   }
 
+//   function decrement() {
+//     count--;
+//     console.log("Count decreased to =>", count);
+//   }
+//   this.increment = increment;
+//   this.decrement = decrement;
+// }
+// let createCounter = new counter();
+// createCounter.increment();
+// createCounter.increment();
+// createCounter.increment();
 
+// Closures
+// function one(){
+// 	let a = 1;
+// 	// console.log(c)
+//   return 	function two(){
+// 		let b = 2;
+//     return 		function three(){
+// 			let c = 3;
+// 			console.log(a,b)
+// }
+// }
+// }
 
+// one()()();
 
+// Named function expression
+// var b = function xyz(){
+// 	console.log("b called");
+// 	counter++;
+// }
+// b() ; // b called
+// xyz(); // xyz is not defined.
 
+// Named function expression which can be called itself inside the function but cant be called with function name in the global scope as its used as value and assigned to b variable which got created in global space.
+// let counter = 0;
+// var b = function xyz(){
+// 	console.log("b called");
+// 	counter++;
+// 	if(counter<=3) xyz();
 
+// }
+// b()
 
+// First Class functions (Passing functions as arguements)
+//   function logger(childfunction){
+// 	childfunction();
+// }
 
+// logger(function (){
+// 	console.log("Child function called");
+// })
 
+// Named function expression which can be called itself inside the function but cant be called with function name in the global scope as its used as value and assigned to b variable which got created in global space.
+// let counter = 0;
+// var b = function xyz(){
+// 	console.log("b called");
+// 	counter++;
+// 	if(counter<=3) xyz();
 
+// }
+// b()
 
+// First Class functions (Passing functions as arguements)
+//   function logger(childfunction){
+// 	childfunction();
+// }
 
+// logger(function (){
+// 	console.log("Child function called");
+// })
 
+// First Class functions (W hich is already taking funciton as an arguement & Returning functions from functions)
+// function logger(childfunction){
+// 	childfunction();
+// 	return function (){
+// 		console.warn("Returned function is called");
+// 	}
+// }
 
+// const returnedFunction = logger(function (){
+// 	console.log("Child function called");
+// });
 
+// returnedFunction();
 
+// Immediately Invoked functions
+// function one(){
+// 	return (function (){
+// 		const privateMessage = 'IIFE Called';
+// 		console.log(privateMessage);
+// 	})();
+// }
+// one();
 
+// CallBacks (When we pass first class functions into another function as an arguement)
 
+// function x(y){
+// 	console.log('x called');
+// 	y();
+// }
 
-
-
-
-
-
+// x(function (){
+// 	console.log('Y called')
+// })
 
 // Programmes Asked For the Interviews
 
-// Programme For Given a string s1 and a string s2, write a snippet to say whether s2 is a rotation of s1?
+// 1. Programme For Given a string s1 and a string s2, write a snippet to say whether s2 is a rotation of s1?
 // (eg given s1 = ABCD and s2 = CDAB, return true, given s1 = ABCD, and s2 = ACBD , return false)
+// Brutforce solution : create all possible combinations of s1 by rotating every element by 1 step ahead, if at end then shift to start & check if our s2 contains in results.
+// Best Solution : Concatinate s1 with itself & check if s2 is substring of it (It gives all possible rotations in concatination).
 
-// function shoutWordPairs(arr) {
-//   for (leti = 0; i < arr.length; i++) {
-//     for (letj0; j < arr.length; j++) {
-//       console.log(arr[i] + "" + arr[j]);
-//     }
-//   }
-// }
-// shoutWordPairs(["canoodle", "wabbit", "alcoholic"]);
-
-// O(n ^ 2);
-
-// function shoutWordPairs(arr, arr2) {
-//   for (let i = 0; i < arr.length; i++) {
-//     for (let j = 0; j < arr2.length; j++) {
-//       console.log(arr[i] + "" + arr2[j]);
-//     }
-//   }
-// }
-// let a1 = ["canoodle", "wabbit", "alcoholic"];
-// let a2 = ["cucamonga", "seattle"];
-
-// shoutWordPairs(a1, a2);
-
-// O(n*m)
-
-
-
-// Programme for Create a for loop that iterates up to 100 while outputting "shiv" at multiples of 3, "kounsalye" at multiples of 5 and "shivkounsalye" at multiples of 3 and 5 without using if else.
+// 2. Programme for Create a for loop that iterates up to 100 while outputting "shiv" at multiples of 3, "kounsalye" at multiples of 5 and "shivkounsalye" at multiples of 3 and 5 without using if else.
+// Brutforce solution : Check if the i is divisible by 3 then shiv, if divisible by 5 then kounsalye & if with both then shivkounsalye.
+// Best Solution : Maintain result string & if divisible by 3 then append shiv & if divisible by 5 then append kounsalye & just print the result with index after boths checking.
 
 // for(let i=0; i<100 ; i++){
 //   if(i!=0){
@@ -216,10 +284,8 @@
 //   }
 // }
 
-
-
-// Programmer for Given a string, reverse each word in the sentence. For example Welcome to this Javascript Guide! should be become emocleW ot siht tpircsavaJ !ediuG.
-
+// 3. Programme for Given a string, reverse each word in the sentence. For example Welcome to this Javascript Guide! should be become emocleW ot siht tpircsavaJ !ediuG.
+// Brutforce approach : Split the string with spaces, reverse each word in the sentence & join them with spaces.
 
 // function reverifyString(string) {
 //   let strArr = string.split(" ");
@@ -236,20 +302,10 @@
 //     "--------------------"
 //   );
 // }
-
 // reverifyString("Welcome to this Javascript Guide!");
 
-
-
-// Programe for Scope
-// var a=10;
-
-// let a=20;
-// console.log(a)
-
-
-
-// Programme for Start Patterns
+// 4. Programme for Start Patterns
+// Approach : Identify how stars & spaces are getting increased & decreased & find the relation in between iteration index, total how they can be used for generating required space & starts per row.
 
 // *
 // * * *
@@ -273,12 +329,13 @@
 //         console.log(patternLine)
 //     }
 //     lastIndex-=1;
-    
 // }
 
+// 5. Programme For Given an array A of positive integers. Your task is to find the leaders in the array. An element of an array is leader if it is greater than or equal to all the elements to its right side. The rightmost element is always a leader.
 
-
-// Programme For Given an array A of positive integers. Your task is to find the leaders in the array. An element of an array is leader if it is greater than or equal to all the elements to its right side. The rightmost element is always a leader.
+// Brutforce Approach : Iterate through the array & again loop through further array for checking if its greater than all right elements then print it as leader or collect in results.
+// Optimal solution : Iterate through array, slice the array from current index to array length, reverse sort array & check if current element is greater than reverse sorter array[0] & print it.
+// Best Solution : Iterate through array from the last, first element would be leader by default & check if current element is greater than last leader if yes then print it.
 
 // let arr = [16,19, 17, 18, 4, 3, 5, 2]
 // for(let i of arr){
@@ -299,10 +356,9 @@
 // })
 // console.log("Max =>",max)
 
-
-
-
-// Programme for resolve string expression and get results of its calculations
+// 6. Programme for resolve string expression and get results of its calculations
+// Brutforce Approach : Use Eval Function from javascript for evaluation of string expression.
+// Optimal Solution : Big algorithm need to understand deeply & need to resolve.
 
 // let input = "( ( 5 * 2 ) / ( 2 + 3 ) * ( 234 + 1 ) )"
 // function parseInput(input){
@@ -311,9 +367,9 @@
 // }
 // parseInput(input)
 
-
-
-// Programme Extraction Of Sec string and notation string from secNotation string 45AM
+// 7. Programme Extraction Of Sec string and notation string from secNotation string 45AM
+// Brutforce Solution : Use Regular expression for deriving a-z chars & join & derive 0-9 numbers & join it.
+// Best Solution : Use single regular expression for deriving a-z & 0-9 numbers from the string & assign it to object & return or print the object.
 
 // let str = '45PM'
 // let sec = str.match(/[^a-z]/g).join('')
@@ -321,10 +377,11 @@
 // console.log("Sec =>",sec)
 // console.log("Notation =>",notation)
 
+// 8. Programme For Conversion of 12Hrs Time into 24Hrs like (07:05:45PM) to (19:05:45)
+// Brutforce Solution : Extract hours, minutes, seconds & Notation from string & if notation is pm then add 12 to it & if 12 make it 00 & make the result string out of modified hours with existing minutes & seconds without notation.
+// Best Solution : Pass the time in date object with initial date which is 01-01-1970 like `1970-01-01T${time12h}` & get the seconds, minutes & hours from it as it handles the 24 hours conversion in itself & handle the prefix 0's if single digit with padStart like timeString.padStart(2, '0') & prepare & print the result.
 
-
-// Programme For Conversion of 12Hrs Time into 24Hrs like (07:05:45PM) to (19:05:45)
-
+//
 // function timeConversion(s) {
 //     // 07:05:45PM
 //     // Extraction Of Values
@@ -336,7 +393,7 @@
 //     console.log("Min : ",min)
 //     console.log("Sec : ",sec)
 //     console.log("Notation : ",notation)
-    
+
 //     // Logic
 //     let timeIn24hrs = ''
 //     if(notation=='PM'){
@@ -354,21 +411,17 @@
 // }
 // timeConversion('12:05:45AM')
 
+// 9. Programme for checking only does contains duplicates and return true or false.
+// Brutforce Solution : Iterate over array & with another iterattion check with all elements if matches the contains duplicates.
+// Best Solution : Create Set with array & if set's length is not equals to array length means it contianed duplicates & set removed it.
 
-// Programme for checking only does contains duplicates and return true or false.
-// /**
-//  * @param {number[]} nums
-//  * @return {boolean}
-//  */
 // var containsDuplicate = function(nums) {
 //     if(nums && nums.length>0){
 //         let set = new Set(nums)
 //         return set.size!==nums.length;
 //     }
 // };
-
 // containsDuplicate([1,1,2,2,3,4,5,7,8])
-
 
 // Programme for maximum subarray means to find the maximum sum from all possible sub array and return it.
 // 1. BruteForce Approach O(n^3)
@@ -421,127 +474,6 @@
 // }
 // console.log(maxSubArray(arr))
 
-// Constructor Functions
-// function counter() {
-//   let count = 0;
-//   console.log("Please call increse or decrease to manipulate counter ", count);
-//   function increment() {
-//     count++;
-//     console.log("Count Increased to =>", count);
-//   }
-
-//   function decrement() {
-//     count--;
-//     console.log("Count decreased to =>", count);
-//   }
-//   this.increment = increment;
-//   this.decrement = decrement;
-// }
-// let createCounter = new counter();
-// createCounter.increment();
-// createCounter.increment();
-// createCounter.increment();
-
-// Closures
-// function one(){
-// 	let a = 1;
-// 	// console.log(c)
-//   return 	function two(){
-// 		let b = 2;
-//     return 		function three(){
-// 			let c = 3;
-// 			console.log(a,b)
-// }
-// }
-// }
-
-// one()()();
-
-// Named function expression
-// var b = function xyz(){
-// 	console.log("b called");
-// 	counter++;
-// }
-// b() ; // b called
-// xyz(); // xyz is not defined.
-
-// Named function expression which can be called itself inside the function but cant be called with function name in the global scope as its used as value and assigned to b variable which got created in global space.
-// let counter = 0;
-// var b = function xyz(){
-// 	console.log("b called");
-// 	counter++;
-// 	if(counter<=3) xyz();
-	
-
-// }
-// b()
-
-
-// First Class functions (Passing functions as arguements)
-//   function logger(childfunction){
-// 	childfunction();
-// }
-
-// logger(function (){
-// 	console.log("Child function called");
-// })
-
-// Named function expression which can be called itself inside the function but cant be called with function name in the global scope as its used as value and assigned to b variable which got created in global space.
-// let counter = 0;
-// var b = function xyz(){
-// 	console.log("b called");
-// 	counter++;
-// 	if(counter<=3) xyz();
-	
-
-// }
-// b()
-
-
-// First Class functions (Passing functions as arguements)
-//   function logger(childfunction){
-// 	childfunction();
-// }
-
-// logger(function (){
-// 	console.log("Child function called");
-// })
-
-// First Class functions (W hich is already taking funciton as an arguement & Returning functions from functions)
-// function logger(childfunction){
-// 	childfunction();
-// 	return function (){
-// 		console.warn("Returned function is called");
-// 	}
-// }
-
-// const returnedFunction = logger(function (){
-// 	console.log("Child function called");
-// });
-
-// returnedFunction();
-
-// Immediately Invoked functions
-// function one(){
-// 	return (function (){
-// 		const privateMessage = 'IIFE Called';
-// 		console.log(privateMessage);
-// 	})();
-// }
-// one();
-
-// CallBacks (When we pass first class functions into another function as an arguement)
-
-// function x(y){
-// 	console.log('x called');
-// 	y();
-// }
-
-// x(function (){
-// 	console.log('Y called')
-// })
-
-
 // CypherText Encryption
 // function replaceCharacterByIndex(string, index, replacement) {
 //     return (
@@ -572,30 +504,8 @@
 //     return result
 // }
 
-
 // caesarRedux('we accept the ieeextreme challenge',19);
 // caesarRedux('qbspbz',19);
-
-// Decimal Places Restrictor
-// function decimalRestrictor(ctrlValue,beforeDecimal,afterDecimal) {
-//       let value;
-//     let isNum = typeof ctrlValue == 'number';
-//     console.log("IsNum :", isNum);
-//       isNum ? value = ctrlValue.toString() : value = ctrlValue.toString();
-//       if (!value.includes('.')) {
-//         value = value.slice(0, beforeDecimal);
-//           ctrlValue = value;
-//           console.log("Non Decimal Restricted value:",value)
-//         return;
-//       }
-//       let [before, after ] = value.split('.');
-//       before = before.length != beforeDecimal ? before.slice(0, beforeDecimal) : before;
-//       after = after.length != afterDecimal ? after.slice(0, afterDecimal) : after;
-//     value = [before, after].join('.');
-//     console.log("Decimal Restricted value:", value);
-// }
-
-// decimalRestrictor("123456789", 8, 6);
 
 // Cypther Text Encryption
 // function replaceCharacter(string, index, replacement) {
@@ -624,3 +534,117 @@
 // }
 
 // cypherEncryptor(25, 'a');
+
+// 10. Decimal Places Restrictor takes value, beforeDecimal & After deciamls returns the value based on beforeDecimal & afterDecimal resrictions.
+// Brutforce Solution : Convert the number into string, Split the number for getting beforeDecimal & afterDecimal values & truncate the values to before, after provided to function & join it, Print or return.
+// Best Solution : Split the string with integerpart & decimalpart, truncate the integer part first & append to result & if decimal present then truncate decimal append to result and return or print the result.
+
+// function decimalRestrictor(ctrlValue,beforeDecimal,afterDecimal) {
+//       let value;
+//     let isNum = typeof ctrlValue == 'number';
+//     console.log("IsNum :", isNum);
+//       isNum ? value = ctrlValue.toString() : value = ctrlValue.toString();
+//       if (!value.includes('.')) {
+//         value = value.slice(0, beforeDecimal);
+//           ctrlValue = value;
+//           console.log("Non Decimal Restricted value:",value)
+//         return;
+//       }
+//       let [before, after ] = value.split('.');
+//       before = before.length != beforeDecimal ? before.slice(0, beforeDecimal) : before;
+//       after = after.length != afterDecimal ? after.slice(0, afterDecimal) : after;
+//     value = [before, after].join('.');
+//     console.log("Decimal Restricted value:", value);
+// }
+
+// decimalRestrictor("123456789", 8, 6);
+
+// 11. Prepare function for getting input value as float or number & return the result by converting the number to result where it is not greater than maxValue.
+// Brutforce Approach : parsefloat the value & maxvalue & if value is less than maxValue then return the value & if value is greater than maxValue then get value after decimal then trim the value until the value is equal or less then maxvalue & return or print it.
+// Best Solution : // Remaining
+
+// function checkMaxAndTrim3(maxValue,value) {
+//     let charArray = value.split('');
+//     let currentChar = charArray.pop();
+//     let pervValue = charArray.join('');
+//     if (parseFloat(pervValue + currentChar) > parseFloat(maxValue))return pervValue;
+//     return prevValue + currentChar;
+// }
+// console.log(checkMaxAndTrim3('10','11'));// Should return 1
+// console.log(checkMaxAndTrim3('1.02','1.03')); // Should return 1.0
+// console.log(checkMaxAndTrim3('1.02', '1.021')); // Should return 1.02
+// console.log(checkMaxAndTrim3('10','10.5')); // Should return 10
+
+// 12. You want to build a software camera system that can handle different subject distances and light levels. You have several hardware cameras, each designed to work well only within specific ranges of distances and light levels. Your goal is to check if the set of hardware cameras you have is sufficient to cover the desired ranges of subject distances and light levels for the software camera.
+// Brutforce Solution : Extract the distance & light from the softwareCamera config & Filter hardware camera's & by distance falls within range of hardcamera's distance range & light falls within the hardcamera's light range & return true if we found any hardwarecamera phisible for provided software camera config.
+
+// function isSoftwareCameraFeasible(softwareConfig, hardwareCameras) {
+//   // Check for valid Input
+//   if (
+//     !softwareConfig ||
+//     !softwareConfig.distance ||
+//     !softwareConfig.light ||
+//     !Array.isArray(hardwareCameras) ||
+//     hardwareCameras.length === 0
+//   ) {
+//     return false;
+//   }
+
+//   // Extract distance & light of softwareConfig
+//   const { distance, light } = softwareConfig;
+
+//   // Check if any hardware camera matches config
+//   let selected = hardwareCameras.some((item) => {
+//       const minDistance = parseFloat(item.distanceRange.min);
+//       const maxDistance = parseFloat(item.distanceRange.max);
+//       const minLight = parseFloat(item.lightRange.min);
+//       const maxLight = parseFloat(item.lightRange.max);
+
+//       const isDistanceMatch =
+//         distance >= minDistance && distance <= maxDistance;
+//       const isLightMatch = light >= minLight && light <= maxLight;
+
+//       return isDistanceMatch && isLightMatch;
+//   });
+
+//   return selected ? true : false;
+// }
+
+// const config = { distance: '05', light: 95 };
+
+// const list = [
+//   {
+//     distanceRange: {
+//       min: '1',
+//       max: '10',
+//     },
+//     lightRange: {
+//       min: '10',
+//       max: '100',
+//     },
+//   },
+// ];
+
+// const result = isSoftwareCameraFeasible(config, list);
+// console.log(result);
+
+
+const sentence = 'my name is manish';
+function calcWeight(inputStr) {
+    let results = new Map();
+    const trimmed = inputStr.trim();
+    console.log(trimmed);
+    trimmed.split('').forEach((value, index) => {
+        if (results.has(value)) {
+            let existingWeight = results.get(value);
+            results.set(value,++existingWeight);
+        }
+        else{
+            results.set(value, 1);
+        }
+    })
+    return results;
+}
+
+console.log(calcWeight(sentence))
+

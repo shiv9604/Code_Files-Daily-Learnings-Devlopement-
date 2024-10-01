@@ -548,3 +548,48 @@ We can use progress spinner as a loader when loading the data and the some oprat
 - First we need to create a common component for the loader in which we need to provide the overlay and z-index soo user cant oprate the things on the ui.
 
 
+### Material CDK
+
+CDK stands for Component Developement Kit in which we have around 15 modules, which helps us to develop complex tasks.
+
+For installation of angular cdk we can install with `npm install @angular/cdk`.
+
+- **Drag & Drop Module :-**
+
+For using cdkDragDrop, we need to import `cdkDragDropModule` into the app module & we can use the following directives of events from the module.
+
+- `cdkDrag :-` 
+  
+  It makes the element draggable in the dom and it can be dragged anywhere in the whole page.
+
+- `cdkDropList :-`
+
+  this directive groups all the elements into an list, Now it will act as an list rather than free draggable elements.
+
+- **Transfer data between 2 lists :-**  
+
+- `cdkDropListGroup :-`
+
+  If we want to shift the elements from one list to another list then we need to inform angular those are elements of single groupm, that is achieved by using `cdkDropListGroup.
+
+- `cdkDropListData :-`
+
+  Until now we have informed angular that 2 lists are combined, but drop event have no idea of combined data source, so with this we provide appropriate data inside the `cdkDropListData` for individual list.
+
+- **Preview While dragging :-**
+ 
+- `*cdkDragPreview :-`
+
+  If we want to show preview for the element while dragging, we mark the element with `*cdkDragPreview` & that preview will be visible when that element is dragged.
+
+- **Animations :-**
+
+For animations, cdk adds classes to the elements `.cdk-drop-list-dragging .cdk-drag` for the draggable element where as For Drop animation `cdk-drag-animating` class appends for drop animatons.
+
+- **Placeholder :-**
+
+Place holder differs from preview, preview visible while dragging with the dragging element but placeholder is visible below the dragging element in list as background.
+
+For adding placeholder we use `*cdkDragPlaceholder` directive to the element, now that template will be vislible as backgrond of draggable element in the list.
+
+
