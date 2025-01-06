@@ -150,18 +150,18 @@ myLinkedList.push(2);
 myLinkedList.push(4);
 
 // Testing for Insert
-console.log("Value at 3 1index : ",myLinkedList.get(3))
-console.log("Inserting Value at 3rd index : ",myLinkedList.insert(3,3))
-console.log("Value at 3th index : ",myLinkedList.get(3));
-console.log("Value at 4th index : ",myLinkedList.get(4))
+console.log("\nValue at 3 1index : ", myLinkedList.get(3))
+console.log("\nInserting Value at 3rd index : ",myLinkedList.insert(3,3))
+console.log("\nValue at 3th index : ",myLinkedList.get(3));
+console.log("\nValue at 4th index : ",myLinkedList.get(4))
 
 // Testing for remove
-console.log("Removing value at second 3 rd index which is three =>",myLinkedList.remove(3));
-console.log("Value at 3rd index Should be 4: ",myLinkedList.get(3));
+console.log("\nRemoving value at second 3 rd index which is three =>",myLinkedList.remove(3));
+console.log("\nValue at 3rd index Should be 4: ",myLinkedList.get(3));
 
 // Testing for reverse
-console.log("LinkedList Before Reverse : ",myLinkedList);
-console.log("LinkedList After Reverse : ",myLinkedList.reverse());
+console.log("\nLinkedList Before Reverse : ",myLinkedList);
+console.log("\nLinkedList After Reverse : ",myLinkedList.reverse());
 
 
 

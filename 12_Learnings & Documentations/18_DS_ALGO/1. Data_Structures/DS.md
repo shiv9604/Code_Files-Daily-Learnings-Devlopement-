@@ -18,7 +18,7 @@ Ex :
 
 ```
 function sumUpTo(n){
-    return (n* (n+1)) / 2;
+    return (n* (n+1)) / 2;  
 }
 ```
 
@@ -353,6 +353,133 @@ function logItems(a,b){
 
 **Most Imp :- By looking into BigO() of array methods its best where we need to add the items in the end but not in the first soo we can take decisions on the basis of BigO notation for choosing the data structures.**
 
+**Time & Space Complexities of basic data structures & Operation :-**
+
+- **1. Arrays :-**
+
+	JavaScript arrays are dynamic and can hold elements of different types. They are implemented as objects, so their complexity can sometimes vary depending on the operation.
+
+	- `Access by index (arr[i]) :-` 
+		- Time -  `O(1)`	
+		- Space -  `O(n)`
+
+	- `Appending (arr.push()) :-`
+		- Time - `O(1)` amortized
+		- Space - `O(n)`
+
+	- `Prepending (arr.unshift()) :-`
+		- Time - `O(n)`
+		- Space - `O(n)`
+
+	- `Inserting at index (arr.splice(i, 0, el)) :-`
+		- Time - `O(n)`
+		- Space - `O(n)`
+
+	- `Deletion by index (arr.splice(i, 1)) :-`
+		- Time - `O(n)`
+		- Space - `O(n)`
+
+	- `Deletion from the end (arr.pop()) :-`
+		- Time - `O(1)`
+		- Space - `O(n)`
+
+	- `Iteration (for or forEach) :-`
+		- Time - `O(n)`
+		- Space - `O(n)`
+
+	- `Searching (arr.indexOf(), arr.includes()) :-`
+		- Time - `O(n)`
+		- Space - `O(n)`
+
+
+- **2. Objects :-**
+
+	JavaScript objects are essentially hash maps that store key-value pairs.
+
+	- `Insertion (obj[key] = value) :-`
+		- Time - `O(1)`
+		- Space - `O(n)`
+
+	- `Access by key (obj[key]) :-`
+		- Time - `O(1)`
+		- Space - `O(n)`
+
+	- `Deletion (delete obj[key]) :-`
+		- Time - `O(1)`
+		- Space - `O(n)`
+
+	- `Iteration (for...in) :-`
+		- Time - `O(n)`
+		- Space - `O(n)`
+
+
+- **3. Maps :-**
+
+	Map is a specialized object for key-value pairs where keys can be any type (not just strings, like in regular objects).
+
+	- `Insertion (map.set()) :-`
+		- Time - `O(1)`
+		- Space - `O(n)`
+
+	- `Access (map.get()) :-`
+		- Time - `O(1)`
+		- Space - `O(n)`
+
+	- `Deletion (map.delete()) :-`
+		- Time - `O(1)`
+		- Space - `O(n)`
+
+	- `Iteration (map.forEach(), for...of) :-`
+		- Time - `O(n)`
+		- Space - `O(n)`
+
+	- `Search (map.has()) :-`
+		- Time - `O(1)`
+		- Space - `O(n)`
+
+
+- **4. Sets :-**
+
+	Set is a collection of unique values (no duplicates are allowed).
+
+	- `Insertion (set.add()) :-`
+		- Time - `O(1)`
+		- Space - `O(n)`
+
+	- `Access (set.has()) :-`
+		- Time - `O(1)`
+		- Space - `O(n)`
+
+	- `Deletion (set.delete()) :-`
+		- Time - `O(1)`
+		- Space - `O(n)`
+
+	- `Iteration (set.forEach(), for...of) :-`
+		- Time - `O(n)`
+		- Space - `O(n)`
+
+
+- **5. Strings :-**
+
+	Strings in JavaScript are immutable, meaning any operation that modifies a string creates a new string.
+
+	- `Access by index (str[i]) :-`
+		- Time - `O(1)`
+		- Space - `O(n)`
+
+	- `Concatenation (str1 + str2) :-`
+		- Time - `O(n)`
+		- Space - `O(n)`
+
+	- `Substring extraction (slice, substring) :-`
+		- Time - `O(n)`
+		- Space - `O(n)`
+
+	- `Iteration (for...of, forEach) :-`
+		- Time - `O(n)`
+		- Space - `O(n)`
+
+	- **Note**: Concatenating two strings is `O(n)` because it creates a new string.
 
 ### Importance of classes in Data Structures
 

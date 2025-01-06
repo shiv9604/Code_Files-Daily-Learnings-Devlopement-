@@ -1,0 +1,13 @@
+.userForm{
+    border: 1px solid red;
+    width: 30%;
+}
+.actions{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+
+    &>*{
+        border: 1px solid blue;
+    }
+}

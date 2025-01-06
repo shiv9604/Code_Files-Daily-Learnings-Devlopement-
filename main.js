@@ -371,9 +371,16 @@
 // Brutforce Solution : Use Regular expression for deriving a-z chars & join & derive 0-9 numbers & join it.
 // Best Solution : Use single regular expression for deriving a-z & 0-9 numbers from the string & assign it to object & return or print the object.
 
+// Brutforce Solution
 // let str = '45PM'
 // let sec = str.match(/[^a-z]/g).join('')
 // let notation = str.match(/[^0-9]/g).join('')
+// console.log("Sec =>",sec)
+// console.log("Notation =>",notation)
+
+// Best Solution
+// let str = '45PM'
+// let sec = str.match(/[^a-z0-9]/g).join('')
 // console.log("Sec =>",sec)
 // console.log("Notation =>",notation)
 
@@ -381,7 +388,7 @@
 // Brutforce Solution : Extract hours, minutes, seconds & Notation from string & if notation is pm then add 12 to it & if 12 make it 00 & make the result string out of modified hours with existing minutes & seconds without notation.
 // Best Solution : Pass the time in date object with initial date which is 01-01-1970 like `1970-01-01T${time12h}` & get the seconds, minutes & hours from it as it handles the 24 hours conversion in itself & handle the prefix 0's if single digit with padStart like timeString.padStart(2, '0') & prepare & print the result.
 
-//
+// Brutforce Solution
 // function timeConversion(s) {
 //     // 07:05:45PM
 //     // Extraction Of Values
@@ -410,6 +417,26 @@
 //     console.log("Time in 24HRS FORMAT==>",timeIn24hrs)
 // }
 // timeConversion('12:05:45AM')
+
+// Best Solution
+// function convertTo24Hrs(time12h) {
+//     // Create a Date object by passing the time string to a fixed date (1970-01-01)
+//     const date = new Date(`1970-01-01T${time12h}`);
+  
+//     // Extract hours, minutes, and seconds using the Date object's methods
+//     const hours = date.getHours().toString().padStart(2, '0');
+//     const minutes = date.getMinutes().toString().padStart(2, '0');
+//     const seconds = date.getSeconds().toString().padStart(2, '0');
+  
+//     // Prepare the final time string in 24-hour format
+//     return `${hours}:${minutes}:${seconds}`;
+//   }
+  
+//   const time12h = "07:05:45PM";
+//   const time24h = convertTo24Hrs(time12h);
+  
+//   console.log(time24h);
+
 
 // 9. Programme for checking only does contains duplicates and return true or false.
 // Brutforce Solution : Iterate over array & with another iterattion check with all elements if matches the contains duplicates.
@@ -629,22 +656,258 @@
 // console.log(result);
 
 
-const sentence = 'my name is manish';
-function calcWeight(inputStr) {
-    let results = new Map();
-    const trimmed = inputStr.trim();
-    console.log(trimmed);
-    trimmed.split('').forEach((value, index) => {
-        if (results.has(value)) {
-            let existingWeight = results.get(value);
-            results.set(value,++existingWeight);
-        }
-        else{
-            results.set(value, 1);
-        }
-    })
-    return results;
+// const sentence = 'my name is manish';
+// function calcWeight(inputStr) {
+//     let results = new Map();
+//     const trimmed = inputStr.trim();
+//     console.log(trimmed);
+//     trimmed.split('').forEach((value, index) => {
+//         if (results.has(value)) {
+//             let existingWeight = results.get(value);
+//             results.set(value,++existingWeight);
+//         }
+//         else{
+//             results.set(value, 1);
+//         }
+//     })
+//     return results;
+// }
+
+// console.log(calcWeight(sentence))
+
+
+// 13. Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+// An input string is valid if:
+// Open brackets must be closed by the same type of brackets.
+// Open brackets must be closed in the correct order.
+// Every close bracket has a corresponding open bracket of the same type.
+
+// Example 1:
+// Input: s = "()"
+// () => true
+// ()( => false
+// ()()() => true
+
+// Solution
+// 1. If only one character it should be false.
+// 2. If 2 charecters then it should directly compare first element with exps first element.
+
+// function validateOpeningClosing(inputStr){
+//     let cur = '';
+//     let next = '';
+//     let prev = '';
+//     const exps = {
+//         '(' : ')',
+//         '{' : '}',
+//         '[' : ']'
+//     };
+//     // cur = inputStr[i];
+//     // next = inputStr[i+1];
+//     // prev = inputStr[i-1];
+
+    
+//     if (!inputStr.length > 2) {
+//         return exps[inputStr[0]] == inputStr[1];
+//     }
+//     // for(let i =0; i<inputStr.length;i++){
+        
+//     //     const prevValue = exps[prev];
+//     //     const curValue = exps[cur];
+        
+//     //     if(next && next != curValue || prev && cur != prevValue) return false;
+//     // }
+//     // return true;
+// }
+
+// const result = validateOpeningClosing('{}{}');
+// console.log(result);
+
+// Binary search For ascending
+// function findIndexOfTarget(target, array){
+//     let start = 0;
+//     let end = array.length - 1;
+
+// while (start <= end) {
+//     let middle = Math.floor((start + end) / 2) ;
+//     // console.log(middle);
+//     if (target === array[middle]) return middle;
+    
+//     if (target > array[middle]) {
+//         start = middle + 1;  
+//     } 
+//     else {
+//         end = middle - 1;
+//     }
+// }
+// return -1;
+// }
+// const arr = [1, 2, 3, 4, 5];
+// const target = 4;
+// console.log(findIndexOfTarget(target, arr))
+
+// Binary search For descending
+// function findIndexOfTarget(target, array){
+//     let start = 0;
+//     let end = array.length - 1;
+    
+//     while (start <= end) {
+//         let middle = Math.floor((start + end) / 2) ;
+//         // console.log(middle);
+//         if (target === array[middle]) return middle;
+        
+//         if (target > array[middle]) {
+//             end = middle - 1;  
+//         } 
+//         else {
+//             start = middle + 1;
+//         }
+//     }
+//     return -1;
+// }
+// const arr = [5,4,3,2,1];
+// const target = 5;
+// console.log(findIndexOfTarget(target,arr))
+
+// Binary search for ascending rotated sorted array.
+// function findIndexOfTarget(target, array){
+//     let start = 0;
+//     let end = array.length - 1;
+
+// while (start <= end) {
+//     let middle = Math.floor((start + end) / 2) ;
+//     // console.log(middle);
+//     if (target === array[middle]) return middle;
+    
+//     // If left side is sorted.
+//     if (array[start] <= array[middle]) {
+        
+
+//         if (target >= array[start] && target < array[middle]) { 
+//             end = middle - 1;
+//         }
+//         else {
+//             start = middle + 1;
+//         }
+        
+//     } 
+//     // If right side is sorted
+//     else {
+//         if (target > array[mid] && target <= array[end]) { 
+//             start = mid + 1;
+//         }
+//         else {
+//             end = mid - 1;
+//         }
+//     }
+// }
+// return -1;
+// }
+// const arr = [4, 5, 6, 7, 0, 1, 2];
+// const target = 0;
+// console.log(findIndexOfTarget(target, arr))
+
+// // Binary search for descending rotated sorted array
+// function findIndexOfTarget(target, array){
+//     let start = 0;
+//     let end = array.length - 1;
+
+// while (start <= end) {
+//     let middle = Math.floor((start + end) / 2) ;
+//     // console.log(middle);
+//     if (target === array[middle]) return middle;
+    
+//     // If left side is sorted.
+//     if (array[middle] <= array[start]) {
+        
+
+//         if (target <= array[start] && target > array[middle]) { 
+//             end = middle - 1;
+//         }
+//         else {
+//             start = middle + 1;
+//         }
+        
+//     } 
+//     // If right side is sorted
+//     else {
+//         if (target < array[middle] && target >= array[end]) { 
+//             start = middle + 1;
+//         }
+//         else {
+//             end = middle - 1;
+//         }
+//     }
+// }
+// return -1;
+// }
+// const arr = [5, 4, 3, 2, 1] ;
+// const target = 6;
+// console.log(findIndexOfTarget(target, arr))
+
+// // Find minimum value in rotated sorted array
+// function findBsMinRotatedSortedArray(nums) {
+//     let start = 0;
+//     let end = nums.length - 1;
+
+//     while (start < end) {
+//         let mid = Math.floor((start + end) / 2);
+
+//         // compare mid with start since it's a descending order
+//          if (nums[mid] > nums[end]) {
+//             // Minimum lies in the right half
+//             start = mid + 1;
+//         } else {
+//             // Minimum lies in the left half or at mid itself
+//             end = mid;
+//         }
+//     }
+
+//     return nums[start];  // Or nums[end], both are the same at this point
+// }
+
+// const arr = [5,4,1,2,3];
+// console.log(findBsMinRotatedSortedArray(arr)); // Output: 1
+
+// Sort the array of 0s, 1s and 2s
+
+function sortArray(arr) {
+    return arr.sort((a, b) => a - b);   
 }
 
-console.log(calcWeight(sentence))
+function sortArrayWithDNA(a) { 
+    let low = 0;
+    let mid = 0;
+    let high = arr.length - 1;
+    let temp;
 
+    while (mid <= high) {
+        switch (a[mid]) {
+            // If mid is 0 means it should be replaced with low.
+            case 0:
+                temp = a[low];
+                a[low] = a[mid];
+                a[mid] = temp;
+                low++;
+                mid++;
+                break;
+            
+            // If 1 at mid means its at right place.
+            case 1:
+                mid++;
+                break;
+            
+            case 2:
+                temp = a[mid];
+                a[mid] = a[high];
+                a[high] = temp;
+                high--;
+                break;
+        }
+    }
+    return a;
+}
+
+const arr = [0, 1, 2, 2, 0, 1];
+const result = sortArrayWithDNA(arr);
+console.log(result);

@@ -1,0 +1,26 @@
+<!-- 
+ 1. Open Button
+ 2. Dropdown opens with name & email with validators.
+ 3. Both are required & email should be validated.
+ 4. Reset (Clear values) & Submit buttons (Populate the beside the dropdown)
+-->
+
+<h1>demo apps</h1>
+
+<form [formGroup]="userData" class="userForm">
+  <button>User Profile</button>
+  <select name="dropdown">
+    <!-- <option value=""></option> -->
+    <option value="userEmail">
+      UserEmail
+      <input type="text" placeholder="Email" formControlName="email">
+    </option>
+    <option value="userName">
+      UserName
+      <input type="text" placeholder="Name" formControlName="name">
+    </option>
+    <option value="" class="actions">
+      <button ()></button>
+    </option>
+  </select>
+</form>
