@@ -276,7 +276,7 @@ And we can query that data with help of `Amazon Athena (Serverless)` & `Amazon R
 
     ie MYSQL is highly consistent & availble but dont have durability & paritaio tolerance in that case, we can choose MYSQL, cassandra is also highly availble due to its ring strucure & we can add n's of shareds to it but we will not get data immedietly as its written due to data-replication then we choose cassandra where consistency dont matter that much similarly decidnig factors for mongoDb, dynamodb where we can choose its features but having risk of single point of failure.
 
-
+### Using Cap theorem for selecting databse
 
 
 
