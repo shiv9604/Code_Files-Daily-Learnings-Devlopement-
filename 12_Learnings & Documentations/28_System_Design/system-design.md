@@ -276,7 +276,40 @@ And we can query that data with help of `Amazon Athena (Serverless)` & `Amazon R
 
     ie MYSQL is highly consistent & availble but dont have durability & paritaio tolerance in that case, we can choose MYSQL, cassandra is also highly availble due to its ring strucure & we can add n's of shareds to it but we will not get data immedietly as its written due to data-replication then we choose cassandra where consistency dont matter that much similarly decidnig factors for mongoDb, dynamodb where we can choose its features but having risk of single point of failure.
 
-### Using Cap theorem for selecting databse
+**using Cap theorem for selecting databse :-**
+
+We need to analyze is importance & role of `consistency`, `availability` or `parition-tolarance` in our system & we need to decide on which factors we can sacrifice or adjust which 2 of them are crucial and according to that we decide our database with `CAP` theorem.
+
+
+`Note :- If you are appearing interview & question asked for choosing database based on cap theorem we need to ask them question & tolerance of above factors and thats how we can choose database.`
+
+
+### Caching (Execution Speed Matters within milliseconds)
+
+Caching is crucial factors for preventing fully consuming disk space or memory, with the help of caching we can `cache or store` the frequent api results & we can return that results even without querying database again and again for same response.
+
+**Caching layer :-**
+
+<img src="./assets/caching-layers.png">
+
+As you can see in the above horizontally scaled system design with big fat database, every server is hitting database which can eat whole diskspace on database. Mostly database have their own cahcing strategies but that cannot be enough.
+
+We introduce another layers of servers which will monitor the frequent requests & their responses like `popular requets near me` & etc for that specific area we can cache such results in caching layer & we can return the results even without querying database again. 
+
+The reason for introducing caching layer is that we can horizontally scale that caching layer as well according to requirements.
+
+**How Caching works :-**
+
+<img src="./assets/caching-works.png">
+
+- Horizontally scaled caching servers serves best if we have more reading requests than write requests because as soon as write requets happen for perticular set of data it need to hit to db again & again for refreshing cached data on servers.
+- We need to have hasing algorithm which returns which set of data is resting on which caching server.
+- Expiration time also matters in terms of caching, because too much expiration can make cached data useless & too low will not bring much good results out of caching.
+- `Hotspots (Celibrity problem)` gonna be there for but we can resolve it by assigning dedicated caching servers for such data sets or load balancing that data on different servers & navigating to those appropriate servers.
+- `Cold Start (First time caching server operation)` is the problem where we have very high traffic application & caching servers will need to let those requets to db as it does not hold any data initially, but those requests are enough to crash your database. We can resolve that by pre-warming up the cache servers based on last backlogs or some specific pre-built requests which will simulates the traffic & after warming up the cache servers then only we up the system to avoid this problem.
+  
+  
+
 
 
 
