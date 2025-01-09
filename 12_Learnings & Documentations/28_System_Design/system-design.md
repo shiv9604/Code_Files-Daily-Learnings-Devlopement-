@@ -307,8 +307,55 @@ The reason for introducing caching layer is that we can horizontally scale that 
 - Expiration time also matters in terms of caching, because too much expiration can make cached data useless & too low will not bring much good results out of caching.
 - `Hotspots (Celibrity problem)` gonna be there for but we can resolve it by assigning dedicated caching servers for such data sets or load balancing that data on different servers & navigating to those appropriate servers.
 - `Cold Start (First time caching server operation)` is the problem where we have very high traffic application & caching servers will need to let those requets to db as it does not hold any data initially, but those requests are enough to crash your database. We can resolve that by pre-warming up the cache servers based on last backlogs or some specific pre-built requests which will simulates the traffic & after warming up the cache servers then only we up the system to avoid this problem.
+
+**Eviction Policies (Removing data from cache memory or servers) :-**
+
+<img src="./assets/eviction-policies.png">
+
+Eviction is process for removing the data from cache servers which are not relevant anymore to prevent bloating of memory which is limited & to prevent `cache miss(Situation for non-caching frequently requested data due to full memory usage)` whihc can also lead to the database crash or disruption.
+
+Lets learn the eviction policies for the caching servers as mentioned below.
+
+- **LRU : Least Recently Used :-**
   
+  We keep track of which most recently used items cache, as we request somthing from cache it goes in front of the list & least used items goes at end of the list, as soon as we need space we eliminate the data which are at the end.
+
+  We can maintain the hasmap for the keys & doubly linked list attached to keys, any items requested we move that item to head of the linked list & eventually tail also get updated accordingly,frequently requested items will be at start of the linked list & as soon as new items will enter into linked list we move tail to that element by eliminating last element, if it will be used in the future cache requests it will end up at start of the list & this process will go on.
+
+  This is used if we have bigger cache memory & large datasets.
+
+  `Note - LRU caching is design system problem within its own & it can be asked but we can answer this with the help of above mentioned example.`
+
+
+
+- **LFU : Least Recently Used :-**
   
+  We use LFU policy if we have small dataset or cache memory where we keep track of least requested keys of items & then we remove them eventually whenever space needs to be cleared for newer items.
+
+- **FIFO : First in first out :-**
+  
+  The first thing gets into our cache memory becomes the first thing to get out of cache as like list.
+
+**Caching technologies :-**
+
+<img src="./assets/caching-tech.png">
+
+We have couple of different caching technologies which are widely used in industry but `Memecached & Redis` are teh mostly used caching techonologies in industry.
+
+- **Memecached :-** Simple key value storing open source api used for caching.
+
+- **Redis :-** Its more advanced version of caching where which supports advanced data structures, and some other advanced features like `pub/sub` where we publish the changes & subsribers get notified about it etc.
+
+
+- **Ncache :-** Ncache is primarily built for `.NET` but also supports `Java & Node.js`.
+
+- **Ehache :-** Its more java oriented caching mechanism which can be usefull if we are building applications with java.
+  
+
+- **ElastiCache :-** Its a caching mechanism provided by `AWS` which we can use if our application is built on aws, in this case we dont need to managing our cache servers & etc, they might be in same data centers where our servers are hosted. In this we get option to use Fully managed redis or memecached & we can choose accordingly.
+
+
+
 
 
 
