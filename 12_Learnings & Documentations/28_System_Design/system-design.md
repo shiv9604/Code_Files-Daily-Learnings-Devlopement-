@@ -326,8 +326,6 @@ Lets learn the eviction policies for the caching servers as mentioned below.
 
   `Note - LRU caching is design system problem within its own & it can be asked but we can answer this with the help of above mentioned example.`
 
-
-
 - **LFU : Least Recently Used :-**
   
   We use LFU policy if we have small dataset or cache memory where we keep track of least requested keys of items & then we remove them eventually whenever space needs to be cleared for newer items.
@@ -354,9 +352,34 @@ We have couple of different caching technologies which are widely used in indust
 
 - **ElastiCache :-** Its a caching mechanism provided by `AWS` which we can use if our application is built on aws, in this case we dont need to managing our cache servers & etc, they might be in same data centers where our servers are hosted. In this we get option to use Fully managed redis or memecached & we can choose accordingly.
 
+**Content Delivery Network (CDN'S) :-**
 
+<img src="./assets/cdn.png">
 
+CDN is part of caching strategy if we have non-geographical depending websites, we set fleet of servers geographcally distributed to avoid latency due to server locations its accesibily from the areas around the world.
 
+**Usecases :-**
+- Static assets
+  - HTML
+  - CSS
+  - JS
+  - Images
+- Libraries with exported standalone functions.  
+
+**CDN Providers :-**
+
+<img src="./assets/cdn-providers.png">
+
+We can host the static files, images & etc on our application server as well or we have option to go with paid cdn providers as well which offers dynamic pricings depending on the location for cdn servers.
+
+- AWS CloudFront
+- Google Cloud CDN
+- Microsoft Azure CDN
+- Akamai
+- CloudFlare
+- etc
+
+Among the listed cdn providers above `akamai & cloudflare` are the oldest & reputed cdn providers in industry.
 
 
 
