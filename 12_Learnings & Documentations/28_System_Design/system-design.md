@@ -381,5 +381,24 @@ We can host the static files, images & etc on our application server as well or 
 
 Among the listed cdn providers above `akamai & cloudflare` are the oldest & reputed cdn providers in industry.
 
+### Resiliency
 
+Resiliency is the quality of system design where how do we prevent or handle downtime for our system. We need to plan ahead such as what if server, database, internet, region, continental etc goes down & how your system handles it.
+
+**Things that can fail :-**
+- Single server.
+- An entire rack.
+- An entire data center (AKA "availability zone")
+- An entire region
+- ...anything more
+
+We need to be prepared for every kind of point of failure for our desining system.
+
+**How to handle resiliency :-**
+
+<img src="./assets/handelling-resiliency.png">
+
+The way we handle the resiliency is instead of single `Load balancer` we replace it with `Geo-Routing` which decides where the client is requesting from & which region server to redirect their requests by some dns tricks.
+
+If the whole region goes down dns identifies that & redirects the requests to nearest possible region for fastest response & lowest latency.
 
