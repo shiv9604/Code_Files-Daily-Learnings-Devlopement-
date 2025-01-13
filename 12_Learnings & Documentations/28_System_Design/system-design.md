@@ -402,3 +402,35 @@ The way we handle the resiliency is instead of single `Load balancer` we replace
 
 If the whole region goes down dns identifies that & redirects the requests to nearest possible region for fastest response & lowest latency.
 
+**Efficient Server distribution for resiliency :-**
+
+<img src="./assets/resiliency-server-distribution.png">
+
+- We need to distribute our servers across multiple racks, availability zones  and regions.
+- We need to make sure system has enough capacity to survive a failure at any reasonable scale.
+  - This might be edge case scenario handelling where we confiure extra space servers which are also heavy on pockets but organisations like amazon, google they are willing to pay any amount for their infrastructure.
+- We need to balance budget vs availability. Not every system can afford such distribution.
+- Before designing system we need to ask questions to the interviewr about the budget and how much resiliency we are willing to have in our system.
+
+
+### Scalaing our data
+
+Untill now we have talked about masstive amount of transactions & scalability but big tech companies have massive amount of data as well.
+
+In this section we will learn ways to scale the storage and access of that data in order to perform it well.
+
+**Distributed Storage :-**
+
+If we have massive amount of data which might not be structured but where to put this data where it is accesible, scalable without any performance bottlenecks, we need to have distributed storage solutions for it.
+
+**How distributed storage solutions should be :-**
+
+<img src="./assets/distributed-storage-solution.png">
+
+- Scalable, Available, Secure & it should be fast.
+- Use Cases : `Data lakes, data lakes, websites, backups, big data`
+- Highly durable
+- Amazon S# offers `99.99999999999%` durability. (We can choose trade-offs in s3 according to our budget)
+
+
+
