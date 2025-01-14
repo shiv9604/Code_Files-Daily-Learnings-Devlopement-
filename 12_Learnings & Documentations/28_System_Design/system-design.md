@@ -432,5 +432,29 @@ If we have massive amount of data which might not be structured but where to put
 - Highly durable
 - Amazon S# offers `99.99999999999%` durability. (We can choose trade-offs in s3 according to our budget)
 
+**Amazon S3 SLA's :-**
+
+<img src="./assets/sla-diversion.png">
+
+- Basically Its percentile saying there is still chance of `0.000000000001%` of failure & system going down so we need to have clarity of that.
+- It says almost all of the requests will be returning response within `100ms` but its also `99.9%` to keep in mind.
+- Even in terms of availability if its `99.9999%` then it means only 30 seconds out of year your system might be down.
+  
+**Distributed Storage Solutions options :-**
+
+<img src="./assets/dss-optinos.png">
+
+- Amazon S3
+  
+   Most reliable & famous in the industry where we need to only pay based on our usage, it have different options such as `Hot (Heavily distributed, highly available & fastest execution time)`, `Cold (Bit slower than cold & not much distributed with average execution time)`  `Cold Storage (Similar to glacier which is the cheaptest option but hard to read the data from it, less reliable & slow exeuction time as compared to others)`
+
+- Google Cloud Storage
+
+- Microsoft Azure
+- Hadoop HDFS (Self hosted, where we use own fleet of our servers)
+- Consumer oriented storage solutions such as Dropbox, Google Drive, iCloud, OneDrive, etc. (But this solutions are not relevant to system design)
+
+`Note :- We will be using relevant storage solutions according to company where we are interviewing, if at amazon then we might use AWS etc.`
+
 
 
