@@ -456,5 +456,17 @@ If we have massive amount of data which might not be structured but where to put
 
 `Note :- We will be using relevant storage solutions according to company where we are interviewing, if at amazon then we might use AWS etc.`
 
+**HFDS (Hadoop distributed file system) Architecture :-**
+
+<img src="./assets/hdfs-architectrure.png">
+
+HDFS is the architecture works under the hood of distributed file systems, its an system design problem within its own. let's understand how does it works.
+
+Basically in HDFS files are broken down into blocks of some megabytes such as `120MB` and stored distributedly in data nodes within different racks for more resiliency & `Name Node` is the one who knows where the blocks are stored & redirects the file requests respectively.
+
+We have metadata store where all the information is stored about the blocks name, locations & replicas & for high availability there may be 3 or more name nodes so even if one `name node` gets down other name nodes gets elected & client can communicate with newly elected name node.
+
+For resiliency Metadata should also have replica's so even if one `replica` gets down we have other rather than down time & we can constantly serve for client requets.
+
 
 
