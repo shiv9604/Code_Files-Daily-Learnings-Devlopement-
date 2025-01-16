@@ -468,5 +468,33 @@ We have metadata store where all the information is stored about the blocks name
 
 For resiliency Metadata should also have replica's so even if one `replica` gets down we have other rather than down time & we can constantly serve for client requets.
 
+### Algorithms & Data structures for (System Design)
 
+Data structures & Algorithms plays important role in the system design or we need to emphasize on it in the interview based on their useability how data is accessed & which data structure would be suitable for the requirements.
 
+- **Linked Lists :-**
+<img src="./assets/linked-list.png">
+
+Linked list is the data structure which grows dynamically where array is data structure to which we assign memory then add items, it takes less memory than the array & best for maintaining order of data.
+
+**features :-**
+- Grows dynamically.
+- Access is `O(n)` as length of linked list can be n.
+- Best for accesing first & last element, Insertion at head & tail is O(1) in which we only need to assign pointer to head & its next to previous head.
+- Best for sequential access.
+- One pointer per node so low memory requirements & best if memory are expensive somewhere.
+- Its best if we want to have sequential access in examples such as
+  - Undo functionality of text editors.
+  - File allocation system.
+
+- **Doubly Linked List :-**
+  
+  Doubly linked list is as same as linked list but in doubly linked list we have reference for previous nodes as well whereas in linked list we have reference for only next node. Best for back & forth operations or quick access to next element or previous elements.
+
+  - Each node as next & previous pointer.
+  - Inserts in front or back is `O(1)`
+  - Searching for one element is `O(n)` but can be fasten by figuring out starting from start or end would be easier.
+  - Its usefull for double eneded ques.
+  - Its bestly used in MRU : always move most recent access to head.
+  - 
+  
