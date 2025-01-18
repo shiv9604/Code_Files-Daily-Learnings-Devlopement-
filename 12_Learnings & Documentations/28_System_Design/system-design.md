@@ -483,12 +483,14 @@ Linked list is the data structure which grows dynamically where array is data st
 - Best for accesing first & last element, Insertion at head & tail is O(1) in which we only need to assign pointer to head & its next to previous head.
 - Best for sequential access.
 - One pointer per node so low memory requirements & best if memory are expensive somewhere.
-- Its best if we want to have sequential access in examples such as
+- Its used in real world examples such as
   - Undo functionality of text editors.
   - File allocation system.
 
 - **Doubly Linked List :-**
   
+  <img src="./assets/doubly-linked-list.png">
+
   Doubly linked list is as same as linked list but in doubly linked list we have reference for previous nodes as well whereas in linked list we have reference for only next node. Best for back & forth operations or quick access to next element or previous elements.
 
   - Each node as next & previous pointer.
@@ -496,5 +498,38 @@ Linked list is the data structure which grows dynamically where array is data st
   - Searching for one element is `O(n)` but can be fasten by figuring out starting from start or end would be easier.
   - Its usefull for double eneded ques.
   - Its bestly used in MRU : always move most recent access to head.
-  - 
+  - Its used in real world applications such as 
+    - Browsers navigation history where user need to go back or forward quickly.
+    - Its used in media players where user need to jump to previous or next track.
+
+- **Binary Trees :-**
+
+  Instead of having previous & next pointers we have left & right child pointers as like trees from top to bottom, If we have things less than root then its called as binary search tree.
+
+  - Accessing elements or search is `O(log n)` & `O(n)` in worst case scenario as we would be dividing whole data into half until we reach results which leads to `O(log n)`.
+  - Insertion & deletion is also `O(log n)` because we need to find for right parent for the insertion & deleting node.
+  - Its used in real world applications such as
+    - Search Engine operations (Autocomplete feature in search engine)
+    - Dictonaries systems usch grammerly (Users for efficient spell checking by searching words in dictionaries)
+  
+- **Hash Table :-**
+  
+  <img src="./assets/hash-table.png">
+
+  Hash table is data structure where a hash function generates key for our value & values will be stored against that keys, while retriving we just need to access the data resting at that key.
+
+  This is quite usefull for storing data across multiple fleet of horizontally scalaed servers where retrival will be faster but if mulitple data values are stored within same server then we might another data structure there to look up for the values within it & its highly scalable.
+
+  - Inserts, lookups & deletions are `O(1)` but can be `O(n)` in worst case scenario as it would need to search for data within server where it might need to iterate through whole data.
+  - Its used in real world applications such as 
+    - `Amazon DynamoDB Accelrator (DAX)` : Uses hash tables for high performance caching.
+    - `AWS Elastic Local Balancer` uses consistant hasing for routing client requests to fleet of servers efficiently.
+    - Pythons dict & Javascript Hashtables uses hash tables internally for quickly accesing values against the key.
+
+  
+
+
+
+
+
   
