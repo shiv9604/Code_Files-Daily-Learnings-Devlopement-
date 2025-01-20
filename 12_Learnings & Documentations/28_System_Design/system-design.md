@@ -526,7 +526,21 @@ Linked list is the data structure which grows dynamically where array is data st
     - `AWS Elastic Local Balancer` uses consistant hasing for routing client requests to fleet of servers efficiently.
     - Pythons dict & Javascript Hashtables uses hash tables internally for quickly accesing values against the key.
 
-  
+- **Graph :-**
+
+  <img src="./assets/graphs.png">
+
+  Graphs is the data structure where other entities are connected through vertices or edges basically through a link or path to each other. Its most probably used in social networks, paths in city or networks in genral.
+
+  - We can traverse graph thorugh  `BFS(Breadth First Search searches parally) & DFS (Depth First Search goes till the depth on one side then traverse back to root & then traverse another side)`.
+  - Access of values here is `O(V+E)`.
+  - Its used in real world applications such as 
+    - Social networks such as `Facebook(Frienships, Followers relationship)` & `Linkedin(Professional connections)`
+    - Used in navigation system like `Google Maps(Roads or path to reach destinations)` & `Uber (Shortest route for drivers)`
+    - Recommendation Systems Such as netflix content suggestions, spotify playlist suggestions etc. 
+
+
+
 
 
 
