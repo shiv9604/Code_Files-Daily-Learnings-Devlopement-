@@ -472,6 +472,8 @@ For resiliency Metadata should also have replica's so even if one `replica` gets
 
 Data structures & Algorithms plays important role in the system design or we need to emphasize on it in the interview based on their useability how data is accessed & which data structure would be suitable for the requirements.
 
+**Data structures :-**
+
 - **Linked Lists :-**
 <img src="./assets/linked-list.png">
 
@@ -539,9 +541,33 @@ Linked list is the data structure which grows dynamically where array is data st
     - Used in navigation system like `Google Maps(Roads or path to reach destinations)` & `Uber (Shortest route for drivers)`
     - Recommendation Systems Such as netflix content suggestions, spotify playlist suggestions etc. 
 
+**Searching Algorithms :-**
 
+- **Linear Search :-**
+  
+  <img src="./assets/linear-search.png">
 
+  Linear search algorithms is the simple searching algorithms in which we iterate through every element of the linked list or array until we reach the result of end of it.
 
+  - The time complexity for linear search is `O(n)`
+  - Not the best choice where we need to do frequent searches.
+  - Its used in real world applications such as
+    - Searching small or unsorted data set such as finding name in unsorted contact list.
+    - Scanning log files for specific errors.
+
+- **Binary Search :-**
+
+  <img src="./assets/binary-search.png">
+
+  Most probably used for sorted list or array, where we pick the middle & we try to understand our value is expected in which half & repeat same procedure until we reach the result.
+
+  This algorithm works best with binary search tree where we know if the value we are looking greater than the root then we need to look for right half or left if less accordingly.
+
+  - The time complexity of it is `O(log n)` as same as binary tree search, insertion or deletion operation.
+  - Its used in real world applications such as
+    - Most probably used on sorted data.
+    - `MySQL, PostgreSQL` uses tree-based data structures for indexing for efficient query lookups.
+    - `Linux Ext Filesystem` used tree structures to organize and access files quickly.
 
 
 
