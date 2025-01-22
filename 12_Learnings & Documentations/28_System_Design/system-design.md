@@ -569,7 +569,34 @@ Linked list is the data structure which grows dynamically where array is data st
     - `MySQL, PostgreSQL` uses tree-based data structures for indexing for efficient query lookups.
     - `Linux Ext Filesystem` used tree structures to organize and access files quickly.
 
+**Sorting Algorithms :-**
 
+  <img src="./assets/sorting-algorithms.png">
 
+  Sorting algorithms are not likely to be asked in system design algorithm but sometimes its asked.
 
+- **Insertion Sort :-**
+
+  In the insertion sort, we go through from start to end & place it at right position in the list.
+
+  - Its time complexity is `O(n^2)`.
+  - Its usefull for small data sets but not efficient for large data sets.
+  - Its used in real world applications such as
+    - Insertion sort handles sorting small part of data in tim sort which is built-in sorting algorithm in languages such as python, javascript etc.
+    - Amazon might use insertion sort for quicky-resorting cart items as there not expected large no of items in cart.
+    - Microsoft excel uses insertion sort for small or localized data.
+
+- **Merge Sort :-**
+
+  In the merge sort, we find middle or array, divide the array in 2 & repeat this process recursively until arrays are broken down in single item arrays & merge the arrays into sorted manner to get final sorted arrays. 
+
+  - Its time complexity is `O(n log n)`.
+  - Its usefull for large data sets & higly scalable.
+  - Its used in real world applications such as
+    - `Google PageRank` Sorting web pages by rank uses merge sort.
+    - `Amazon` E-commerce search results uses merge sort in sort by.
+    - `Facebook friend suggestions` uses mergesort for user prefrence data & friend recommendations.
   
+
+
+
