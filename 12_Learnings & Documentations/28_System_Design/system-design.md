@@ -597,6 +597,22 @@ Linked list is the data structure which grows dynamically where array is data st
     - `Amazon` E-commerce search results uses merge sort in sort by.
     - `Facebook friend suggestions` uses mergesort for user prefrence data & friend recommendations.
   
+- **Quicksort :-**
+  
+  Quick sort works are simple logic where an element is sorted already if left elements are smaller than it & right elements are greater than it.
 
+  We choose pivot from start, end or random element in array we find the position of pivot according to above logic & when we get right position of pivot we move to it & we run same algorithm recursively on left & right part of array.
 
+  - Its very fast until we hit the worst case scenario of `O(n^2)` due to poor choice of pivot.
+  - Quite complex implementation & algorithm
+  - Can be alternative to Quicksort.
+  
+- **Bubble sort  :-**
 
+  In the bubble sort we start from first element, we compare it with next element & swap it in sorted order and we continue this until array is fully sorted.
+
+  - Extremely inefficient algorithm  with `O(n^2)` complexity.
+  - Simplest sorting algorithm in understanding & implementation.
+  - Not efficient algorithm for huge amount of data.
+  
+`Note :- If have massive amount of data merge sort or else we can go for quicksort but its hard to distribute it.`
