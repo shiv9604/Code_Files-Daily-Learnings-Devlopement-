@@ -616,3 +616,25 @@ Linked list is the data structure which grows dynamically where array is data st
   - Not efficient algorithm for huge amount of data.
   
 `Note :- If have massive amount of data merge sort or else we can go for quicksort but its hard to distribute it.`
+
+**Search & Information Retrival :-**
+
+For searching & information retrieval there are already present tools such as `elasticSearch` but in this section we will be checking out how search should happen if we are designing search engine or something.
+
+**General searching algorithms for search engines for document search :-**
+
+- Ranking based on keywords & their positions in documents.
+
+  <img src="./assets/searching-retrival.png">
+
+  1. First we process forward indexing (Procedure for indexing documents or collections of list of words & their positions within that document for efficient query preprocessing, ranking & filteration).
+    - First we preprocess the user input for removing capitalizations, spaces, puntuations, offensive terms & we derive phrases through it which will be single keywords which hold meaning & which we are going to search in list of documents.
+    - Then we search for positions within documents such as its formatting in `bold & header` etc.
+    - then we store those words along with document id & their position index within documents which is nothing but the forward indexing as mentioned in table above.
+
+  
+
+
+
+
+  
