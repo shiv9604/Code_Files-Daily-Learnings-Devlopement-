@@ -631,6 +631,31 @@ For searching & information retrieval there are already present tools such as `e
     - First we preprocess the user input for removing capitalizations, spaces, puntuations, offensive terms & we derive phrases through it which will be single keywords which hold meaning & which we are going to search in list of documents.
     - Then we search for positions within documents such as its formatting in `bold & header` etc.
     - then we store those words along with document id & their position index within documents which is nothing but the forward indexing as mentioned in table above.
+    
+  2. Secondly we generate inverted index (We store the keywords with document id's in sorted manner according to their ranking such as if word palm tree appeared in document id 436 twice therefore 436 is placed at start of the list.)
+  
+- Ranking based on `TF-IDF (Term frequency & Inverse document Frequency)`
+  
+  <img src="./assets/tdf-search.png">
+  <img src="./assets/tdf-explained.png">
+
+
+  Its one of the oldest technique for document searches but still works very well.
+
+  1. Basically term frequency is as defined how often a word occurs in a document & if its frequently used then this considered as relevant to that document.
+  2. Document frequency is how often a word occurs in set of documents like in whole web.
+  3. Then we measure the relevancy of word my below mentioned formulas which gives us measure how important & unique word is for this document & everywhere.
+      ```
+      Formulas : 
+
+      1. Relevancy = Term Frequency / Document Frequency
+      2. Term frequency = Term Frequency * Inverse Document Frequency
+      ```
+  4. How it applies in search?
+    - compute TF-IDF for every word from input.
+    - sort the documents by their TF-IDF score for that word
+    - display the sorted doucments based on their score or ranking.
+   
 
   
 
