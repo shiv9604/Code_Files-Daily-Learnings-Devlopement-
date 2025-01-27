@@ -656,10 +656,22 @@ For searching & information retrieval there are already present tools such as `e
     - sort the documents by their TF-IDF score for that word
     - display the sorted doucments based on their score or ranking.
    
+**Googles orignal algorithm (Page ranking) :-**
 
-  
+<img src="./assets/page-ranking.png">
 
+Google page ranking not just depends on the matching keywords in the document but it measures other factors as well as mentioned below.
 
+- Page Backlinks(How much pages integrating document link in them) & the anchor text for identifying more relative text for it.
+- Backlinks are weighted by analyzing how many backlinks integrated in single website or document.
+- Dampening factor (Google Pagerank algorithm formula)
+    ```
+    PR(A) = (1 - d) + d x (PR(B)/L(B) + PR(C)/L(C) + ...)
+    ```
+    Where 
+    - PR(A) - PageRank of page A
+    - d = Dampening factor (default ~ 0.85)
+    - PR(B), PR(C) = PageRanks of linking pages
+    - L(B), L(C) = Number of outbound links on each linking page
 
-
-  
+`Note - Google has moved way past things like PageRank and TF/IDF, this things have been took over by Machine Learning.`
